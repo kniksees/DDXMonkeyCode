@@ -14,6 +14,8 @@ struct SettingsView: View {
         ScrollView {
             SettingsCellView(text: "Выйти") {
                 isLoggedIn = false
+                MessagesViewModel.shared.chats = [:]
+                MessagesViewModel.shared.images = [:]
             }
             SettingsCellView(text: "Купить премиум") {}
 

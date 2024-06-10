@@ -13,7 +13,6 @@ struct ChatView: View {
     
     @StateObject private var viewModel = MessagesViewModel.shared
     let id: Int
-    
     var body: some View {
         VStack {
             ScrollView {
@@ -22,6 +21,10 @@ struct ChatView: View {
                         MessageView(message: message)
                             .padding(.horizontal)
                     }
+//                    ForEach(viewModel.chats[id]!.messages, id) { message in
+//                        MessageView(message: message)
+//                            .padding(.horizontal)
+//                    }
                 }
             }.defaultScrollAnchor(.bottom)
             
@@ -70,6 +73,7 @@ struct MessageInputView: View {
                         //var a = avatarImage as Data
                         await MessagesViewModel.shared.sendMessage(messageText, chatID: chatID, image: selectedImage)
                         messageText = ""
+                        selectedImage = nil
                     }
                 }
             }) {

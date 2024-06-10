@@ -62,17 +62,18 @@ class MessagesViewModel: ObservableObject {
 //            }
 //        }
 //        task.resume()
-        print(String(data: response.0, encoding: .utf8), response.1.url)
+        //print(String(data: response.0, encoding: .utf8), response.1.url)
         return response.0
     }
     
     func sendMessage(_ text: String, chatID: Int, image: Data?) async {
         //print(image)
+//        chats[chatID]?.messages.append(Message(id: -1, image: "", sender: UserDefaults.standard.integer(forKey: "userID"), text: text, time: Int(Date.now.timeIntervalSince1970), imageData: image))
         Task {
             var imageUploadID: Int? = nil
             if image != nil {
-                var imageJsonData = await uploadImage(image: image!)
-                var imageResponse = try! JSONDecoder().decode(ImageResponse.self, from: imageJsonData!)
+                let imageJsonData = await uploadImage(image: image!)
+                let imageResponse = try! JSONDecoder().decode(ImageResponse.self, from: imageJsonData!)
                 imageUploadID = imageResponse.id
                 
                 hashedImages[imageResponse.url] = image
@@ -81,7 +82,7 @@ class MessagesViewModel: ObservableObject {
                 
 
             }
-            print("imageUploadID \(imageUploadID)")
+            //print("imageUploadID \(imageUploadID)")
             let url = URL(string: "http://158.160.13.5:8080/send-message")!
             var request = URLRequest(url: url)
             
@@ -90,7 +91,7 @@ class MessagesViewModel: ObservableObject {
             var jsonString = ""
             if imageUploadID != nil {
                 jsonString = """
-                        {"user_id": \(UserDefaults.standard.integer(forKey: "username")),
+                        {"user_id": \(UserDefaults.standard.integer(forKey: "userID")),
                         "chat_id": \(chatID),
                         "time": \(Date.now.timeIntervalSince1970),
                         "text": "\(text)",
@@ -98,7 +99,7 @@ class MessagesViewModel: ObservableObject {
                 """
             } else {
                 jsonString = """
-                        {"user_id": \(UserDefaults.standard.integer(forKey: "username")),
+                        {"user_id": \(UserDefaults.standard.integer(forKey: "userID")),
                         "chat_id": \(chatID),
                         "time": \(Date.now.timeIntervalSince1970),
                         "text": "\(text)"}
@@ -106,12 +107,7 @@ class MessagesViewModel: ObservableObject {
             }
 
             
-//            let jsonString = """
-//                    {"user_id": \(UserDefaults.standard.integer(forKey: "username")),
-//                    "chat_id": \(chatID),
-//                    "time": \(Date.now.timeIntervalSince1970),
-//                    "text": "\(text)"}
-//            """
+
             let data = jsonString.data(using: .utf8)
             request.httpBody = data
             
@@ -123,8 +119,8 @@ class MessagesViewModel: ObservableObject {
     
     private func receiveMessage(_ text: String, userID: Int) {
         
-        let newMessage = Message(id: 0, image: "", sender: userID, text: text, time: Int(Date.now.timeIntervalSince1970), imageData: nil)
-        chats[userID]?.messages.append(newMessage)
+        //let newMessage = Message(id: 0, image: "", sender: userID, text: text, time: Int(Date.now.timeIntervalSince1970), imageData: nil)
+        //chats[userID]?.messages.append(newMessage)
     }
     
     
@@ -148,10 +144,12 @@ class MessagesViewModel: ObservableObject {
     //    }
     
     func fetchData() async {
-        await getChat(userID: UserDefaults.standard.integer(forKey: "username"))
+        await getChat(userID: UserDefaults.standard.integer(forKey: "userID"))
     }
     
     func getChat(userID: Int) async {
+//        print("getChat")
+//        print(userID)
         let url = URL(string: "http://158.160.13.5:8080/users/\(userID)/chats")!
         //let response = try? await URLSession.shared.data(from: url)
         let response = try? await URLSession.shared.data(for: URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData))
@@ -188,7 +186,6 @@ class MessagesViewModel: ObservableObject {
                                 if hashedImages[chat.messages[j].image!] == nil {
                                     let imageURL = URL(string: chat.messages[j].image!)!
                                     let resquest = URLRequest(url: imageURL, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
-                                    //let (imageData, _) = try! await URLSession.shared.data(from: imageURL)
                                     Logger().log(level: .info, "Downloading image")
                                     let (imageData, _) = try! await URLSession.shared.data(for: resquest)
                                     await MainActor.run {
@@ -237,10 +234,12 @@ struct Message: Codable, Hashable {
     
     static func == (lhs: Message, rhs: Message) -> Bool {
         lhs.id == rhs.id
+        //lhs.id == rhs.id && ((lhs.imageData == nil) == (rhs.imageData == nil))
     }
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
+        //hasher.combine(imageData == nil)
     }
     
     let id: Int
@@ -250,6 +249,8 @@ struct Message: Codable, Hashable {
     let time: Int
     var imageData: Data?
 }
+
+
 
 struct User: Codable {
     let id: Int
