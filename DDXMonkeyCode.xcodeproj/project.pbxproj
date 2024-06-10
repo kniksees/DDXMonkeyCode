@@ -7,18 +7,49 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E11116952C11E27B00B37056 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11116942C11E27B00B37056 /* ChatView.swift */; };
+		E11116972C11E29900B37056 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11116962C11E29900B37056 /* MessageView.swift */; };
+		E11116992C11EC3A00B37056 /* MessagesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11116982C11EC3A00B37056 /* MessagesViewModel.swift */; };
+		E111169C2C1213E700B37056 /* QRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E111169B2C1213E700B37056 /* QRCodeView.swift */; };
+		E111169E2C12192A00B37056 /* TabViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E111169D2C12192A00B37056 /* TabViewViewModel.swift */; };
 		E11FD07A2C0FA4BE00DC9E98 /* DDXMonkeyCodeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11FD0792C0FA4BE00DC9E98 /* DDXMonkeyCodeApp.swift */; };
-		E11FD07C2C0FA4BE00DC9E98 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11FD07B2C0FA4BE00DC9E98 /* ContentView.swift */; };
 		E11FD07E2C0FA4C000DC9E98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E11FD07D2C0FA4C000DC9E98 /* Assets.xcassets */; };
 		E11FD0812C0FA4C000DC9E98 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E11FD0802C0FA4C000DC9E98 /* Preview Assets.xcassets */; };
+		E11FD08B2C0FA5C000DC9E98 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11FD08A2C0FA5C000DC9E98 /* LoginView.swift */; };
+		E11FD0912C0FA81200DC9E98 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11FD0902C0FA81200DC9E98 /* HomeView.swift */; };
+		E11FD0932C0FA9E000DC9E98 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11FD0922C0FA9E000DC9E98 /* ContentView.swift */; };
+		E11FD0952C0FAFC800DC9E98 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11FD0942C0FAFC800DC9E98 /* SettingsView.swift */; };
+		E11FD0992C0FB71400DC9E98 /* SelectChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11FD0982C0FB71400DC9E98 /* SelectChatView.swift */; };
+		E11FD09D2C1048E100DC9E98 /* MyWorkoutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11FD09C2C1048E100DC9E98 /* MyWorkoutsView.swift */; };
+		E11FD0A62C10500100DC9E98 /* SelectChatCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11FD0A52C10500100DC9E98 /* SelectChatCellView.swift */; };
+		E11FD0A92C105EE000DC9E98 /* SettingsCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11FD0A82C105EE000DC9E98 /* SettingsCellView.swift */; };
+		E11FD0AC2C1061D500DC9E98 /* LoginButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11FD0AB2C1061D500DC9E98 /* LoginButtonView.swift */; };
+		E1C701D52C15F11200E7F195 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C701D42C15F11200E7F195 /* NetworkManager.swift */; };
+		E1C701D72C15F44200E7F195 /* LoginVIewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C701D62C15F44200E7F195 /* LoginVIewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E11116942C11E27B00B37056 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		E11116962C11E29900B37056 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
+		E11116982C11EC3A00B37056 /* MessagesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewModel.swift; sourceTree = "<group>"; };
+		E111169B2C1213E700B37056 /* QRCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeView.swift; sourceTree = "<group>"; };
+		E111169D2C12192A00B37056 /* TabViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewViewModel.swift; sourceTree = "<group>"; };
 		E11FD0762C0FA4BE00DC9E98 /* DDXMonkeyCode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DDXMonkeyCode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E11FD0792C0FA4BE00DC9E98 /* DDXMonkeyCodeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDXMonkeyCodeApp.swift; sourceTree = "<group>"; };
-		E11FD07B2C0FA4BE00DC9E98 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E11FD07D2C0FA4C000DC9E98 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E11FD0802C0FA4C000DC9E98 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		E11FD08A2C0FA5C000DC9E98 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		E11FD0902C0FA81200DC9E98 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		E11FD0922C0FA9E000DC9E98 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		E11FD0942C0FAFC800DC9E98 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		E11FD0982C0FB71400DC9E98 /* SelectChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectChatView.swift; sourceTree = "<group>"; };
+		E11FD09C2C1048E100DC9E98 /* MyWorkoutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWorkoutsView.swift; sourceTree = "<group>"; };
+		E11FD0A52C10500100DC9E98 /* SelectChatCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectChatCellView.swift; sourceTree = "<group>"; };
+		E11FD0A82C105EE000DC9E98 /* SettingsCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCellView.swift; sourceTree = "<group>"; };
+		E11FD0AB2C1061D500DC9E98 /* LoginButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButtonView.swift; sourceTree = "<group>"; };
+		E1C701D42C15F11200E7F195 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		E1C701D62C15F44200E7F195 /* LoginVIewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVIewModel.swift; sourceTree = "<group>"; };
+		E1C701DA2C161A1A00E7F195 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +63,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E11116922C11E25C00B37056 /* ChatView */ = {
+			isa = PBXGroup;
+			children = (
+				E11116942C11E27B00B37056 /* ChatView.swift */,
+				E11116932C11E26500B37056 /* SubView */,
+			);
+			path = ChatView;
+			sourceTree = "<group>";
+		};
+		E11116932C11E26500B37056 /* SubView */ = {
+			isa = PBXGroup;
+			children = (
+				E11116962C11E29900B37056 /* MessageView.swift */,
+			);
+			path = SubView;
+			sourceTree = "<group>";
+		};
+		E111169A2C1213B100B37056 /* QRCodeView */ = {
+			isa = PBXGroup;
+			children = (
+				E111169B2C1213E700B37056 /* QRCodeView.swift */,
+			);
+			path = QRCodeView;
+			sourceTree = "<group>";
+		};
 		E11FD06D2C0FA4BE00DC9E98 = {
 			isa = PBXGroup;
 			children = (
@@ -51,8 +107,11 @@
 		E11FD0782C0FA4BE00DC9E98 /* DDXMonkeyCode */ = {
 			isa = PBXGroup;
 			children = (
+				E1C701DA2C161A1A00E7F195 /* Info.plist */,
+				E11FD0892C0FA4F200DC9E98 /* ViewModel */,
+				E11FD0882C0FA4E600DC9E98 /* View */,
+				E11FD0872C0FA4D300DC9E98 /* Model */,
 				E11FD0792C0FA4BE00DC9E98 /* DDXMonkeyCodeApp.swift */,
-				E11FD07B2C0FA4BE00DC9E98 /* ContentView.swift */,
 				E11FD07D2C0FA4C000DC9E98 /* Assets.xcassets */,
 				E11FD07F2C0FA4C000DC9E98 /* Preview Content */,
 			);
@@ -65,6 +124,114 @@
 				E11FD0802C0FA4C000DC9E98 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		E11FD0872C0FA4D300DC9E98 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E11FD0882C0FA4E600DC9E98 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E11FD09A2C10488500DC9E98 /* LoginView */,
+				E11FD0922C0FA9E000DC9E98 /* ContentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E11FD0892C0FA4F200DC9E98 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E11116982C11EC3A00B37056 /* MessagesViewModel.swift */,
+				E111169D2C12192A00B37056 /* TabViewViewModel.swift */,
+				E1C701D42C15F11200E7F195 /* NetworkManager.swift */,
+				E1C701D62C15F44200E7F195 /* LoginVIewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E11FD09A2C10488500DC9E98 /* LoginView */ = {
+			isa = PBXGroup;
+			children = (
+				E11FD08A2C0FA5C000DC9E98 /* LoginView.swift */,
+				E11FD0AA2C1061B200DC9E98 /* SubView */,
+				E11FD09B2C10489C00DC9E98 /* HomeView */,
+			);
+			path = LoginView;
+			sourceTree = "<group>";
+		};
+		E11FD09B2C10489C00DC9E98 /* HomeView */ = {
+			isa = PBXGroup;
+			children = (
+				E11FD0902C0FA81200DC9E98 /* HomeView.swift */,
+				E11FD0A12C1049B300DC9E98 /* SubView */,
+				E11FD0A02C10492D00DC9E98 /* MyWorkoutsView */,
+				E11FD09F2C10490100DC9E98 /* SelectChatView */,
+				E11FD09E2C1048ED00DC9E98 /* SettingsView */,
+				E111169A2C1213B100B37056 /* QRCodeView */,
+			);
+			path = HomeView;
+			sourceTree = "<group>";
+		};
+		E11FD09E2C1048ED00DC9E98 /* SettingsView */ = {
+			isa = PBXGroup;
+			children = (
+				E11FD0A72C105EBB00DC9E98 /* SubView */,
+				E11FD0942C0FAFC800DC9E98 /* SettingsView.swift */,
+			);
+			path = SettingsView;
+			sourceTree = "<group>";
+		};
+		E11FD09F2C10490100DC9E98 /* SelectChatView */ = {
+			isa = PBXGroup;
+			children = (
+				E11FD0982C0FB71400DC9E98 /* SelectChatView.swift */,
+				E11116922C11E25C00B37056 /* ChatView */,
+				E11FD0A42C104FE900DC9E98 /* SubView */,
+			);
+			path = SelectChatView;
+			sourceTree = "<group>";
+		};
+		E11FD0A02C10492D00DC9E98 /* MyWorkoutsView */ = {
+			isa = PBXGroup;
+			children = (
+				E11FD09C2C1048E100DC9E98 /* MyWorkoutsView.swift */,
+			);
+			path = MyWorkoutsView;
+			sourceTree = "<group>";
+		};
+		E11FD0A12C1049B300DC9E98 /* SubView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SubView;
+			sourceTree = "<group>";
+		};
+		E11FD0A42C104FE900DC9E98 /* SubView */ = {
+			isa = PBXGroup;
+			children = (
+				E11FD0A52C10500100DC9E98 /* SelectChatCellView.swift */,
+			);
+			path = SubView;
+			sourceTree = "<group>";
+		};
+		E11FD0A72C105EBB00DC9E98 /* SubView */ = {
+			isa = PBXGroup;
+			children = (
+				E11FD0A82C105EE000DC9E98 /* SettingsCellView.swift */,
+			);
+			path = SubView;
+			sourceTree = "<group>";
+		};
+		E11FD0AA2C1061B200DC9E98 /* SubView */ = {
+			isa = PBXGroup;
+			children = (
+				E11FD0AB2C1061D500DC9E98 /* LoginButtonView.swift */,
+			);
+			path = SubView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +304,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E11FD07C2C0FA4BE00DC9E98 /* ContentView.swift in Sources */,
+				E11FD0992C0FB71400DC9E98 /* SelectChatView.swift in Sources */,
+				E11FD0952C0FAFC800DC9E98 /* SettingsView.swift in Sources */,
+				E11116992C11EC3A00B37056 /* MessagesViewModel.swift in Sources */,
+				E11FD0932C0FA9E000DC9E98 /* ContentView.swift in Sources */,
+				E1C701D52C15F11200E7F195 /* NetworkManager.swift in Sources */,
+				E11FD0A92C105EE000DC9E98 /* SettingsCellView.swift in Sources */,
+				E1C701D72C15F44200E7F195 /* LoginVIewModel.swift in Sources */,
+				E11116952C11E27B00B37056 /* ChatView.swift in Sources */,
+				E11116972C11E29900B37056 /* MessageView.swift in Sources */,
+				E11FD09D2C1048E100DC9E98 /* MyWorkoutsView.swift in Sources */,
+				E11FD0912C0FA81200DC9E98 /* HomeView.swift in Sources */,
+				E111169E2C12192A00B37056 /* TabViewViewModel.swift in Sources */,
+				E11FD08B2C0FA5C000DC9E98 /* LoginView.swift in Sources */,
+				E11FD0AC2C1061D500DC9E98 /* LoginButtonView.swift in Sources */,
+				E111169C2C1213E700B37056 /* QRCodeView.swift in Sources */,
 				E11FD07A2C0FA4BE00DC9E98 /* DDXMonkeyCodeApp.swift in Sources */,
+				E11FD0A62C10500100DC9E98 /* SelectChatCellView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +457,7 @@
 				DEVELOPMENT_TEAM = 73Z496PNBT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DDXMonkeyCode/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -304,6 +487,7 @@
 				DEVELOPMENT_TEAM = 73Z496PNBT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DDXMonkeyCode/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
