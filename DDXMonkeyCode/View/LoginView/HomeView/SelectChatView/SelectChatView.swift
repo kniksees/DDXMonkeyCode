@@ -15,7 +15,7 @@ struct SelectChatView: View {
     
     var body: some View {
         ScrollView {
-
+            
             ForEach(viewModel.usersSorted, id: \.self) { chat in
                 Divider()
                 SelectChatCellView(textName: chat.user.username,
@@ -27,15 +27,34 @@ struct SelectChatView: View {
             
         }
         .navigationTitle("Чаты")
-
-                .onAppear {
-                    viewModel.startTimer()
-                }
         
-        
+        .onAppear {
+            viewModel.startTimer()
+        }
     }
     
-    
+//    var body: some View {
+//        NavigationView(content: {
+//            ScrollView {
+//                
+//                ForEach(viewModel.usersSorted, id: \.self) { chat in
+//                    Divider()
+//                    SelectChatCellView(textName: chat.user.username,
+//                                       textPreview: chat.messages.last?.text ?? "",
+//                                       targer: AnyView(ChatView(id: chat.chat).navigationTitle(chat.user.username)),
+//                                       image: Image(uiImage: UIImage(data: viewModel.images[chat.user.id] ?? Data()) ?? UIImage()))
+//                }
+//                Divider()
+//                
+//            }
+//            .navigationTitle("Чаты")
+//        })
+//
+//        
+//        .onAppear {
+//            viewModel.startTimer()
+//        }
+//    }
 }
 
 

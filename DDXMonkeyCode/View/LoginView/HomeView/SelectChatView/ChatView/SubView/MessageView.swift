@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MessageView: View {
-    let message: Message
+    @State var message: Message
     var sender = UserDefaults.standard.integer(forKey: "username")
     @StateObject var messagesViewModel = MessagesViewModel.shared
     var body: some View {
@@ -49,20 +49,22 @@ struct MessageView: View {
             //            .cornerRadius(12)
             if let image = message.imageData {
                 VStack {
-                    HStack {
-                        if message.sender == sender {
-                            Spacer()
-                        }
-                        Text(message.text)
-                            .padding(10)
-                            .background(message.sender == sender ? Color.blue : Color.gray.opacity(0.2))
-                            .foregroundColor(message.sender == sender ? .white : .black)
-                            .cornerRadius(12)
-                        if message.sender != sender {
-                            Spacer()
+                    if message.text != nil {
+                        HStack {
+                            if message.sender == sender {
+                                Spacer()
+                            }
+                            Text(message.text!)
+                                .padding(10)
+                                .background(message.sender == sender ? Color.blue : Color.gray.opacity(0.2))
+                                .foregroundColor(message.sender == sender ? .white : .black)
+                                .cornerRadius(12)
+                            if message.sender != sender {
+                                Spacer()
+                            }
                         }
                     }
-                    Image(uiImage: UIImage(data: message.imageData!) ?? UIImage())
+                    Image(uiImage: UIImage(data: image) ?? UIImage())
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         
@@ -70,11 +72,13 @@ struct MessageView: View {
                 }
                 .frame(maxWidth: 250)
             } else {
-                Text(message.text)
-                    .padding(10)
-                    .background(message.sender == sender ? Color.blue : Color.gray.opacity(0.2))
-                    .foregroundColor(message.sender == sender ? .white : .black)
-                    .cornerRadius(12)
+                if message.text != nil {
+                    Text(message.text!)
+                        .padding(10)
+                        .background(message.sender == sender ? Color.blue : Color.gray.opacity(0.2))
+                        .foregroundColor(message.sender == sender ? .white : .black)
+                        .cornerRadius(12)
+                }
             }
             
             if !(message.sender == sender) {

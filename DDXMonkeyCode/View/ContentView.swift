@@ -11,7 +11,7 @@ struct ContentView: View {
     @AppStorage("isLoggedIn") private var isLoggedIn = false
     @StateObject private var viewModel = TabViewViewModel.shared
     var body: some View {
-        NavigationView {
+        NavigationStack {
             if isLoggedIn {
                 HomeView()
                     .navigationBarItems(trailing: settingsButton)

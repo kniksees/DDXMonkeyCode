@@ -23,28 +23,106 @@ class MessagesViewModel: ObservableObject {
         }
     }
     
-    func sendMessage(_ text: String, chatID: Int) async {
-        
-        let url = URL(string: "http://158.160.13.5:8080/send-message")!
+    func uploadImage(image: Data) async -> Data? {
+        guard let url = URL(string: "http://158.160.13.5:8080/upload") else {
+            return nil
+        }
         var request = URLRequest(url: url)
-
         request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let jsonString = """
-        {"user_id": \(UserDefaults.standard.integer(forKey: "username")),
-        "chat_id": \(chatID),
-        "time": \(Date.now.timeIntervalSince1970),
-        "text": "\(text)"}
-        """
-        let data = jsonString.data(using: .utf8)
-        request.httpBody = data
-        //URLSession.shared.dataTask(with: request)
+        request.setValue("multipart/form-data", forHTTPHeaderField: "Content-Type")
         
-        let response = try! await URLSession.shared.data(for: request)
+        let boundary = "Boundary-\(UUID().uuidString)"
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        
+        var data = Data()
+        data.append("--\(boundary)\r\n".data(using: .utf8)!)
+        data.append("Content-Disposition: form-data; name=\"image\"; filename=\"result_arabic.jpeg\"\r\n".data(using: .utf8)!)
+        data.append("Content-Type: image/jpeg\r\n\r\n".data(using: .utf8)!)
+        data.append(image)
+        data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
+        
+        var response = try! await URLSession.shared.upload(for: request, from: data)
+//        let task = URLSession.shared.uploadTask(with: request, from: data) { data, response, error in
+//            DispatchQueue.main.async {
+//                
+//                
+//                if let error = error {
+//                    print("Error: \(error.localizedDescription)")
+//                    return
+//                }
+//                
+//                if let httpResponse = response as? HTTPURLResponse {
+//                    print("Response status code: \(httpResponse.statusCode)")
+//                }
+//                
+//                if let data = data {
+//                    let responseString = String(data: data, encoding: .utf8)
+//                    print("Response: \(responseString ?? "")")
+//                }
+//            }
+//        }
+//        task.resume()
+        print(String(data: response.0, encoding: .utf8), response.1.url)
+        return response.0
+    }
+    
+    func sendMessage(_ text: String, chatID: Int, image: Data?) async {
+        //print(image)
+        Task {
+            var imageUploadID: Int? = nil
+            if image != nil {
+                var imageJsonData = await uploadImage(image: image!)
+                var imageResponse = try! JSONDecoder().decode(ImageResponse.self, from: imageJsonData!)
+                imageUploadID = imageResponse.id
+                
+                hashedImages[imageResponse.url] = image
+               
+  
+                
+
+            }
+            print("imageUploadID \(imageUploadID)")
+            let url = URL(string: "http://158.160.13.5:8080/send-message")!
+            var request = URLRequest(url: url)
+            
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            var jsonString = ""
+            if imageUploadID != nil {
+                jsonString = """
+                        {"user_id": \(UserDefaults.standard.integer(forKey: "username")),
+                        "chat_id": \(chatID),
+                        "time": \(Date.now.timeIntervalSince1970),
+                        "text": "\(text)",
+                        "image_id": \(imageUploadID!)}
+                """
+            } else {
+                jsonString = """
+                        {"user_id": \(UserDefaults.standard.integer(forKey: "username")),
+                        "chat_id": \(chatID),
+                        "time": \(Date.now.timeIntervalSince1970),
+                        "text": "\(text)"}
+                """
+            }
+
+            
+//            let jsonString = """
+//                    {"user_id": \(UserDefaults.standard.integer(forKey: "username")),
+//                    "chat_id": \(chatID),
+//                    "time": \(Date.now.timeIntervalSince1970),
+//                    "text": "\(text)"}
+//            """
+            let data = jsonString.data(using: .utf8)
+            request.httpBody = data
+            
+            
+            let response = try! await URLSession.shared.data(for: request)
+            print("respnse \(response)")
+        }
     }
     
     private func receiveMessage(_ text: String, userID: Int) {
-
+        
         let newMessage = Message(id: 0, image: "", sender: userID, text: text, time: Int(Date.now.timeIntervalSince1970), imageData: nil)
         chats[userID]?.messages.append(newMessage)
     }
@@ -53,16 +131,16 @@ class MessagesViewModel: ObservableObject {
     @Published var data: [String] = []
     private var timer: Timer?
     
-        func startTimer() {
-            timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { [weak self] _ in
-                DispatchQueue.main.async {
-                    Task {
-                        await self?.fetchData()
-                    }
+    func startTimer() {
+        timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { [weak self] _ in
+            DispatchQueue.main.async {
+                Task {
+                    await self?.fetchData()
                 }
-    
             }
+            
         }
+    }
     //
     //    func stopTimer() {
     //        timer?.invalidate()
@@ -137,6 +215,11 @@ class MessagesViewModel: ObservableObject {
 
 typealias Welcome = [Chat]
 
+struct ImageResponse: Codable {
+    let id: Int
+    let url: String
+}
+
 struct Chat: Codable, Hashable {
     static func == (lhs: Chat, rhs: Chat) -> Bool {
         lhs.user.id == rhs.user.id
@@ -145,7 +228,7 @@ struct Chat: Codable, Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(user.id)
     }
-    var chat: Int 
+    var chat: Int
     var messages: [Message]
     let user: User
 }
@@ -163,7 +246,7 @@ struct Message: Codable, Hashable {
     let id: Int
     let image: String?
     let sender: Int
-    let text: String
+    let text: String?
     let time: Int
     var imageData: Data?
 }

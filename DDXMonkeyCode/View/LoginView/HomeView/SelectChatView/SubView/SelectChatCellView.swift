@@ -16,7 +16,7 @@ struct SelectChatCellView: View {
         NavigationLink {
             targer
         } label: {
-
+            
             HStack {
                 image
                     .resizable()
@@ -24,7 +24,7 @@ struct SelectChatCellView: View {
                     .frame(width: 50, height: 50)
                     .cornerRadius(25)
                     .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
-                    
+                
                 VStack(alignment: .leading, spacing: 4) {
                     Text(textName)
                         .font(.title3)
@@ -36,15 +36,10 @@ struct SelectChatCellView: View {
                         .lineLimit(1)
                         .foregroundStyle(Color(.ddxBlack))
                 }
-                
                 Spacer()
-                
-
             }
             .frame(width: UIScreen.main.bounds.size.width, height: 70)
         }
-
-
     }
 }
 
