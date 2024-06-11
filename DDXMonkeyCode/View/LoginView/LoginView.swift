@@ -25,6 +25,7 @@ struct LoginView: View {
                             .foregroundStyle(Color(.appDarkGray))
                             .font(.system(size: 12, weight: .regular))
                     }
+                    .autocapitalization(.none)
                     .padding(EdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 20))
                 }
                 .frame(width: 350, height: 31)
@@ -32,11 +33,12 @@ struct LoginView: View {
                 ZStack {
                     RoundedRectangle(cornerRadius: 12)
                         .foregroundStyle(Color(.appLigntGray))
-                    TextField(text: $password) {
+                    SecureField(text: $password) {
                         Text("Пароль")
                             .foregroundStyle(Color(.appDarkGray))
                             .font(.system(size: 12, weight: .regular))
                     }
+                    .autocapitalization(.none)
                     .padding(EdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 20))
                 }
                 .frame(width: 350, height: 31)

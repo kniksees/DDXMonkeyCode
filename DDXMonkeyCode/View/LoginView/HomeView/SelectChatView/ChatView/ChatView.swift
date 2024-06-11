@@ -21,17 +21,31 @@ struct ChatView: View {
                         MessageView(message: message)
                             .padding(.horizontal)
                     }
-//                    ForEach(viewModel.chats[id]!.messages, id) { message in
-//                        MessageView(message: message)
-//                            .padding(.horizontal)
-//                    }
                 }
             }.defaultScrollAnchor(.bottom)
-            
-//            MessageInputView(onSend: viewModel.sendMessage, id: id)
-//                .padding()
             MessageInputView(chatID: id)
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 0))
+        }
+        .toolbar {
+            ToolbarItemGroup(placement: .principal) {
+                // Add your trailing toolbar items here
+                Text(viewModel.chats[id]!.user.username)
+                    .font(.system(size: 16, weight: .medium))
+            }
+            ToolbarItemGroup(placement: .topBarTrailing) {
+                // Add your trailing toolbar items here
+                Button(action: {
+                    // Action for the trailing button
+                }) {
+                    HStack {
+
+                        Image(uiImage: UIImage(data: viewModel.images[viewModel.chats[id]!.user.id] ?? Data()) ?? UIImage())
+                            .resizable()
+                            .frame(width: 36, height: 36)
+                            .cornerRadius(18)
+                    }
+                }
+            }
         }
     }
 }
@@ -42,7 +56,7 @@ struct MessageInputView: View {
     
     @State private var imageItem: PhotosPickerItem?
     @State private var selectedImage: Data?
-
+    
     var body: some View {
         HStack {
             PhotosPicker(selection: $imageItem, matching: .images) {
@@ -66,7 +80,7 @@ struct MessageInputView: View {
                 .padding(10)
                 .background(Color.gray.opacity(0.2))
                 .cornerRadius(20)
-
+            
             Button(action: {
                 if !messageText.isEmpty || selectedImage != nil {
                     Task {
@@ -95,7 +109,7 @@ struct MessageInputView: View {
 //struct ChatView: View {
 //    @State private var avatarItem: PhotosPickerItem?
 //    @State private var avatarImage: Image?
-//    
+//
 //    let id: Int
 //
 //    var body: some View {
