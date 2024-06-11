@@ -9,9 +9,13 @@ import SwiftUI
 
 struct QRCodeView: View {
     var body: some View {
-        Image(uiImage: UIImage(named: "QRCode")!)
-            .resizable()
-            .frame(width: 300, height: 300)
+        ZStack {
+            Color(.appWhite)
+                .ignoresSafeArea()
+            Image(uiImage: UIImage(named: "QRCode")!)
+                .resizable()
+                .frame(width: 300, height: 300)
+        }
     }
 }
 

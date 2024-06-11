@@ -62,7 +62,7 @@ struct MessageInputView: View {
                 }
             }
             
-            TextField("Type a message...", text: $messageText)
+            TextField("Сообщение", text: $messageText)
                 .padding(10)
                 .background(Color.gray.opacity(0.2))
                 .cornerRadius(20)

@@ -12,24 +12,32 @@ struct SelectChatView: View {
     
     @State private var data: [String] = []
     @State private var timer: Timer?
+    @State private var isFirstAppear = true
     
     var body: some View {
-        ScrollView {
-            
-            ForEach(viewModel.usersSorted, id: \.self) { chat in
+        ZStack {
+            Color(.appWhite)
+                .ignoresSafeArea()
+            ScrollView {
+                
+                ForEach(viewModel.usersSorted, id: \.self) { chat in
+                    Divider()
+                    SelectChatCellView(textName: chat.user.username,
+                                       textPreview: chat.messages.last?.text ?? "",
+                                       targer: AnyView(ChatView(id: chat.chat).navigationTitle(chat.user.username)),
+                                       image: Image(uiImage: UIImage(data: viewModel.images[chat.user.id] ?? Data()) ?? UIImage()))
+                }
                 Divider()
-                SelectChatCellView(textName: chat.user.username,
-                                   textPreview: chat.messages.last?.text ?? "",
-                                   targer: AnyView(ChatView(id: chat.chat).navigationTitle(chat.user.username)),
-                                   image: Image(uiImage: UIImage(data: viewModel.images[chat.user.id] ?? Data()) ?? UIImage()))
+                
             }
-            Divider()
-            
         }
         .navigationTitle("Чаты")
         
         .onAppear {
-            viewModel.startTimer()
+            if isFirstAppear {
+                viewModel.startTimer()
+                isFirstAppear = false
+            }
         }
     }
     
