@@ -31,7 +31,7 @@ struct ChatView: View {
 //            MessageInputView(onSend: viewModel.sendMessage, id: id)
 //                .padding()
             MessageInputView(chatID: id)
-                .padding()
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 0))
         }
     }
 }
@@ -49,6 +49,7 @@ struct MessageInputView: View {
                 Image(systemName: "photo.circle")
                     .font(.title)
                     .padding(10)
+                    .foregroundColor(selectedImage == nil ? .blue : .green)
             }
             //PhotosPicker("photo", selection: $avatarItem, matching: .images)
             .onChange(of: imageItem) {
@@ -67,7 +68,7 @@ struct MessageInputView: View {
                 .cornerRadius(20)
 
             Button(action: {
-                if !messageText.isEmpty {
+                if !messageText.isEmpty || selectedImage != nil {
                     Task {
                         //MessagesViewModel.shared.chats[chatID]?.messages.append(Message(id: 0, image: "", sender: 2, text: messageText, time: Int(Date.now.timeIntervalSince1970)))
                         //var a = avatarImage as Data

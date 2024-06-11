@@ -41,34 +41,34 @@ class MessagesViewModel: ObservableObject {
         data.append(image)
         data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
         
-        var response = try! await URLSession.shared.upload(for: request, from: data)
-//        let task = URLSession.shared.uploadTask(with: request, from: data) { data, response, error in
-//            DispatchQueue.main.async {
-//                
-//                
-//                if let error = error {
-//                    print("Error: \(error.localizedDescription)")
-//                    return
-//                }
-//                
-//                if let httpResponse = response as? HTTPURLResponse {
-//                    print("Response status code: \(httpResponse.statusCode)")
-//                }
-//                
-//                if let data = data {
-//                    let responseString = String(data: data, encoding: .utf8)
-//                    print("Response: \(responseString ?? "")")
-//                }
-//            }
-//        }
-//        task.resume()
+        let response = try! await URLSession.shared.upload(for: request, from: data)
+        //        let task = URLSession.shared.uploadTask(with: request, from: data) { data, response, error in
+        //            DispatchQueue.main.async {
+        //
+        //
+        //                if let error = error {
+        //                    print("Error: \(error.localizedDescription)")
+        //                    return
+        //                }
+        //
+        //                if let httpResponse = response as? HTTPURLResponse {
+        //                    print("Response status code: \(httpResponse.statusCode)")
+        //                }
+        //
+        //                if let data = data {
+        //                    let responseString = String(data: data, encoding: .utf8)
+        //                    print("Response: \(responseString ?? "")")
+        //                }
+        //            }
+        //        }
+        //        task.resume()
         //print(String(data: response.0, encoding: .utf8), response.1.url)
         return response.0
     }
     
     func sendMessage(_ text: String, chatID: Int, image: Data?) async {
         //print(image)
-//        chats[chatID]?.messages.append(Message(id: -1, image: "", sender: UserDefaults.standard.integer(forKey: "userID"), text: text, time: Int(Date.now.timeIntervalSince1970), imageData: image))
+        //        chats[chatID]?.messages.append(Message(id: -1, image: "", sender: UserDefaults.standard.integer(forKey: "userID"), text: text, time: Int(Date.now.timeIntervalSince1970), imageData: image))
         Task {
             var imageUploadID: Int? = nil
             if image != nil {
@@ -77,10 +77,10 @@ class MessagesViewModel: ObservableObject {
                 imageUploadID = imageResponse.id
                 
                 hashedImages[imageResponse.url] = image
-               
-  
                 
-
+                
+                
+                
             }
             //print("imageUploadID \(imageUploadID)")
             let url = URL(string: "http://158.160.13.5:8080/send-message")!
@@ -105,9 +105,9 @@ class MessagesViewModel: ObservableObject {
                         "text": "\(text)"}
                 """
             }
-
             
-
+            
+            
             let data = jsonString.data(using: .utf8)
             request.httpBody = data
             
@@ -147,60 +147,105 @@ class MessagesViewModel: ObservableObject {
         await getChat(userID: UserDefaults.standard.integer(forKey: "userID"))
     }
     
+    func getImageDataByURL(url: String?) async -> Data? {
+        guard let url else {
+            return nil
+        }
+        guard let imageURL = URL(string: url) else {
+            Logger().log(level: .info, "Failed to parse url")
+            return nil
+        }
+        let resquest = URLRequest(url: imageURL, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
+        Logger().log(level: .info, "Downloading image")
+        guard let response = try? await URLSession.shared.data(for: resquest) else {
+            Logger().log(level: .info, "Failed to get image data")
+            return nil
+        }
+        return response.0
+    }
+    
+    func getAvatarsFromChatList(chatList: Welcome) async {
+        for i in chatList {
+            guard let imageURL = i.user.image else {return}
+            if hashedImages[imageURL] == nil {
+                let imageData = await getImageDataByURL(url: imageURL)
+                await MainActor.run {
+                    images[i.user.id] = imageData
+                    hashedImages[i.user.image!] = imageData
+                }
+            } else {
+                await MainActor.run {
+                    images[i.user.id] = hashedImages[imageURL]
+                }
+            }
+        }
+    }
+    
     func getChat(userID: Int) async {
-//        print("getChat")
-//        print(userID)
         let url = URL(string: "http://158.160.13.5:8080/users/\(userID)/chats")!
-        //let response = try? await URLSession.shared.data(from: url)
         let response = try? await URLSession.shared.data(for: URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData))
-        //let (data, _) = try? await URLSession.shared.data(from: url)
         if let data = response?.0 {
             if let welcome = try? JSONDecoder().decode(Welcome.self, from: data) {
+                await getAvatarsFromChatList(chatList: welcome)
                 
-                for i in welcome {
-                    if i.user.image != nil {
-                        if hashedImages[i.user.image!] == nil {
-                            let imageURL = URL(string: i.user.image!)!
-                            let (imageData, _) = try! await URLSession.shared.data(from: imageURL)
-                            Logger().log(level: .info, "Downloading image")
-                            await MainActor.run {
-                                images[i.user.id] = imageData
-                                hashedImages[i.user.image!] = imageData
-                            }
-                        } else {
-                            await MainActor.run {
-                                images[i.user.id] = hashedImages[i.user.image!]
-                            }
-                        }
-                    }
-                }
-                Task {
-                    await MainActor.run {
-                        for i in welcome {
-                            chats[i.chat] = i
-                        }
-                    }
-                    for chat in chats.values {
-                        for j in 0..<chat.messages.count {
-                            if chat.messages[j].image != nil {
-                                if hashedImages[chat.messages[j].image!] == nil {
-                                    let imageURL = URL(string: chat.messages[j].image!)!
-                                    let resquest = URLRequest(url: imageURL, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
-                                    Logger().log(level: .info, "Downloading image")
-                                    let (imageData, _) = try! await URLSession.shared.data(for: resquest)
+                
+                
+                    var tempWelcome = welcome
+                    for i in 0..<welcome.count {
+                        for j in 0..<welcome[i].messages.count {
+                            let message = welcome[i].messages[j]
+                            if let image = message.image {
+                                if hashedImages[image] == nil {
+                                    let imageData = await getImageDataByURL(url: image)
+                                    tempWelcome[i].messages[j].imageData = imageData
                                     await MainActor.run {
-                                        chats[chat.chat]?.messages[j].imageData = imageData
-                                        hashedImages[chat.messages[j].image!] = imageData
+
+                                        hashedImages[image] = imageData
                                     }
+                                    
                                 } else {
-                                    await MainActor.run {
-                                        chats[chat.chat]?.messages[j].imageData = hashedImages[chat.messages[j].image!]
-                                    }
+                                    tempWelcome[i].messages[j].imageData = hashedImages[image]
                                 }
                             }
                         }
+                        let chatImages = tempWelcome[i]
+                        await MainActor.run {
+                            chats[welcome[i].chat] = chatImages
+                        }
                     }
-                }
+                
+                
+                
+                
+                
+//                Task {
+//                    await MainActor.run {
+//                        for i in welcome {
+//                            chats[i.chat] = i
+//                        }
+//                    }
+//                    for chat in chats.values {
+//                        for j in 0..<chat.messages.count {
+//                            if chat.messages[j].image != nil {
+//                                if hashedImages[chat.messages[j].image!] == nil {
+//                                    let imageURL = URL(string: chat.messages[j].image!)!
+//                                    let resquest = URLRequest(url: imageURL, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
+//                                    //let (imageData, _) = try! await URLSession.shared.data(from: imageURL)
+//                                    Logger().log(level: .info, "Downloading image")
+//                                    let (imageData, _) = try! await URLSession.shared.data(for: resquest)
+//                                    await MainActor.run {
+//                                        chats[chat.chat]?.messages[j].imageData = imageData
+//                                        hashedImages[chat.messages[j].image!] = imageData
+//                                    }
+//                                } else {
+//                                    await MainActor.run {
+//                                        chats[chat.chat]?.messages[j].imageData = hashedImages[chat.messages[j].image!]
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
             } else {
                 Logger().log(level: .info, "Fail json parsing")
             }
@@ -208,6 +253,64 @@ class MessagesViewModel: ObservableObject {
             Logger().log(level: .info, "Data is nil")
         }
     }
+    
+    //    func getChat(userID: Int) async {
+    //        let url = URL(string: "http://158.160.13.5:8080/users/\(userID)/chats")!
+    //        let response = try? await URLSession.shared.data(for: URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData))
+    //        if let data = response?.0 {
+    //            if let welcome = try? JSONDecoder().decode(Welcome.self, from: data) {
+    //
+    //                for i in welcome {
+    //                    if i.user.image != nil {
+    //                        if hashedImages[i.user.image!] == nil {
+    //                            let imageURL = URL(string: i.user.image!)!
+    //                            let (imageData, _) = try! await URLSession.shared.data(from: imageURL)
+    //                            Logger().log(level: .info, "Downloading image")
+    //                            await MainActor.run {
+    //                                images[i.user.id] = imageData
+    //                                hashedImages[i.user.image!] = imageData
+    //                            }
+    //                        } else {
+    //                            await MainActor.run {
+    //                                images[i.user.id] = hashedImages[i.user.image!]
+    //                            }
+    //                        }
+    //                    }
+    //                }
+    //                Task {
+    //                    await MainActor.run {
+    //                        for i in welcome {
+    //                            chats[i.chat] = i
+    //                        }
+    //                    }
+    //                    for chat in chats.values {
+    //                        for j in 0..<chat.messages.count {
+    //                            if chat.messages[j].image != nil {
+    //                                if hashedImages[chat.messages[j].image!] == nil {
+    //                                    let imageURL = URL(string: chat.messages[j].image!)!
+    //                                    let resquest = URLRequest(url: imageURL, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
+    //                                    Logger().log(level: .info, "Downloading image")
+    //                                    let (imageData, _) = try! await URLSession.shared.data(for: resquest)
+    //                                    await MainActor.run {
+    //                                        chats[chat.chat]?.messages[j].imageData = imageData
+    //                                        hashedImages[chat.messages[j].image!] = imageData
+    //                                    }
+    //                                } else {
+    //                                    await MainActor.run {
+    //                                        chats[chat.chat]?.messages[j].imageData = hashedImages[chat.messages[j].image!]
+    //                                    }
+    //                                }
+    //                            }
+    //                        }
+    //                    }
+    //                }
+    //            } else {
+    //                Logger().log(level: .info, "Fail json parsing")
+    //            }
+    //        } else {
+    //            Logger().log(level: .info, "Data is nil")
+    //        }
+    //    }
 }
 
 typealias Welcome = [Chat]
