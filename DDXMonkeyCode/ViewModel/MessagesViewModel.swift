@@ -19,8 +19,26 @@ class MessagesViewModel: ObservableObject {
     
     var usersSorted: [Chat] {
         get {
-            [Chat](chats.values)
+            [Chat](chats.values).sorted { chat1, chat2 in
+                if chat1.user.id == 1 {
+                    return true
+                } else if chat2.user.id == 1 {
+                    return false
+                } else {
+                    if chat1.messages.isEmpty {
+                        return false
+                    } else if chat2.messages.isEmpty {
+                        return true
+                    } else {
+                        return chat1.messages.last!.time > chat2.messages.last!.time
+                    }
+                }
+            }
         }
+//        get {
+//            [Chat](chats.values)
+//            }
+        
     }
     
     func uploadImage(image: Data) async -> Data? {
@@ -42,47 +60,19 @@ class MessagesViewModel: ObservableObject {
         data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
         
         let response = try! await URLSession.shared.upload(for: request, from: data)
-        //        let task = URLSession.shared.uploadTask(with: request, from: data) { data, response, error in
-        //            DispatchQueue.main.async {
-        //
-        //
-        //                if let error = error {
-        //                    print("Error: \(error.localizedDescription)")
-        //                    return
-        //                }
-        //
-        //                if let httpResponse = response as? HTTPURLResponse {
-        //                    print("Response status code: \(httpResponse.statusCode)")
-        //                }
-        //
-        //                if let data = data {
-        //                    let responseString = String(data: data, encoding: .utf8)
-        //                    print("Response: \(responseString ?? "")")
-        //                }
-        //            }
-        //        }
-        //        task.resume()
-        //print(String(data: response.0, encoding: .utf8), response.1.url)
         return response.0
     }
     
     func sendMessage(_ text: String, chatID: Int, image: Data?) async {
-        //print(image)
-        //        chats[chatID]?.messages.append(Message(id: -1, image: "", sender: UserDefaults.standard.integer(forKey: "userID"), text: text, time: Int(Date.now.timeIntervalSince1970), imageData: image))
+        let text = text.trimmingCharacters(in: .whitespaces)
         Task {
             var imageUploadID: Int? = nil
             if image != nil {
                 let imageJsonData = await uploadImage(image: image!)
                 let imageResponse = try! JSONDecoder().decode(ImageResponse.self, from: imageJsonData!)
                 imageUploadID = imageResponse.id
-                
                 hashedImages[imageResponse.url] = image
-                
-                
-                
-                
             }
-            //print("imageUploadID \(imageUploadID)")
             let url = URL(string: "http://158.160.13.5:8080/send-message")!
             var request = URLRequest(url: url)
             
@@ -110,7 +100,6 @@ class MessagesViewModel: ObservableObject {
             
             let data = jsonString.data(using: .utf8)
             request.httpBody = data
-            
             
             let response = try! await URLSession.shared.data(for: request)
             print("respnse \(response)")
@@ -176,7 +165,7 @@ class MessagesViewModel: ObservableObject {
     }
     
     func getImagesFromChatList(chatList: Welcome) async {
-        if chatList.flatMap({$0.messages}).count == chats.values.flatMap({$0.messages}).count {
+        if chatList.flatMap({$0.messages}).count == chats.values.flatMap({$0.messages}).count && chatList.count == chats.count {
             Logger().log(level: .info, "No new messages")
             return
         }
@@ -259,8 +248,6 @@ struct Message: Codable, Hashable {
     let time: Int
     var imageData: Data?
 }
-
-
 
 struct User: Codable {
     let id: Int

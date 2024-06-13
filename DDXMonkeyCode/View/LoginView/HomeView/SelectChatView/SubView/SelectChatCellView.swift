@@ -13,32 +13,36 @@ struct SelectChatCellView: View {
     var targer: AnyView
     var image: Image
     var body: some View {
-        NavigationLink {
-            targer
-        } label: {
-            
-            HStack {
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 50, height: 50)
-                    .cornerRadius(25)
-                    .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
+        ZStack {
+            Color(.appWhite)
+                .ignoresSafeArea()
+            NavigationLink {
+                targer
+            } label: {
                 
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(textName)
-                        .font(.title3)
-                        .bold()
-                        .foregroundStyle(Color(.ddxBlack))
+                HStack {
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 50, height: 50)
+                        .cornerRadius(25)
+                        .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
                     
-                    Text(textPreview)
-                        .font(.subheadline)
-                        .lineLimit(1)
-                        .foregroundStyle(Color(.ddxBlack))
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(textName)
+                            .font(.title3)
+                            .bold()
+                            .foregroundStyle(Color(.ddxBlack))
+                        
+                        Text(textPreview)
+                            .font(.subheadline)
+                            .lineLimit(1)
+                            .foregroundStyle(Color(.ddxBlack))
+                    }
+                    Spacer()
                 }
-                Spacer()
+                .frame(width: UIScreen.main.bounds.size.width, height: 80)
             }
-            .frame(width: UIScreen.main.bounds.size.width, height: 70)
         }
     }
 }

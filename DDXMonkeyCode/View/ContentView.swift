@@ -17,6 +17,14 @@ struct ContentView: View {
                     .navigationBarItems(trailing: settingsButton)
                     .navigationBarTitleDisplayMode(.inline)
                     .navigationTitle("\(viewModel.getTabViewLabel())")
+                    .onAppear() {
+                        UINavigationBar.appearance().isTranslucent = false
+                        let defaultAppearance = UINavigationBarAppearance()
+                        defaultAppearance.configureWithDefaultBackground()
+                        defaultAppearance.backgroundColor = .appWhite
+                        UINavigationBar.appearance().scrollEdgeAppearance = defaultAppearance
+                    }
+                    
                 
             } else {
                 LoginView()
@@ -24,6 +32,9 @@ struct ContentView: View {
                     //.navigationTitle("Вход")
             }
         }
+        
+
+        
     }
 
     private var settingsButton: some View {

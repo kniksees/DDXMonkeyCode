@@ -16,10 +16,12 @@ struct SelectChatView: View {
     
     var body: some View {
         ZStack {
-            Color(.appWhite)
+            Color(.appLigntGray)
                 .ignoresSafeArea()
             ScrollView {
-                
+                VStack(alignment: .leading, spacing: 0, content: {
+                    
+               
                 ForEach(viewModel.usersSorted, id: \.self) { chat in
                     Divider()
                     SelectChatCellView(textName: chat.user.username,
@@ -28,12 +30,14 @@ struct SelectChatView: View {
                                        image: Image(uiImage: UIImage(data: viewModel.images[chat.user.id] ?? Data()) ?? UIImage()))
                 }
                 Divider()
+                })
                 
             }
         }
         .navigationTitle("Чаты")
         
         .onAppear {
+            //print(viewModel.chats)
             if isFirstAppear {
                 viewModel.startTimer()
                 isFirstAppear = false

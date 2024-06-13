@@ -47,9 +47,10 @@ struct LoginView: View {
                     LoginViewModel.shared.login = login
                     LoginViewModel.shared.password = password
                     Task {
-                        var userID = await LoginViewModel.shared.login(username: login, password: password)
+                        let userID = await LoginViewModel.shared.login(username: login, password: password)
                         print(userID)
-                        UserDefaults.standard.set(userID, forKey: "userID")
+                        //LoginViewModel.shared.selfID = userID
+                        //UserDefaults.standard.set(userID, forKey: "userID")
                     }
 
 //                    UserDefaults.standard.set(Int(login), forKey: "username")

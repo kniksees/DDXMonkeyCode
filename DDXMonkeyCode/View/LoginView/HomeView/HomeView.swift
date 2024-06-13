@@ -15,27 +15,41 @@ struct HomeView: View {
     
     var body: some View {
         TabView(selection: $selection) {
-            QRCodeView()
-                .tabItem {
-                    Label("Вход", systemImage: "qrcode")
-                }
-                .tag(0)
-            SelectChatView()
-                .tabItem {
-                    Label("Чат", systemImage: "message")
-                }
-                .tag(1)
-            MyWorkoutsView()
-                .tabItem {
-                    Label("Тренировки", systemImage: "dumbbell")
-                }
-                .tag(2)
-            MyWorkoutsView()
-                .tabItem {
-                    Label("Профиль", systemImage: "person")
-                }
-                .tag(3)
-        }.onChange(of: selection) { newValue in
+            Group {
+                QRCodeView()
+                    .tabItem {
+                        Label("Вход", systemImage: "qrcode")
+                    }
+                    .tag(0)
+                SelectChatView()
+                    .tabItem {
+                        Label("Чат", systemImage: "message")
+                    }
+                    .tag(1)
+                MyWorkoutsView()
+                    .tabItem {
+                        Label("Тренировки", systemImage: "dumbbell")
+                    }
+                    .tag(2)
+                MyWorkoutsView()
+                    .tabItem {
+                        Label("Профиль", systemImage: "person")
+                    }
+                    .tag(3)
+                SelectTrainerView()
+                    .tabItem {
+                        Label("Тренера", systemImage: "person.3")
+                    }
+                    .tag(4)
+            }
+            
+            
+        }
+        .background(.appWhite)
+        .onAppear() {
+            UITabBar.appearance().isTranslucent = false
+        }
+        .onChange(of: selection) { newValue in
             viewModel.selectedTab = selection
         }
     }

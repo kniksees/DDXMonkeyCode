@@ -26,6 +26,11 @@
 		E11FD0AC2C1061D500DC9E98 /* LoginButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11FD0AB2C1061D500DC9E98 /* LoginButtonView.swift */; };
 		E1C701D52C15F11200E7F195 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C701D42C15F11200E7F195 /* NetworkManager.swift */; };
 		E1C701D72C15F44200E7F195 /* LoginVIewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C701D62C15F44200E7F195 /* LoginVIewModel.swift */; };
+		E1C701DD2C1A5FDA00E7F195 /* SelectTrainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C701DC2C1A5FDA00E7F195 /* SelectTrainerView.swift */; };
+		E1C701DF2C1A5FF800E7F195 /* SelectTrainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C701DE2C1A5FF800E7F195 /* SelectTrainerViewModel.swift */; };
+		E1C701E42C1A619E00E7F195 /* TrainerCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C701E32C1A619E00E7F195 /* TrainerCellView.swift */; };
+		E1C701E72C1A6B0700E7F195 /* TrainerProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C701E62C1A6B0700E7F195 /* TrainerProfileView.swift */; };
+		E1C701E92C1A726600E7F195 /* TraineSlotSelectorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C701E82C1A726600E7F195 /* TraineSlotSelectorViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +55,11 @@
 		E1C701D42C15F11200E7F195 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		E1C701D62C15F44200E7F195 /* LoginVIewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVIewModel.swift; sourceTree = "<group>"; };
 		E1C701DA2C161A1A00E7F195 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		E1C701DC2C1A5FDA00E7F195 /* SelectTrainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTrainerView.swift; sourceTree = "<group>"; };
+		E1C701DE2C1A5FF800E7F195 /* SelectTrainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTrainerViewModel.swift; sourceTree = "<group>"; };
+		E1C701E32C1A619E00E7F195 /* TrainerCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainerCellView.swift; sourceTree = "<group>"; };
+		E1C701E62C1A6B0700E7F195 /* TrainerProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainerProfileView.swift; sourceTree = "<group>"; };
+		E1C701E82C1A726600E7F195 /* TraineSlotSelectorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraineSlotSelectorViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +159,8 @@
 				E111169D2C12192A00B37056 /* TabViewViewModel.swift */,
 				E1C701D42C15F11200E7F195 /* NetworkManager.swift */,
 				E1C701D62C15F44200E7F195 /* LoginVIewModel.swift */,
+				E1C701DE2C1A5FF800E7F195 /* SelectTrainerViewModel.swift */,
+				E1C701E82C1A726600E7F195 /* TraineSlotSelectorViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -167,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				E11FD0902C0FA81200DC9E98 /* HomeView.swift */,
+				E1C701DB2C1A5F9300E7F195 /* SelectTrainerView */,
 				E11FD0A12C1049B300DC9E98 /* SubView */,
 				E11FD0A02C10492D00DC9E98 /* MyWorkoutsView */,
 				E11FD09F2C10490100DC9E98 /* SelectChatView */,
@@ -189,8 +202,8 @@
 			isa = PBXGroup;
 			children = (
 				E11FD0982C0FB71400DC9E98 /* SelectChatView.swift */,
-				E11116922C11E25C00B37056 /* ChatView */,
 				E11FD0A42C104FE900DC9E98 /* SubView */,
+				E11116922C11E25C00B37056 /* ChatView */,
 			);
 			path = SelectChatView;
 			sourceTree = "<group>";
@@ -232,6 +245,32 @@
 				E11FD0AB2C1061D500DC9E98 /* LoginButtonView.swift */,
 			);
 			path = SubView;
+			sourceTree = "<group>";
+		};
+		E1C701DB2C1A5F9300E7F195 /* SelectTrainerView */ = {
+			isa = PBXGroup;
+			children = (
+				E1C701DC2C1A5FDA00E7F195 /* SelectTrainerView.swift */,
+				E1C701E02C1A615400E7F195 /* SubView */,
+				E1C701E52C1A6AB700E7F195 /* TrainerProfileView */,
+			);
+			path = SelectTrainerView;
+			sourceTree = "<group>";
+		};
+		E1C701E02C1A615400E7F195 /* SubView */ = {
+			isa = PBXGroup;
+			children = (
+				E1C701E32C1A619E00E7F195 /* TrainerCellView.swift */,
+			);
+			path = SubView;
+			sourceTree = "<group>";
+		};
+		E1C701E52C1A6AB700E7F195 /* TrainerProfileView */ = {
+			isa = PBXGroup;
+			children = (
+				E1C701E62C1A6B0700E7F195 /* TrainerProfileView.swift */,
+			);
+			path = TrainerProfileView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -304,6 +343,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1C701E42C1A619E00E7F195 /* TrainerCellView.swift in Sources */,
+				E1C701DF2C1A5FF800E7F195 /* SelectTrainerViewModel.swift in Sources */,
 				E11FD0992C0FB71400DC9E98 /* SelectChatView.swift in Sources */,
 				E11FD0952C0FAFC800DC9E98 /* SettingsView.swift in Sources */,
 				E11116992C11EC3A00B37056 /* MessagesViewModel.swift in Sources */,
@@ -311,8 +352,10 @@
 				E1C701D52C15F11200E7F195 /* NetworkManager.swift in Sources */,
 				E11FD0A92C105EE000DC9E98 /* SettingsCellView.swift in Sources */,
 				E1C701D72C15F44200E7F195 /* LoginVIewModel.swift in Sources */,
+				E1C701E72C1A6B0700E7F195 /* TrainerProfileView.swift in Sources */,
 				E11116952C11E27B00B37056 /* ChatView.swift in Sources */,
 				E11116972C11E29900B37056 /* MessageView.swift in Sources */,
+				E1C701E92C1A726600E7F195 /* TraineSlotSelectorViewModel.swift in Sources */,
 				E11FD09D2C1048E100DC9E98 /* MyWorkoutsView.swift in Sources */,
 				E11FD0912C0FA81200DC9E98 /* HomeView.swift in Sources */,
 				E111169E2C12192A00B37056 /* TabViewViewModel.swift in Sources */,
@@ -320,6 +363,7 @@
 				E11FD0AC2C1061D500DC9E98 /* LoginButtonView.swift in Sources */,
 				E111169C2C1213E700B37056 /* QRCodeView.swift in Sources */,
 				E11FD07A2C0FA4BE00DC9E98 /* DDXMonkeyCodeApp.swift in Sources */,
+				E1C701DD2C1A5FDA00E7F195 /* SelectTrainerView.swift in Sources */,
 				E11FD0A62C10500100DC9E98 /* SelectChatCellView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

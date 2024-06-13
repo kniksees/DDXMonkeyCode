@@ -12,6 +12,6 @@ class TabViewViewModel: ObservableObject {
     static var shared = TabViewViewModel()
     @Published var selectedTab = 0
     func getTabViewLabel() -> String {
-        return [0: "Вход", 1: "Чат", 2: "Тренировки", 3: "Профиль"][selectedTab]!
+        return [0: "Вход", 1: "Чат", 2: "Тренировки", 3: "Профиль", 4: "Тренера"][selectedTab]!
     }
 }
