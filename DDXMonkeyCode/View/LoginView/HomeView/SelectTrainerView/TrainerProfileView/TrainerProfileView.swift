@@ -44,7 +44,9 @@ struct TrainerProfileView: View {
                     .foregroundColor(.appWhite)
                     .cornerRadius(12)
             })
-        }.frame(width: 350)
+        }
+        .frame(width: 350)
+        .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
     }
 }
 

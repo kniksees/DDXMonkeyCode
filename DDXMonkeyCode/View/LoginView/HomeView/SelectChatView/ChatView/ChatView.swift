@@ -28,7 +28,7 @@ struct ChatView: View {
                     }
                     Spacer(minLength: 10)
                 }
-                //.defaultScrollAnchor(.bottom)
+                .defaultScrollAnchor(.bottom)
                 MessageInputView(chatID: id)
                     //.padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                     .ignoresSafeArea()
@@ -107,6 +107,8 @@ struct MessageInputView: View {
                     .padding(10)
                     .background(Color.gray.opacity(0.2))
                     .cornerRadius(20)
+                    
+                
                 
                 Button(action: {
                     if !messageText.isEmpty || selectedImage != nil {

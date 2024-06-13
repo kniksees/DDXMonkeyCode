@@ -13,7 +13,8 @@ struct SelectTrainerView: View {
         ZStack {
             Color(.appLigntGray)
                 .ignoresSafeArea()
-            ScrollView {
+            ScrollView(showsIndicators: false) {
+                Spacer(minLength: 10)
                 LazyVGrid(columns: [
                     GridItem(.flexible()),
                     GridItem(.flexible())

@@ -7,13 +7,12 @@
 
 import Foundation
 
-struct TraineSlotMonth {
-    let id: Int
-    let countOfDay: Int
-    let busyTime: TraineSlotDay
+struct Slots {
+    let freeSlots: [TraineSlotDay]
 }
 
 struct TraineSlotDay {
-    let id: Int
-    let busyTime: [Int]
+    let dayNumber: Int
+    let freeSlots: [String]
 }
+

@@ -38,7 +38,7 @@ struct HomeView: View {
                     .tag(3)
                 SelectTrainerView()
                     .tabItem {
-                        Label("Тренера", systemImage: "person.3")
+                        Label("Тренеры", systemImage: "person.3")
                     }
                     .tag(4)
             }

@@ -10,7 +10,10 @@ import OSLog
 
 class MessagesViewModel: ObservableObject {
     
-    private init() {}
+    private init() {
+        Logger().log(level: .info, "User id: \(UserDefaults.standard.integer(forKey: "userID"))")
+        
+    }
     static var shared = MessagesViewModel()
     
     @Published var chats: Dictionary<Int, Chat> = [:]
@@ -111,7 +114,7 @@ class MessagesViewModel: ObservableObject {
     private var timer: Timer?
     
     func startTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { [weak self] _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
             DispatchQueue.main.async {
                 Task {
                     await self?.fetchData()
@@ -144,6 +147,7 @@ class MessagesViewModel: ObservableObject {
             Logger().log(level: .info, "Failed to get image data")
             return nil
         }
+        
         return response.0
     }
     
