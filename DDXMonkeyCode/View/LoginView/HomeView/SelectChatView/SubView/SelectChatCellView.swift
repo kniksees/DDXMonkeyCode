@@ -12,6 +12,20 @@ struct SelectChatCellView: View {
     var textPreview: String
     var targer: AnyView
     var image: Image
+    var timeOfLastMessage: Int?
+    var timeOfLastMessageLabel: String {
+        get {
+            if let timeOfLastMessage {
+                let date = Date(timeIntervalSince1970: TimeInterval(timeOfLastMessage))
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "HH:mm"
+                let timeString = dateFormatter.string(from: date)
+                return timeString
+            } else {
+                return ""
+            }
+        }
+    }
     var body: some View {
         ZStack {
             Color(.appWhite)
@@ -29,11 +43,16 @@ struct SelectChatCellView: View {
                         .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
                     
                     VStack(alignment: .leading, spacing: 4) {
-                        Text(textName)
-                            .font(.title3)
-                            .bold()
-                            .foregroundStyle(Color(.ddxBlack))
-                        
+                        HStack {
+                            Text(textName)
+                                .font(.title3)
+                                .bold()
+                                .foregroundStyle(Color(.appBlack))
+                            Spacer()
+                            Text(timeOfLastMessageLabel)
+                                .font(.system(size: 10))
+                                .foregroundStyle(Color(.appDarkGray))
+                        }
                         Text(textPreview)
                             .font(.subheadline)
                             .lineLimit(1)
@@ -48,5 +67,5 @@ struct SelectChatCellView: View {
 }
 
 #Preview {
-    SelectChatCellView(textName: "AI Тренер", textPreview: "Спишь?", targer: AnyView(SettingsView()), image: Image(uiImage: UIImage(named: "SpongeBob")!))
+    SelectChatCellView(textName: "AI Тренер", textPreview: "Спишь?", targer: AnyView(SettingsView()), image: Image(uiImage: UIImage(named: "SpongeBob")!), timeOfLastMessage: 1718287078)
 }

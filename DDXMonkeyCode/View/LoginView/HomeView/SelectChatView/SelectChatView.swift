@@ -27,7 +27,8 @@ struct SelectChatView: View {
                     SelectChatCellView(textName: chat.user.username,
                                        textPreview: chat.messages.last?.text ?? "",
                                        targer: AnyView(ChatView(id: chat.chat)),
-                                       image: Image(uiImage: UIImage(data: viewModel.images[chat.user.id] ?? Data()) ?? UIImage()))
+                                       image: Image(uiImage: UIImage(data: viewModel.images[chat.user.id] ?? Data()) ?? UIImage()),
+                                       timeOfLastMessage: chat.messages.last?.time)
                 }
                 Divider()
                 })
