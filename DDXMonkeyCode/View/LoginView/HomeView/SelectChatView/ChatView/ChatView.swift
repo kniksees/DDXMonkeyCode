@@ -19,18 +19,20 @@ struct ChatView: View {
                 .ignoresSafeArea()
             VStack(spacing: 0) {
                 ScrollView(showsIndicators: false) {
-                    if viewModel.chats[id]!.messages.count < 8 {
-                        Spacer(minLength: 650)
-                    }
-                    Spacer(minLength: 10)
-                    LazyVStack(alignment: .leading, spacing: 12) {
-                        ForEach(viewModel.chats[id]!.messages, id: \.self) { message in
-                            MessageView(message: message)
-                                .padding(.horizontal)
+                    VStack {
+                        if viewModel.chats[id]!.messages.count < 8 {
+                            Spacer(minLength: 650)
                         }
+                        Spacer(minLength: 10)
+                        LazyVStack(alignment: .leading, spacing: 12) {
+                            ForEach(viewModel.chats[id]!.messages, id: \.self) { message in
+                                MessageView(message: message)
+                                    .padding(.horizontal)
+                            }
+                        }
+                        
+                        Spacer(minLength: 10)
                     }
-
-                    Spacer(minLength: 10)
                 }
                 .defaultScrollAnchor(.bottom)
                 MessageInputView(chatID: id)
