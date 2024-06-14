@@ -94,7 +94,7 @@ struct Trainer: Hashable {
 
 struct TrainerElement: Codable, Hashable {
     static func == (lhs: TrainerElement, rhs: TrainerElement) -> Bool {
-        lhs.user.id ==  lhs.user.id
+        lhs.user.id ==  rhs.user.id
     }
     
     func hash(into hasher: inout Hasher) {
@@ -106,7 +106,7 @@ struct TrainerElement: Codable, Hashable {
 
 struct Review: Codable, Hashable {
     static func == (lhs: Review, rhs: Review) -> Bool {
-        lhs.id ==  lhs.id
+        lhs.id ==  rhs.id
     }
     
     func hash(into hasher: inout Hasher) {

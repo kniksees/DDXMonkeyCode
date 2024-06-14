@@ -39,7 +39,7 @@ class SelectTrainerViewModel: NetworkManager, ObservableObject {
         if let data = response?.0 {
             if let trainerListWelcome = try? JSONDecoder().decode([TrainerElement].self, from: data) {
                 for i in trainerListWelcome {
-                    await getReviews(id: i.user.id)
+                    
                    
                     if let imageURL = i.user.image {
                         if images[imageURL] == nil {
@@ -52,6 +52,7 @@ class SelectTrainerViewModel: NetworkManager, ObservableObject {
                             }
                         }
                     }
+                    await getReviews(id: i.user.id)
                     Task {
                         await MainActor.run {
                             trainerList[i.user.id] = i
@@ -108,14 +109,15 @@ class SelectTrainerViewModel: NetworkManager, ObservableObject {
     
     func sendReview(text: String, userID: Int, trainerID: Int, mark: Int) async {
         let text = text.trimmingCharacters(in: .whitespaces)
-        Task {
+    
             let url = URL(string: "http://158.160.13.5:8080/review")!
             var request = URLRequest(url: url)
             
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
             let jsonString = """
-                    {"author_user_id": \(userID)),
+                    {"author_user_id": \(userID),
                     "trainer_user_id": \(trainerID),
                     "mark": \(mark),
                     "text": "\(text)"}
@@ -125,7 +127,7 @@ class SelectTrainerViewModel: NetworkManager, ObservableObject {
             
             let response = try! await URLSession.shared.data(for: request)
             print("respnse \(response)")
-        }
+        
     }
 }
 
