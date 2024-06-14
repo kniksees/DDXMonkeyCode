@@ -256,6 +256,7 @@ struct Message: Codable, Hashable {
 struct User: Codable {
     let id: Int
     let image: String?
+    let type: String
     let username: String
 }
 

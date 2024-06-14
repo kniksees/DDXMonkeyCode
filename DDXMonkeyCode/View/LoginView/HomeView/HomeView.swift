@@ -31,7 +31,7 @@ struct HomeView: View {
                         Label("Тренировки", systemImage: "dumbbell")
                     }
                     .tag(2)
-                MyWorkoutsView()
+                MyProfileView()
                     .tabItem {
                         Label("Профиль", systemImage: "person")
                     }
