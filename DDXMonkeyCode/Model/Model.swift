@@ -13,6 +13,7 @@ struct SinglUser: Codable {
 }
 
 struct Profile: Codable {
+    let experience: Int?
     let about: String?
     let age: Int
     let gender: String?
@@ -102,3 +103,17 @@ struct TrainerElement: Codable, Hashable {
     let profile: Profile
     let user: User
 }
+
+struct Review: Codable, Hashable {
+    static func == (lhs: Review, rhs: Review) -> Bool {
+        lhs.id ==  lhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    let author_user_id, id, mark: Int
+    let text: String?
+    let trainer_user_id: Int
+}
+

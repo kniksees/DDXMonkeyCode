@@ -73,7 +73,7 @@ struct TrainerCellView: View {
                         Spacer()
                     }
                     HStack {
-                        Text("Возраст: \(trainer.profile.age)")
+                        Text("Опыт \(trainer.profile.experience ?? 0)")
                             .font(.system(size: 14, weight: .regular))
                             .foregroundStyle(Color(.gray))
                         Spacer()

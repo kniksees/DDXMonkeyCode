@@ -20,6 +20,7 @@ class SelectTrainerViewModel: NetworkManager, ObservableObject {
 //                       8: Trainer(id: 8, age: 32, gender: "Дядя", name: "Кирюха", experience: 8, sport: "Дотер", image: "image"),
 //                       9: Trainer(id: 9, age: 32, gender: "Дядя", name: "Кирюха", experience: 9, sport: "Дотер", image: "image")]
     @Published var trainerList: [Int: TrainerElement] = [:]
+    @Published var reviewList: [Int: [Review]] = [:]
 //    var getTrainerList: [Trainer] {
 //        get {
 //            [Trainer](trainerList.values)
@@ -38,7 +39,7 @@ class SelectTrainerViewModel: NetworkManager, ObservableObject {
         if let data = response?.0 {
             if let trainerListWelcome = try? JSONDecoder().decode([TrainerElement].self, from: data) {
                 for i in trainerListWelcome {
-
+                    await getReviews(id: i.user.id)
                    
                     if let imageURL = i.user.image {
                         if images[imageURL] == nil {
@@ -78,6 +79,47 @@ class SelectTrainerViewModel: NetworkManager, ObservableObject {
                         {"users": \([trainerID, UserDefaults.standard.integer(forKey: "userID")])}
                 """
             print(jsonString)
+            let data = jsonString.data(using: .utf8)
+            request.httpBody = data
+            
+            let response = try! await URLSession.shared.data(for: request)
+            print("respnse \(response)")
+        }
+    }
+    
+    func getReviews(id: Int) async {
+        let url = URL(string: "http://158.160.13.5:8080/users/\(id)/reviews")!
+        let response = try? await URLSession.shared.data(for: URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData))
+        if let data = response?.0 {
+            if let reviewElement = try? JSONDecoder().decode([Review].self, from: data) {
+                await MainActor.run {
+                    reviewList[id] = reviewElement
+                    print(id)
+                    Logger().log(level: .info, "SelectTrainerViewModel: sucsessful to downlowd reviews. Count: \(reviewElement.count)")
+                }
+            } else {
+                Logger().log(level: .info, "SelectTrainerViewModel: getReviews: Fail json parsing")
+                
+            }
+        } else {
+            Logger().log(level: .info, "SelectTrainerViewModel: getReviews: Data is nil")
+        }
+    }
+    
+    func sendReview(text: String, userID: Int, trainerID: Int, mark: Int) async {
+        let text = text.trimmingCharacters(in: .whitespaces)
+        Task {
+            let url = URL(string: "http://158.160.13.5:8080/review")!
+            var request = URLRequest(url: url)
+            
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            let jsonString = """
+                    {"author_user_id": \(userID)),
+                    "trainer_user_id": \(trainerID),
+                    "mark": \(mark),
+                    "text": "\(text)"}
+            """
             let data = jsonString.data(using: .utf8)
             request.httpBody = data
             
