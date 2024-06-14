@@ -18,7 +18,7 @@ struct SelectChatView: View {
         ZStack {
             Color(.appLigntGray)
                 .ignoresSafeArea()
-            ScrollView {
+            ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 0, content: {
                     
                
@@ -34,6 +34,7 @@ struct SelectChatView: View {
                 })
                 
             }
+            
         }
         .navigationTitle("Чаты")
         

@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import PhotosUI
+import UIKit
 
 struct MyProfileView: View {
     @StateObject var myProfileViewModel = MyProfileViewModel.shared
@@ -16,65 +18,140 @@ struct MyProfileView: View {
     @State var weight: String = ""
     @State var height: String = ""
     @State var goal: String = ""
+    
+    @State private var imageItem: PhotosPickerItem?
+    @State private var selectedImage: Data?
     var body: some View {
         
-            VStack {
-                
+        VStack(spacing: 2) {
+            
+            PhotosPicker(selection: $imageItem, matching: .images) {
                 let image = singlUser?.user.image ?? ""
-                Image(uiImage: UIImage(data: myProfileViewModel.images[image] ?? Data()) ?? UIImage(named: "SpongeBob")!)
+                Image(uiImage: UIImage(data: (selectedImage ?? myProfileViewModel.images[image]) ?? Data()) ?? UIImage(named: "SpongeBob")!)
                     .resizable()
-                    .frame(width: 350, height: 350)
+                    .frame(width: UIScreen.main.bounds.size.width - 30, height: UIScreen.main.bounds.size.width - 30)
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                    .scaledToFit()
+                    
+            }
+            .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+            
+            .onChange(of: imageItem) {
+                Task {
+                    if let loaded = try? await imageItem?.loadTransferable(type: Data.self) {
+                        print(loaded)
+                        
+                        selectedImage = loaded
+                    } else {
+                        print("Failed")
+                    }
+                }
+            }
+//            let image = singlUser?.user.image ?? ""
+//            Image(uiImage: UIImage(data: myProfileViewModel.images[image] ?? Data()) ?? UIImage(named: "SpongeBob")!)
+//                .resizable()
+//                .frame(width: UIScreen.main.bounds.size.width - 30, height: UIScreen.main.bounds.size.width - 30)
+//                .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+            HStack {
+                Text("Имя:")
+                    .font(.system(size: 10, weight: .medium))
+                    .foregroundStyle(.appDarkGray)
+                Spacer()
+            }
+            HStack {
+                TextField("заполнить", text: $name)
+                    .font(.system(size: 18, weight: .bold))
+                Spacer()
+            }
+            HStack {
+                Text("Цель:")
+                    .font(.system(size: 10, weight: .medium))
+                    .foregroundStyle(.appDarkGray)
+                Spacer()
+            }
+            HStack {
+                TextField("заполнить", text: $goal)
+                    .font(.system(size: 18, weight: .bold))
+                Spacer()
+            }
+            HStack {
+                Text("Пол:")
+                    .font(.system(size: 10, weight: .medium))
+                    .foregroundStyle(.appDarkGray)
+                Spacer()
+            }
+            HStack {
                 
-                HStack {
-                    Text("Имя:")
-                    TextField("заполнить", text: $name)
-                    Spacer()
-                }
-                HStack {
-                    Text("Цель:")
-                    TextField("заполнить", text: $goal)
-                    Spacer()
-                }
-                HStack {
-                    Text("Пол:")
-                    TextField("заполнить", text: $gender)
-                    Spacer()
-                }
-                HStack {
-                    Text("Вес:")
-                    TextField("заполнить", text: $weight)
-                    Spacer()
-                }
-                HStack {
-                    Text("Рост:")
-                    TextField("заполнить", text: $height)
-                    Spacer()
-                }
-                HStack {
-                    Text("Возраст:")
-                    TextField("заполнить", text: $age)
-                    Spacer()
-                }
+                TextField("заполнить", text: $gender)
+                    .font(.system(size: 18, weight: .bold))
+                Spacer()
+            }
+            HStack {
+                Text("Вес:")
+                    .font(.system(size: 10, weight: .medium))
+                    .foregroundStyle(.appDarkGray)
+                Spacer()
+            }
+            HStack {
+                
+                TextField("заполнить", text: $weight)
+                    .font(.system(size: 18, weight: .bold))
+                Spacer()
+            }
+            HStack {
+                Text("Рост:")
+                    .font(.system(size: 10, weight: .medium))
+                    .foregroundStyle(.appDarkGray)
+                Spacer()
+            }
+            HStack {
+                
+                TextField("заполнить", text: $height)
+                    .font(.system(size: 18, weight: .bold))
+                Spacer()
+            }
+            HStack {
+                Text("Возраст:")
+                    .font(.system(size: 10, weight: .medium))
+                    .foregroundStyle(.appDarkGray)
+                Spacer()
+            }
+            HStack {
+                
+                TextField("заполнить", text: $age)
+                    .font(.system(size: 18, weight: .bold))
+                Spacer()
+            }
+            Spacer()
+            HStack {
                 Spacer()
                 Button(action: {
                     Task {
-                        await myProfileViewModel.updateMyProfile(name: name, gender: gender, age: age, weight: weight, height: height, goal: goal, image: nil)
+                        await myProfileViewModel.updateMyProfile(name: name, gender: gender, age: age, weight: weight, height: height, goal: goal, image: selectedImage)
                     }
                 }, label: {
-                    Text("Сохранить")
-                        .padding(10)
+                    Image(systemName: "square.and.arrow.down")
+                        .padding(15)
                         .background(.appBlack)
                         .foregroundColor(.appWhite)
-                        .cornerRadius(12)
+                        .cornerRadius(20)
+                    
                 })
-                .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                
             }
+            .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+        }
         
-        .frame(width: 350)
+        .frame(width: UIScreen.main.bounds.size.width - 30)
         .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
         .onAppear() {
             Task {
                 singlUser = await myProfileViewModel.getSelfProfile()
+                if let imageURL = singlUser?.user.image {
+                    if let image = myProfileViewModel.images[imageURL] {
+                        selectedImage = image
+                    }
+                }
                 if let name = singlUser?.profile?.name {
                     self.name = name
                 }

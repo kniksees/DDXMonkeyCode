@@ -8,14 +8,26 @@
 import Foundation
 
 class NetworkManager {
-    func getMesssges() async -> Response {
-        let url = URL(string: "https://rickandmortyapi.com/api/character")!
-        let (data, _) = try! await URLSession.shared.data(from: url)
-        return try! JSONDecoder().decode(Response.self, from: data)
-    }
-    
-    struct Response: Decodable {
-        var users: [String]
+    func uploadImage(image: Data) async -> Data? {
+        guard let url = URL(string: "http://158.160.13.5:8080/upload") else {
+            return nil
+        }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("multipart/form-data", forHTTPHeaderField: "Content-Type")
+        
+        let boundary = "Boundary-\(UUID().uuidString)"
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        
+        var data = Data()
+        data.append("--\(boundary)\r\n".data(using: .utf8)!)
+        data.append("Content-Disposition: form-data; name=\"image\"; filename=\"result_arabic.jpeg\"\r\n".data(using: .utf8)!)
+        data.append("Content-Type: image/jpeg\r\n\r\n".data(using: .utf8)!)
+        data.append(image)
+        data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
+        
+        let response = try! await URLSession.shared.upload(for: request, from: data)
+        return response.0
     }
 
 }

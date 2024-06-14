@@ -7,32 +7,13 @@
 
 import Foundation
 import OSLog
-class MyProfileViewModel: ObservableObject {
-    private init() {}
+class MyProfileViewModel: NetworkManager, ObservableObject {
+    private override init() {}
     static var shared = MyProfileViewModel()
     @Published var images: Dictionary<String, Data> = [:]
     
-    func uploadImage(image: Data) async -> Data? {
-        guard let url = URL(string: "http://158.160.13.5:8080/upload") else {
-            return nil
-        }
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("multipart/form-data", forHTTPHeaderField: "Content-Type")
-        
-        let boundary = "Boundary-\(UUID().uuidString)"
-        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-        
-        var data = Data()
-        data.append("--\(boundary)\r\n".data(using: .utf8)!)
-        data.append("Content-Disposition: form-data; name=\"image\"; filename=\"result_arabic.jpeg\"\r\n".data(using: .utf8)!)
-        data.append("Content-Type: image/jpeg\r\n\r\n".data(using: .utf8)!)
-        data.append(image)
-        data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
-        
-        let response = try! await URLSession.shared.upload(for: request, from: data)
-        return response.0
-    }
+
+    
     
     func updateProfile(id: Int, name: String, gender: String, age: String, weight: String, height: String, goal: String, image: Data?) async {
         var imageUploadID: Int? = nil
@@ -51,29 +32,29 @@ class MyProfileViewModel: ObservableObject {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         var jsonString = ""
         if imageUploadID != nil {
-//            jsonString = """
-//                    {"name": "\(name)",
-//                    "gender": "\(gender)",
-//                    "age": \(age),
-//                    "weight": \(weight),
-//                    "height": \(height),
-//                    "goal": "\(goal)",
-//                    "image_id": \(imageUploadID!)}
-//            """
+            //            jsonString = """
+            //                    {"name": "\(name)",
+            //                    "gender": "\(gender)",
+            //                    "age": \(age),
+            //                    "weight": \(weight),
+            //                    "height": \(height),
+            //                    "goal": "\(goal)",
+            //                    "image_id": \(imageUploadID!)}
+            //            """
             jsonString = """
                     {"gender": "\(gender)"}
             """
         } else {
-//            jsonString = """
-//                    {"name": "\(name)",
-//                    "gender": "\(gender)",
-//                    "age": \(age),
-//                    "weight": \(weight),
-//                    "height": \(height),
-//                    "goal": "\(goal)"}
-//            """
-                        jsonString = """
-                                                    {"gender": "\(gender)"}
+            //            jsonString = """
+            //                    {"name": "\(name)",
+            //                    "gender": "\(gender)",
+            //                    "age": \(age),
+            //                    "weight": \(weight),
+            //                    "height": \(height),
+            //                    "goal": "\(goal)"}
+            //            """
+            jsonString = """
+                        {"gender": "\(gender)"}
                         """
         }
         
