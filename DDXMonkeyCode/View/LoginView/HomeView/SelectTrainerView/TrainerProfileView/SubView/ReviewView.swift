@@ -9,11 +9,19 @@ import SwiftUI
 
 struct ReviewView: View {
     var text: String
+    var mark: Int
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 25)
                 .foregroundStyle(.appLigntGray)
             VStack() {
+                HStack {
+                    Text(String(mark))
+                        .font(.system(size: 20, weight: .regular))
+                    Image(systemName: "star.fill")
+                        .font(.system(size: 14, weight: .regular))
+                    Spacer()
+                }
                 HStack {
                     Text(text)
                         .font(.system(size: 14, weight: .regular))
@@ -28,5 +36,5 @@ struct ReviewView: View {
 }
 
 #Preview {
-    ReviewView(text: "Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв ")
+    ReviewView(text: "Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв Отзыв ", mark: 5)
 }

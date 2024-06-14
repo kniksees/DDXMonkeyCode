@@ -112,8 +112,8 @@ struct TrainerProfileView: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 3) {
                             ForEach(reviews, id: \.self) { review in
-                                if let text = review.text {
-                                    ReviewView(text: text)
+                                if let text = review.text  {
+                                    ReviewView(text: text, mark: review.mark)
                                 }
                             }
                             SendReviewView(id: trainer.user.id)
