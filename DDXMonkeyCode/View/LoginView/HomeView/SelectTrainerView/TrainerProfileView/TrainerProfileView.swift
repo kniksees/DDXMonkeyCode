@@ -10,24 +10,26 @@ import SwiftUI
 struct TrainerProfileView: View {
     let id: Int
     let selectTrainerViewModel = SelectTrainerViewModel.shared
-    var trainer: Trainer {
+    var trainer: TrainerElement {
         get {
             selectTrainerViewModel.trainerList[id]!
         }
     }
     var body: some View {
         VStack {
-            Image(uiImage: UIImage(data: selectTrainerViewModel.images[trainer.image]!!)!)
+            var imageData = (selectTrainerViewModel.images[trainer.user.image ?? ""] ?? Data()) ?? Data()
+            Image(uiImage: UIImage(data: imageData) ?? UIImage())
                 .resizable()
                 .frame(width: 350, height: 350)
+                .cornerRadius(16)
             HStack {
-                Text(trainer.name)
+                Text(trainer.profile.name ?? "")
                     .font(.system(size: 18, weight: .medium))
                     .foregroundStyle(Color(.black))
                 Spacer()
             }
             HStack {
-                Text("Стаж \(trainer.experience) лет")
+                Text("Возраст \(trainer.profile.age)")
                     .font(.system(size: 14, weight: .regular))
                     .foregroundStyle(Color(.gray))
                 Spacer()

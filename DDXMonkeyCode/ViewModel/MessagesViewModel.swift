@@ -183,51 +183,7 @@ class MessagesViewModel: NetworkManager, ObservableObject {
     }
 }
 
-typealias Welcome = [Chat]
 
-struct ImageResponse: Codable {
-    let id: Int
-    let url: String
-}
-
-struct Chat: Codable, Hashable {
-    static func == (lhs: Chat, rhs: Chat) -> Bool {
-        lhs.user.id == rhs.user.id
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(user.id)
-    }
-    var chat: Int
-    var messages: [Message]
-    let user: User
-    let profile: Profile?
-}
-
-struct Message: Codable, Hashable {
-    
-    static func == (lhs: Message, rhs: Message) -> Bool {
-        lhs.id == rhs.id
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-    
-    let id: Int
-    let image: String?
-    let sender: Int
-    let text: String?
-    let time: Int
-    var imageData: Data?
-}
-
-struct User: Codable {
-    let id: Int
-    let image: String?
-    let type: String
-    let username: String
-}
 
 
 

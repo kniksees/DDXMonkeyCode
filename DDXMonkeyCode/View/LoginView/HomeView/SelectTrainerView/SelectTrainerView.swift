@@ -20,13 +20,18 @@ struct SelectTrainerView: View {
                     GridItem(.flexible())
                 ]) {
                     ForEach(selectTrainerViewModel.getTrainerList, id: \.self) { trainer in
-                        TrainerCellView(id: trainer.id)
+                        TrainerCellView(id: trainer.user.id)
                     }
                     
                 }
                 Spacer(minLength: 15)
             }
             .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+        }
+        .onAppear() {
+            Task {
+                await selectTrainerViewModel.getTrainers()
+            }
         }
     }
 }

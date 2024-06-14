@@ -31,8 +31,9 @@ class MyProfileViewModel: NetworkManager, ObservableObject {
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         var jsonString = ""
-        if imageUploadID != nil {
-                        jsonString = """
+        if !goal.isEmpty {
+            if imageUploadID != nil {
+                jsonString = """
                                 {"name": "\(name)",
                                 "gender": "\(gender)",
                                 "age": \(age),
@@ -41,11 +42,8 @@ class MyProfileViewModel: NetworkManager, ObservableObject {
                                 "goal": "\(goal)",
                                 "image_id": \(imageUploadID!)}
                         """
-//            jsonString = """
-//                    {"gender": "\(gender)"}
-//            """
-        } else {
-                        jsonString = """
+            } else {
+                jsonString = """
                                 {"name": "\(name)",
                                 "gender": "\(gender)",
                                 "age": \(age),
@@ -53,9 +51,26 @@ class MyProfileViewModel: NetworkManager, ObservableObject {
                                 "height": \(height),
                                 "goal": "\(goal)"}
                         """
-//            jsonString = """
-//                        {"gender": "\(gender)"}
-//                        """
+            }
+        } else {
+            if imageUploadID != nil {
+                jsonString = """
+                                {"name": "\(name)",
+                                "gender": "\(gender)",
+                                "age": \(age),
+                                "weight": \(weight),
+                                "height": \(height),
+                                "image_id": \(imageUploadID!)}
+                        """
+            } else {
+                jsonString = """
+                                {"name": "\(name)",
+                                "gender": "\(gender)",
+                                "age": \(age),
+                                "weight": \(weight),
+                                "height": \(height), 
+                        """
+            }
         }
         
         
@@ -113,20 +128,3 @@ class MyProfileViewModel: NetworkManager, ObservableObject {
 
 }
 
-struct SinglUser: Codable {
-    let profile: Profile?
-    let user: User
-}
-
-struct Profile: Codable {
-    let about: String?
-    let age: Int
-    let gender: String?
-    let height: Int?
-    let id: Int
-    let name: String?
-    let sports, tags: [String]?
-    let user_id: Int
-    let weight: Int?
-    let goal: String?
-}
