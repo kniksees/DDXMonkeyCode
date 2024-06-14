@@ -94,7 +94,7 @@ class MessagesViewModel: NetworkManager, ObservableObject {
     private var timer: Timer?
     
     func startTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { [weak self] _ in
             DispatchQueue.main.async {
                 Task {
                     await self?.fetchData()
@@ -116,15 +116,19 @@ class MessagesViewModel: NetworkManager, ObservableObject {
 
     
     func getAvatarsFromChatList(chatList: Welcome) async {
+        Logger().log(level: .info, "MessagesViewModel: getting avatars from chatLitst")
         for i in chatList {
-            guard let imageURL = i.user.image else {return}
+            guard let imageURL = i.user.image else {continue}
             if hashedImages[imageURL] == nil {
                 let imageData = await getImageDataByURL(url: imageURL)
+                Logger().log(level: .info, "MessagesViewModel: download")
+                Logger().log(level: .info, "MessagesViewModel: imageData \(imageData?.count ?? 0)")
                 await MainActor.run {
                     images[i.user.id] = imageData
                     hashedImages[i.user.image!] = imageData
                 }
             } else {
+                Logger().log(level: .info, "MessagesViewModel: getting from hash")
                 await MainActor.run {
                     images[i.user.id] = hashedImages[imageURL]
                 }
