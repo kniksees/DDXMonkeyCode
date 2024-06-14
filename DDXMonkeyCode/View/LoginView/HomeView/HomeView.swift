@@ -12,7 +12,7 @@ struct HomeView: View {
     @StateObject private var viewModel = TabViewViewModel.shared
     
     @State private var selection = 0
-    
+    @State private var isFirstAppear = true
     var body: some View {
         TabView(selection: $selection) {
             Group {
@@ -47,7 +47,14 @@ struct HomeView: View {
         }
         .background(.appWhite)
         .onAppear() {
+            
             UITabBar.appearance().isTranslucent = false
+            if isFirstAppear {
+                Task {
+                    await ExcercisesViewModel.shared.getExcercises()
+                    isFirstAppear = false
+                }
+            }
         }
         .onChange(of: selection) { newValue in
             viewModel.selectedTab = selection

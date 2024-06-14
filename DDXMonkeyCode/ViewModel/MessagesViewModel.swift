@@ -116,7 +116,6 @@ class MessagesViewModel: NetworkManager, ObservableObject {
 
     
     func getAvatarsFromChatList(chatList: Welcome) async {
-        Logger().log(level: .info, "MessagesViewModel: getting avatars from chatLitst")
         for i in chatList {
             guard let imageURL = i.user.image else {continue}
             if hashedImages[imageURL] == nil {
@@ -128,7 +127,6 @@ class MessagesViewModel: NetworkManager, ObservableObject {
                     hashedImages[i.user.image!] = imageData
                 }
             } else {
-                Logger().log(level: .info, "MessagesViewModel: getting from hash")
                 await MainActor.run {
                     images[i.user.id] = hashedImages[imageURL]
                 }
@@ -175,10 +173,10 @@ class MessagesViewModel: NetworkManager, ObservableObject {
                 await getAvatarsFromChatList(chatList: welcome)
                 await getImagesFromChatList(chatList: welcome)
             } else {
-                Logger().log(level: .info, "Fail json parsing")
+                Logger().log(level: .info, "MessagesViewModel: getChat: Fail json parsing")
             }
         } else {
-            Logger().log(level: .info, "Data is nil")
+            Logger().log(level: .info, "MessagesViewModel: getChat: Data is nil")
         }
     }
 }

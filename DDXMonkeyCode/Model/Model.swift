@@ -62,6 +62,7 @@ struct Message: Codable, Hashable {
     let sender: Int
     let text: String?
     let time: Int
+    let excercises: [Int]?
     var imageData: Data?
 }
 
@@ -116,4 +117,14 @@ struct Review: Codable, Hashable {
     let text: String?
     let trainer_user_id: Int
 }
+
+struct Excercise: Codable {
+    let difficulty: String
+    let equipment: [String]
+    let id: Int
+    let images: [String]
+    let muscles: [String]
+    let name, type: String
+}
+
 
