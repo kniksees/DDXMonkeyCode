@@ -12,16 +12,16 @@ class MyProfileViewModel: NetworkManager, ObservableObject {
     static var shared = MyProfileViewModel()
     @Published var images: Dictionary<String, Data> = [:]
     
-
-    
-    
     func updateProfile(id: Int, name: String, gender: String, age: String, weight: String, height: String, goal: String, image: Data?) async {
         var imageUploadID: Int? = nil
         if image != nil {
             let imageJsonData = await uploadImage(image: image!)
             let imageResponse = try! JSONDecoder().decode(ImageResponse.self, from: imageJsonData!)
             imageUploadID = imageResponse.id
-            images[imageResponse.url] = image
+            await MainActor.run {
+                images[imageResponse.url] = image
+            }
+
         } else {
             Logger().log(level: .info, "MyProfileViewModel: Image data id nil")
         }
@@ -32,30 +32,30 @@ class MyProfileViewModel: NetworkManager, ObservableObject {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         var jsonString = ""
         if imageUploadID != nil {
-            //            jsonString = """
-            //                    {"name": "\(name)",
-            //                    "gender": "\(gender)",
-            //                    "age": \(age),
-            //                    "weight": \(weight),
-            //                    "height": \(height),
-            //                    "goal": "\(goal)",
-            //                    "image_id": \(imageUploadID!)}
-            //            """
-            jsonString = """
-                    {"gender": "\(gender)"}
-            """
-        } else {
-            //            jsonString = """
-            //                    {"name": "\(name)",
-            //                    "gender": "\(gender)",
-            //                    "age": \(age),
-            //                    "weight": \(weight),
-            //                    "height": \(height),
-            //                    "goal": "\(goal)"}
-            //            """
-            jsonString = """
-                        {"gender": "\(gender)"}
+                        jsonString = """
+                                {"name": "\(name)",
+                                "gender": "\(gender)",
+                                "age": \(age),
+                                "weight": \(weight),
+                                "height": \(height),
+                                "goal": "\(goal)",
+                                "image_id": \(imageUploadID!)}
                         """
+//            jsonString = """
+//                    {"gender": "\(gender)"}
+//            """
+        } else {
+                        jsonString = """
+                                {"name": "\(name)",
+                                "gender": "\(gender)",
+                                "age": \(age),
+                                "weight": \(weight),
+                                "height": \(height),
+                                "goal": "\(goal)"}
+                        """
+//            jsonString = """
+//                        {"gender": "\(gender)"}
+//                        """
         }
         
         
@@ -78,6 +78,7 @@ class MyProfileViewModel: NetworkManager, ObservableObject {
     }
     
     func getProfile(id: Int) async -> SinglUser? {
+        
         Logger().log(level: .info, "MyProfileViewModel: Getting self profile")
         
         guard let profileURL = URL(string: "http://158.160.13.5:8080/users/\(id)/profile") else {
@@ -93,7 +94,12 @@ class MyProfileViewModel: NetworkManager, ObservableObject {
         if let singlUser = try? JSONDecoder().decode(SinglUser.self, from: response.0 ) {
             Logger().log(level: .info, "MyProfileViewModel: Successfull to download profile")
             if let image = singlUser.user.image {
-                images[image] = await getImageDataByURL(url: image)
+                Task {
+                    let imageData = await self.getImageDataByURL(url: image)
+                    await MainActor.run {
+                        images[image] = imageData
+                    }
+                }
             }
             return singlUser
         } else {
@@ -104,23 +110,7 @@ class MyProfileViewModel: NetworkManager, ObservableObject {
         }
     }
     
-    func getImageDataByURL(url: String?) async -> Data? {
-        guard let url else {
-            return nil
-        }
-        guard let imageURL = URL(string: url) else {
-            Logger().log(level: .info, "Failed to parse url")
-            return nil
-        }
-        let resquest = URLRequest(url: imageURL, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
-        Logger().log(level: .info, "Downloading image")
-        guard let response = try? await URLSession.shared.data(for: resquest) else {
-            Logger().log(level: .info, "Failed to get image data")
-            return nil
-        }
-        
-        return response.0
-    }
+
 }
 
 struct SinglUser: Codable {

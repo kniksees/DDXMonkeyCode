@@ -22,126 +22,126 @@ struct MyProfileView: View {
     @State private var imageItem: PhotosPickerItem?
     @State private var selectedImage: Data?
     var body: some View {
-        
-        VStack(spacing: 2) {
-            
-            PhotosPicker(selection: $imageItem, matching: .images) {
-                let image = singlUser?.user.image ?? ""
-                Image(uiImage: UIImage(data: (selectedImage ?? myProfileViewModel.images[image]) ?? Data()) ?? UIImage(named: "SpongeBob")!)
-                    .resizable()
-                    .frame(width: UIScreen.main.bounds.size.width - 30, height: UIScreen.main.bounds.size.width - 30)
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
-                    .scaledToFit()
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: 2) {
+                
+                PhotosPicker(selection: $imageItem, matching: .images) {
+                    let image = singlUser?.user.image ?? ""
+                    Image(uiImage: UIImage(data: (selectedImage ?? myProfileViewModel.images[image]) ?? Data()) ?? UIImage(systemName: "person")!)
+                        .resizable()
+                        .frame(width: UIScreen.main.bounds.size.width - 30, height: UIScreen.main.bounds.size.width - 30)
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                        .scaledToFit()
                     
-            }
-            .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
-            
-            .onChange(of: imageItem) {
-                Task {
-                    if let loaded = try? await imageItem?.loadTransferable(type: Data.self) {
-                        print(loaded)
-                        
-                        selectedImage = loaded
-                    } else {
-                        print("Failed")
+                }
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                
+                .onChange(of: imageItem) {
+                    Task {
+                        if let loaded = try? await imageItem?.loadTransferable(type: Data.self) {
+                            print(loaded)
+                            
+                            selectedImage = loaded
+                        } else {
+                            print("Failed")
+                        }
                     }
                 }
-            }
-//            let image = singlUser?.user.image ?? ""
-//            Image(uiImage: UIImage(data: myProfileViewModel.images[image] ?? Data()) ?? UIImage(named: "SpongeBob")!)
-//                .resizable()
-//                .frame(width: UIScreen.main.bounds.size.width - 30, height: UIScreen.main.bounds.size.width - 30)
-//                .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
-            HStack {
-                Text("Имя:")
-                    .font(.system(size: 10, weight: .medium))
-                    .foregroundStyle(.appDarkGray)
-                Spacer()
-            }
-            HStack {
-                TextField("заполнить", text: $name)
-                    .font(.system(size: 18, weight: .bold))
-                Spacer()
-            }
-            HStack {
-                Text("Цель:")
-                    .font(.system(size: 10, weight: .medium))
-                    .foregroundStyle(.appDarkGray)
-                Spacer()
-            }
-            HStack {
-                TextField("заполнить", text: $goal)
-                    .font(.system(size: 18, weight: .bold))
-                Spacer()
-            }
-            HStack {
-                Text("Пол:")
-                    .font(.system(size: 10, weight: .medium))
-                    .foregroundStyle(.appDarkGray)
-                Spacer()
-            }
-            HStack {
-                
-                TextField("заполнить", text: $gender)
-                    .font(.system(size: 18, weight: .bold))
-                Spacer()
-            }
-            HStack {
-                Text("Вес:")
-                    .font(.system(size: 10, weight: .medium))
-                    .foregroundStyle(.appDarkGray)
-                Spacer()
-            }
-            HStack {
-                
-                TextField("заполнить", text: $weight)
-                    .font(.system(size: 18, weight: .bold))
-                Spacer()
-            }
-            HStack {
-                Text("Рост:")
-                    .font(.system(size: 10, weight: .medium))
-                    .foregroundStyle(.appDarkGray)
-                Spacer()
-            }
-            HStack {
-                
-                TextField("заполнить", text: $height)
-                    .font(.system(size: 18, weight: .bold))
-                Spacer()
-            }
-            HStack {
-                Text("Возраст:")
-                    .font(.system(size: 10, weight: .medium))
-                    .foregroundStyle(.appDarkGray)
-                Spacer()
-            }
-            HStack {
-                
-                TextField("заполнить", text: $age)
-                    .font(.system(size: 18, weight: .bold))
-                Spacer()
-            }
-            Spacer()
-            HStack {
-                Spacer()
-                Button(action: {
-                    Task {
-                        await myProfileViewModel.updateMyProfile(name: name, gender: gender, age: age, weight: weight, height: height, goal: goal, image: selectedImage)
-                    }
-                }, label: {
-                    Image(systemName: "square.and.arrow.down")
-                        .padding(15)
-                        .background(.appBlack)
-                        .foregroundColor(.appWhite)
-                        .cornerRadius(20)
+                //            let image = singlUser?.user.image ?? ""
+                //            Image(uiImage: UIImage(data: myProfileViewModel.images[image] ?? Data()) ?? UIImage(named: "SpongeBob")!)
+                //                .resizable()
+                //                .frame(width: UIScreen.main.bounds.size.width - 30, height: UIScreen.main.bounds.size.width - 30)
+                //                .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                HStack {
+                    Text("Имя:")
+                        .font(.system(size: 10, weight: .medium))
+                        .foregroundStyle(.appDarkGray)
+                    Spacer()
+                }
+                HStack {
+                    TextField("заполнить", text: $name)
+                        .font(.system(size: 18, weight: .bold))
+                    Spacer()
+                }
+                HStack {
+                    Text("Цель:")
+                        .font(.system(size: 10, weight: .medium))
+                        .foregroundStyle(.appDarkGray)
+                    Spacer()
+                }
+                HStack {
+                    TextField("заполнить", text: $goal)
+                        .font(.system(size: 18, weight: .bold))
+                    Spacer()
+                }
+                HStack {
+                    Text("Пол:")
+                        .font(.system(size: 10, weight: .medium))
+                        .foregroundStyle(.appDarkGray)
+                    Spacer()
+                }
+                HStack {
                     
-                })
-                
+                    TextField("заполнить", text: $gender)
+                        .font(.system(size: 18, weight: .bold))
+                    Spacer()
+                }
+                HStack {
+                    Text("Вес:")
+                        .font(.system(size: 10, weight: .medium))
+                        .foregroundStyle(.appDarkGray)
+                    Spacer()
+                }
+                HStack {
+                    
+                    TextField("заполнить", text: $weight)
+                        .font(.system(size: 18, weight: .bold))
+                    Spacer()
+                }
+                HStack {
+                    Text("Рост:")
+                        .font(.system(size: 10, weight: .medium))
+                        .foregroundStyle(.appDarkGray)
+                    Spacer()
+                }
+                HStack {
+                    
+                    TextField("заполнить", text: $height)
+                        .font(.system(size: 18, weight: .bold))
+                    Spacer()
+                }
+                HStack {
+                    Text("Возраст:")
+                        .font(.system(size: 10, weight: .medium))
+                        .foregroundStyle(.appDarkGray)
+                    Spacer()
+                }
+                HStack {
+                    
+                    TextField("заполнить", text: $age)
+                        .font(.system(size: 18, weight: .bold))
+                    Spacer()
+                }
+                Spacer()
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        Task {
+                            await myProfileViewModel.updateMyProfile(name: name, gender: gender, age: age, weight: weight, height: height, goal: goal, image: selectedImage)
+                        }
+                    }, label: {
+                        Image(systemName: "square.and.arrow.down")
+                            .padding(15)
+                            .background(.appBlack)
+                            .foregroundColor(.appWhite)
+                            .cornerRadius(20)
+                        
+                    })
+                    
+                }
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
             }
-            .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
         }
-        
         .frame(width: UIScreen.main.bounds.size.width - 30)
         .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
         .onAppear() {

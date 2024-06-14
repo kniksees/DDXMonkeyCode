@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 class NetworkManager {
     func uploadImage(image: Data) async -> Data? {
@@ -30,6 +31,23 @@ class NetworkManager {
         return response.0
     }
 
+    func getImageDataByURL(url: String?) async -> Data? {
+        guard let url else {
+            return nil
+        }
+        guard let imageURL = URL(string: url) else {
+            Logger().log(level: .info, "Failed to parse url")
+            return nil
+        }
+        let resquest = URLRequest(url: imageURL, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
+        Logger().log(level: .info, "Downloading image")
+        guard let response = try? await URLSession.shared.data(for: resquest) else {
+            Logger().log(level: .info, "Failed to get image data")
+            return nil
+        }
+        
+        return response.0
+    }
 }
 
 

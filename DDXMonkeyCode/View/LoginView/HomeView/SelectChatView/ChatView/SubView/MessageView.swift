@@ -30,25 +30,28 @@ struct MessageView: View {
                 }
                 VStack {
                     if message.imageData != nil {
-                        if message.sender == sender {
-                            HStack {
-                                Spacer()
-                                Text(message.text ?? "")
-                            }
-                            .frame(maxWidth: 250)
-                        } else {
-                            HStack {
-                                
-                                Text(message.text ?? "")
-                                Spacer()
-                            }
-                            .frame(maxWidth: 250)
-                        }
+
                         Image(uiImage: UIImage(data: message.imageData!) ?? UIImage())
                             .resizable()
-                            .aspectRatio(contentMode: .fit)
+                            .scaledToFit()
                             .frame(maxWidth: 250)
                             .cornerRadius(12)
+                        if let text = message.text, !text.isEmpty {
+                            if message.sender == sender {
+                                HStack {
+                                    Spacer()
+                                    Text(text)
+                                }
+                                .frame(maxWidth: 250)
+                            } else {
+                                HStack {
+                                    
+                                    Text(text)
+                                    Spacer()
+                                }
+                                .frame(maxWidth: 250)
+                            }
+                        }
                         
                     } else {
                         Text(message.text ?? "")
@@ -57,7 +60,7 @@ struct MessageView: View {
                 .padding(10)
                 .background(message.sender == sender ? Color.blue : Color.gray.opacity(0.2))
                 .foregroundColor(message.sender == sender ? .white : .black)
-                .cornerRadius(12)
+                .cornerRadius(16)
                 .contextMenu {
                     if let imageData = message.imageData {
                         Button {
