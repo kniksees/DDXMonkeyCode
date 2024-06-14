@@ -119,10 +119,14 @@ struct SinglUser: Codable {
 }
 
 struct Profile: Codable {
+    let about: String?
     let age: Int
-    let gender, goal: String
-    let height, id: Int
-    let name: String
-    let user_id, weight: Int
-    let sports: [String]?
+    let gender: String?
+    let height: Int?
+    let id: Int
+    let name: String?
+    let sports, tags: [String]?
+    let user_id: Int
+    let weight: Int?
+    let goal: String?
 }

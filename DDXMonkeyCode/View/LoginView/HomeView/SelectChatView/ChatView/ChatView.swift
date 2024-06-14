@@ -44,7 +44,7 @@ struct ChatView: View {
         .toolbar {
             ToolbarItemGroup(placement: .principal) {
                 
-                Text(viewModel.chats[id]!.user.username)
+                Text(viewModel.chats[id]!.profile?.name ?? viewModel.chats[id]!.user.username)
                     .font(.system(size: 16, weight: .medium))
             }
             ToolbarItemGroup(placement: .topBarTrailing) {

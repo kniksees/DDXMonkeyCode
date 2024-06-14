@@ -94,7 +94,7 @@ class MessagesViewModel: NetworkManager, ObservableObject {
     private var timer: Timer?
     
     func startTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { [weak self] _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
             DispatchQueue.main.async {
                 Task {
                     await self?.fetchData()
@@ -201,6 +201,7 @@ struct Chat: Codable, Hashable {
     var chat: Int
     var messages: [Message]
     let user: User
+    let profile: Profile?
 }
 
 struct Message: Codable, Hashable {

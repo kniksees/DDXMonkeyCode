@@ -24,7 +24,10 @@ struct SelectChatView: View {
                
                 ForEach(viewModel.usersSorted, id: \.self) { chat in
                     Divider()
-                    SelectChatCellView(textName: chat.user.username,
+                        .onAppear() {
+                            print(chat.user.username)
+                        }
+                    SelectChatCellView(textName: chat.profile?.name ?? chat.user.username,
                                        textPreview: chat.messages.last?.text ?? "",
                                        targer: AnyView(ChatView(id: chat.chat)),
                                        image: Image(uiImage: UIImage(data: viewModel.images[chat.user.id] ?? Data()) ?? UIImage()),
