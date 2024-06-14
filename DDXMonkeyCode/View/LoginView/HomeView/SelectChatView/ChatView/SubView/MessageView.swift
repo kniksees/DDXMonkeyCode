@@ -77,6 +77,9 @@ struct MessageView: View {
                         }
                     }
                 }
+                if message.sender != sender {
+                    Spacer()
+                }
             }
             if (message.sender == sender) {
                 HStack {
