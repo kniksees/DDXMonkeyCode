@@ -128,3 +128,27 @@ struct Excercise: Codable {
 }
 
 
+
+
+struct TraineSlot: Codable {
+    let is_free: Bool
+    let time: Date
+}
+
+struct CalendarElement: Codable, Hashable {
+    static func == (lhs: CalendarElement, rhs: CalendarElement) -> Bool {
+        lhs.id ==  rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    let description: String?
+    let id: Int
+    let name: String?
+    let time_finish: Int
+    let time_start: Int
+    let trainer_user_id: Int
+    let user_id: Int?
+    let zoom_link: Int?
+}
