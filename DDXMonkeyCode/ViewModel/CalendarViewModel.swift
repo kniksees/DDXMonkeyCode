@@ -19,7 +19,6 @@ class CalendarViewModel {
         if let data = response?.0 {
             if let calendarElements = try? JSONDecoder().decode([CalendarElement].self, from: data) {
                 calendars[id] = calendarElements
-                print("----- \(calendarElements)")
             } else {
                 Logger().log(level: .info, "CalendarViewModel: getCalendar: Fail json parsing")
             }

@@ -21,6 +21,7 @@ struct MyProfileView: View {
     @State var sports: String = ""
     @State var tags: String = ""
     @State var about: String = ""
+    @State var experience: String = ""
     
     @State private var imageItem: PhotosPickerItem?
     @State private var selectedImage: Data?
@@ -114,6 +115,17 @@ struct MyProfileView: View {
                                 .font(.system(size: 18, weight: .bold))
                             Spacer()
                         }
+                        HStack {
+                            Text("Опыт:")
+                                .font(.system(size: 10, weight: .medium))
+                                .foregroundStyle(.appDarkGray)
+                            Spacer()
+                        }
+                        HStack {
+                            TextField("заполнить", text: $experience)
+                                .font(.system(size: 18, weight: .bold))
+                            Spacer()
+                        }
                     }
                 }
 
@@ -191,7 +203,7 @@ struct MyProfileView: View {
                             }
                             if type == "trainer" {
                                 Task {
-                                    await myProfileViewModel.updateMyProfile(type: type, name: name, gender: gender, age: age, weight: weight, height: height, image: selectedImage, sports: sports, tags: tags, about: about)
+                                    await myProfileViewModel.updateMyProfile(type: type, name: name, gender: gender, age: age, weight: weight, height: height, image: selectedImage, sports: sports, tags: tags, about: about, experience: experience)
                                 }
                             }
                         }

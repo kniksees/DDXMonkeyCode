@@ -96,16 +96,16 @@ class MyProfileViewModel: NetworkManager, ObservableObject {
         }
     }
     
-    func updateMyProfile(type: String, name: String, gender: String, age: String, weight: String, height: String, goal: String = "", image: Data?, sports: String = "", tags: String = "", about: String = "") async {
+    func updateMyProfile(type: String, name: String, gender: String, age: String, weight: String, height: String, goal: String = "", image: Data?, sports: String = "", tags: String = "", about: String = "", experience: String = "") async {
         let id = UserDefaults.standard.integer(forKey: "userID")
         if type == "trainer" {
-            await updateTrainerProfile(id: id, name: name, gender: gender, age: age, weight: weight, height: height, sports: sports, tags: tags, image: image, about: about)
+            await updateTrainerProfile(id: id, name: name, gender: gender, age: age, weight: weight, height: height, sports: sports, tags: tags, image: image, about: about, experience: experience)
         } else {
             await updateUserProfile(id: id, name: name, gender: gender, age: age, weight: weight, height: height, goal: goal, image: image)
         }
     }
     
-    func updateTrainerProfile(id: Int, name: String, gender: String, age: String, weight: String, height: String, sports: String, tags: String, image: Data?, about: String) async {
+    func updateTrainerProfile(id: Int, name: String, gender: String, age: String, weight: String, height: String, sports: String, tags: String, image: Data?, about: String, experience: String) async {
         var imageUploadID: Int? = nil
         if image != nil {
             let imageJsonData = await uploadImage(image: image!)
@@ -136,6 +136,7 @@ class MyProfileViewModel: NetworkManager, ObservableObject {
                             "sports": \(sports),
                             "tags": \(tags),
                             "about": "\(about)",
+                            "experience": \(experience),
                             "image_id": \(imageUploadID!)}
                     """
         } else {
@@ -147,6 +148,7 @@ class MyProfileViewModel: NetworkManager, ObservableObject {
                             "height": \(height),
                             "sports": \(sports),
                             "about": "\(about)",
+                            "experience": \(experience),
                             "tags": \(tags)}
                     """
         }
