@@ -19,6 +19,7 @@ class CalendarViewModel {
         if let data = response?.0 {
             if let calendarElements = try? JSONDecoder().decode([CalendarElement].self, from: data) {
                 calendars[id] = calendarElements
+                print("----- \(calendarElements)")
             } else {
                 Logger().log(level: .info, "CalendarViewModel: getCalendar: Fail json parsing")
             }
@@ -27,25 +28,27 @@ class CalendarViewModel {
         }
     }
     
-    func newWorkout(trainerID: Int, userID: Int? = nil, timeStart: Date, timeFinish: Date) async {
+    func newWorkout(trainerID: Int, userID: Int? = nil, timeStart: Date, timeFinish: Date, description: String, name: String) async {
         let url = URL(string: "http://158.160.13.5:8080/new-workout")!
         var request = URLRequest(url: url)
         
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//        var timeStart = timeStart.timeIntervalSince1970
-//        var a = Date.now.timeIntervalSince1970
         var jsonString = ""
         if let userID {
             jsonString = """
                             {"trainer_user_id": \(trainerID),
                             "user_id": \(userID),
+                            "description": "\(description)",
+                            "name": "\(name)",
                             "time_start": \(timeStart.timeIntervalSince1970),
                             "time_finish": \(timeFinish.timeIntervalSince1970)}
                     """
         } else {
             jsonString = """
                             {"trainer_user_id": \(trainerID),
+                            "description": "\(description)",
+                            "name": "\(name)",
                             "time_start": \(timeStart.timeIntervalSince1970),
                             "time_finish": \(timeFinish.timeIntervalSince1970)}
                     """
@@ -96,6 +99,7 @@ class CalendarViewModel {
     }
     
     func getCalendarDevided(calendar: [CalendarElement]) -> [[CalendarElement]] {
+        let calendar = calendar.filter({$0.time_start > Int(Date.now.timeIntervalSince1970)}).sorted(by: {$0.time_start < $1.time_start}) 
         if !calendar.isEmpty {
             print(calendar)
             //var temp: [[CalendarElement]] = [[calendar[0]]]
@@ -114,6 +118,41 @@ class CalendarViewModel {
             }
             for i in j + 1..<calendar.count {
                 if calendar[i].user_id == nil {
+                    let daysSinceEpoch = Calendar.current.dateComponents([.day], from: Date(timeIntervalSince1970: 0), to: Date(timeIntervalSince1970: TimeInterval(calendar[i].time_start))).day ?? 0
+                    let prevDaysSinceEpoch = Calendar.current.dateComponents([.day], from: Date(timeIntervalSince1970: 0), to: Date(timeIntervalSince1970: TimeInterval(calendar[i - 1].time_start))).day ?? 0
+                    if daysSinceEpoch == prevDaysSinceEpoch {
+                        temp[temp.count - 1].append(calendar[i])
+                    } else {
+                        temp.append([calendar[i]])
+                    }
+                }
+            }
+            print(temp)
+            return temp
+        }
+        return []
+    }
+    
+    func getCalendarDevidedForUser(calendar: [CalendarElement]) -> [[CalendarElement]] {
+        let calendar = calendar.filter({$0.time_start > Int(Date.now.timeIntervalSince1970)}).sorted(by: {$0.time_start < $1.time_start})
+        if !calendar.isEmpty {
+            print(calendar)
+            //var temp: [[CalendarElement]] = [[calendar[0]]]
+            var temp: [[CalendarElement]] = []
+            var j = 0
+            while j < calendar.count {
+                if calendar[j].user_id != nil {
+                    temp = [[calendar[j]]]
+                    break
+                }
+                j += 1
+            }
+
+            if j > calendar.count - 1{
+                return temp
+            }
+            for i in j + 1..<calendar.count {
+                if calendar[i].user_id != nil {
                     let daysSinceEpoch = Calendar.current.dateComponents([.day], from: Date(timeIntervalSince1970: 0), to: Date(timeIntervalSince1970: TimeInterval(calendar[i].time_start))).day ?? 0
                     let prevDaysSinceEpoch = Calendar.current.dateComponents([.day], from: Date(timeIntervalSince1970: 0), to: Date(timeIntervalSince1970: TimeInterval(calendar[i - 1].time_start))).day ?? 0
                     if daysSinceEpoch == prevDaysSinceEpoch {

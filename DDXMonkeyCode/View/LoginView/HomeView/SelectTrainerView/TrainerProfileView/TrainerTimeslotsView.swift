@@ -82,7 +82,7 @@ struct TrainerTimeslotsView: View {
                         ForEach(calendarDay, id: \.self) { slot in
                             Button(action: {
                                 Task {
-                                    await CalendarViewModel.shared.submitWorkout(userID: UserDefaults.standard.integer(forKey: "userID"), workoutID: slot.id, name: "123")
+                                    await CalendarViewModel.shared.submitWorkout(userID: UserDefaults.standard.integer(forKey: "userID"), workoutID: slot.id)
                                 }
                             }, label: {
                                 Text("\(CalendarViewModel.shared.convertDateToStringHHmm(date: slot.time_start)) - \(CalendarViewModel.shared.convertDateToStringHHmm(date: slot.time_finish))")
@@ -99,7 +99,6 @@ struct TrainerTimeslotsView: View {
                         }
                     }
                     .frame(width: UIScreen.main.bounds.size.width - 30)
-                    
                 }
             }
         }

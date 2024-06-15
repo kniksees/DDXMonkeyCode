@@ -14,10 +14,17 @@ struct AddTimeSlotView: View {
     @State var selectedDateStart: Date = Date.now
     @State var selectedDateFinish: Date = Date.now
     
+    @State var name: String = ""
+    @State var descripton: String = ""
+    
     var body: some View {
         ScrollView {
             VStack {
                 Spacer(minLength: 10)
+                VStack {
+                    TextField("name", text: $name)
+                    TextField("descripton", text: $descripton)
+                }.padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
                 Text("Начало тренировки")
                     .font(.system(size: 24, weight: .regular))
                 DatePicker("Начло",
@@ -35,7 +42,7 @@ struct AddTimeSlotView: View {
                 
                 Button(action: {
                     Task {
-                        await CalendarViewModel.shared.newWorkout(trainerID: UserDefaults.standard.integer(forKey: "userID"), timeStart: selectedDateStart, timeFinish: selectedDateFinish)
+                        await CalendarViewModel.shared.newWorkout(trainerID: UserDefaults.standard.integer(forKey: "userID"), timeStart: selectedDateStart, timeFinish: selectedDateFinish, description: descripton, name: name)
                     }
                 }, label: {
                     Text("Создать таймслот")
