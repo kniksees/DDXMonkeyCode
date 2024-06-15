@@ -11,7 +11,7 @@ import SwiftUI
 struct MyWorkoutsView: View {
     
     @State var calendarDevided: [[CalendarElement]] = []
-    
+    @StateObject var calendarViewModel = CalendarViewModel.shared
     var id = UserDefaults.standard.integer(forKey: "userID")
     
     var body: some View {
@@ -54,6 +54,27 @@ struct MyWorkoutsView: View {
                                             Spacer()
                                         }
                                         Spacer()
+                                        HStack {
+                           
+                                                Spacer()
+                                                
+                                                Text(calendarViewModel.profiles[slot.trainer_user_id]?.profile?.name ?? "Имя")
+                                                    .font(.system(size: 18, weight: .regular))
+                                                    .foregroundStyle(.appBlack)
+                                                    .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
+                                                if let imageURL = calendarViewModel.profiles[slot.trainer_user_id]?.user.image, let imageData = calendarViewModel.images[imageURL], let image = UIImage(data: imageData) {
+                                                    NavigationLink {
+                                                        TrainerProfileView(id: slot.trainer_user_id)
+                                                    } label: {
+                                                        Image(uiImage: image)
+                                                            .resizable()
+                                                            .frame(width: 36, height: 36)
+                                                            .cornerRadius(18)
+                                                    }
+                                                
+                                            }
+                                        }
+                                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 15, trailing: 0))
                                     }
                                     .frame(width: UIScreen.main.bounds.size.width - 60)
                                    

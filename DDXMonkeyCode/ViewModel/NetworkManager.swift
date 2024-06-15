@@ -40,13 +40,14 @@ class NetworkManager {
             return nil
         }
         let resquest = URLRequest(url: imageURL, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
-        Logger().log(level: .info, "Downloading image")
+        
         guard let response = try? await URLSession.shared.data(for: resquest) else {
             Logger().log(level: .info, "Failed to get image data")
             return nil
         }
         
         return response.0
+        Logger().log(level: .info, "NetworkManager: getImageDataByURL: sucsessful to downloal image")
     }
 }
 

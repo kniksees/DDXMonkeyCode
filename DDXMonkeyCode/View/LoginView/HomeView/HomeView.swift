@@ -51,6 +51,7 @@ struct HomeView: View {
             UITabBar.appearance().isTranslucent = false
             if isFirstAppear {
                 Task {
+                    await SelectTrainerViewModel.shared.getTrainers()
                     await ExcercisesViewModel.shared.getExcercises()
                     isFirstAppear = false
                 }

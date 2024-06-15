@@ -8,17 +8,41 @@
 import Foundation
 import OSLog
 
-class CalendarViewModel {
-    private init() {}
+class CalendarViewModel: NetworkManager, ObservableObject {
+    private override init() {}
     static var shared = CalendarViewModel()
-    var calendars: [Int: [CalendarElement]] = [:]
+    
+    @Published var calendars: [Int: [CalendarElement]] = [:]
+    @Published var images: [String: Data] = [:]
+    @Published var profiles: [Int: SinglUser] = [:]
     
     func getCalendar(id: Int) async {
         let url = URL(string: "http://158.160.13.5:8080/users/\(id)/workouts")!
         let response = try? await URLSession.shared.data(for: URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData))
         if let data = response?.0 {
             if let calendarElements = try? JSONDecoder().decode([CalendarElement].self, from: data) {
-                calendars[id] = calendarElements
+                for i in calendarElements {
+                    let userID = i.trainer_user_id
+                    Task {
+                        if profiles[userID] == nil {
+                            let profile = await getProfile(id: userID)
+                            await MainActor.run {
+                                profiles[userID] = profile
+                            }
+                            if let imageURL =  profile?.user.image {
+                                if images[imageURL] == nil {
+                                    let imageData = await getImageDataByURL(url: imageURL)
+                                    await MainActor.run {
+                                        images[imageURL] = imageData
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                await MainActor.run {
+                    calendars[id] = calendarElements
+                }
             } else {
                 Logger().log(level: .info, "CalendarViewModel: getCalendar: Fail json parsing")
             }
@@ -61,7 +85,7 @@ class CalendarViewModel {
     }
     
     func newWorkouts(trainerID: Int, userID: Int, timeStart: Date, timeFinish: Date, timeTraine: Data, timeBreak: Data) {
-
+        
     }
     
     func submitWorkout(userID: Int, workoutID: Int, name: String = "") async {
@@ -98,7 +122,7 @@ class CalendarViewModel {
     }
     
     func getCalendarDevided(calendar: [CalendarElement]) -> [[CalendarElement]] {
-        let calendar = calendar.filter({$0.time_start > Int(Date.now.timeIntervalSince1970)}).sorted(by: {$0.time_start < $1.time_start}) 
+        let calendar = calendar.filter({$0.time_start > Int(Date.now.timeIntervalSince1970)}).sorted(by: {$0.time_start < $1.time_start})
         if !calendar.isEmpty {
             print(calendar)
             //var temp: [[CalendarElement]] = [[calendar[0]]]
@@ -111,7 +135,7 @@ class CalendarViewModel {
                 }
                 j += 1
             }
-
+            
             if j > calendar.count - 1{
                 return temp
             }
@@ -146,7 +170,7 @@ class CalendarViewModel {
                 }
                 j += 1
             }
-
+            
             if j > calendar.count - 1{
                 return temp
             }
@@ -165,5 +189,38 @@ class CalendarViewModel {
             return temp
         }
         return []
+    }
+    
+    func getProfile(id: Int) async -> SinglUser? {
+        
+        Logger().log(level: .info, "MyProfileViewModel: Getting self profile")
+        
+        guard let profileURL = URL(string: "http://158.160.13.5:8080/users/\(id)/profile") else {
+            Logger().log(level: .info, "MyProfileViewModel: Failed to parse url")
+            return nil
+        }
+        let resquest = URLRequest(url: profileURL, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
+        guard let response = try? await URLSession.shared.data(for: resquest) else {
+            Logger().log(level: .info, "MyProfileViewModel:  Failed to download profile")
+            return nil
+        }
+        
+        if let singlUser = try? JSONDecoder().decode(SinglUser.self, from: response.0 ) {
+            Logger().log(level: .info, "MyProfileViewModel: Successfull to download profile")
+            if let image = singlUser.user.image {
+                Task {
+                    let imageData = await self.getImageDataByURL(url: image)
+                    await MainActor.run {
+                        images[image] = imageData
+                    }
+                }
+            }
+            return singlUser
+        } else {
+            Logger().log(level: .info, "MyProfileViewModel: \(response.0)")
+            Logger().log(level: .info, "MyProfileViewModel: \(response.1)")
+            Logger().log(level: .info, "MyProfileViewModel: Failed to parse json")
+            return nil
+        }
     }
 }

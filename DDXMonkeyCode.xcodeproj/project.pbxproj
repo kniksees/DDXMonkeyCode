@@ -34,6 +34,7 @@
 		E16F2DA52C1DE2A300EB452E /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16F2DA42C1DE2A300EB452E /* CalendarViewModel.swift */; };
 		E16F2DA72C1DEA6700EB452E /* AddTimeSlotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16F2DA62C1DEA6700EB452E /* AddTimeSlotView.swift */; };
 		E16F2DA92C1DF1B100EB452E /* TrainerTimeslotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16F2DA82C1DF1B100EB452E /* TrainerTimeslotsView.swift */; };
+		E16F2DAC2C1E5F2500EB452E /* ExcerciseCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16F2DAB2C1E5F2500EB452E /* ExcerciseCellView.swift */; };
 		E1C701D52C15F11200E7F195 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C701D42C15F11200E7F195 /* NetworkManager.swift */; };
 		E1C701D72C15F44200E7F195 /* LoginVIewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C701D62C15F44200E7F195 /* LoginVIewModel.swift */; };
 		E1C701DD2C1A5FDA00E7F195 /* SelectTrainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C701DC2C1A5FDA00E7F195 /* SelectTrainerView.swift */; };
@@ -71,6 +72,7 @@
 		E16F2DA42C1DE2A300EB452E /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		E16F2DA62C1DEA6700EB452E /* AddTimeSlotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTimeSlotView.swift; sourceTree = "<group>"; };
 		E16F2DA82C1DF1B100EB452E /* TrainerTimeslotsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainerTimeslotsView.swift; sourceTree = "<group>"; };
+		E16F2DAB2C1E5F2500EB452E /* ExcerciseCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcerciseCellView.swift; sourceTree = "<group>"; };
 		E1C701D42C15F11200E7F195 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		E1C701D62C15F44200E7F195 /* LoginVIewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVIewModel.swift; sourceTree = "<group>"; };
 		E1C701DA2C161A1A00E7F195 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -300,8 +302,17 @@
 			isa = PBXGroup;
 			children = (
 				E16F2D9A2C1CF8D800EB452E /* ExcercisesView.swift */,
+				E16F2DAA2C1E5EF500EB452E /* SubView */,
 			);
 			path = ExcercisesView;
+			sourceTree = "<group>";
+		};
+		E16F2DAA2C1E5EF500EB452E /* SubView */ = {
+			isa = PBXGroup;
+			children = (
+				E16F2DAB2C1E5F2500EB452E /* ExcerciseCellView.swift */,
+			);
+			path = SubView;
 			sourceTree = "<group>";
 		};
 		E1C701DB2C1A5F9300E7F195 /* SelectTrainerView */ = {
@@ -410,6 +421,7 @@
 				E16F2D872C1B950000EB452E /* MyProfileView.swift in Sources */,
 				E11FD0932C0FA9E000DC9E98 /* ContentView.swift in Sources */,
 				E1C701D52C15F11200E7F195 /* NetworkManager.swift in Sources */,
+				E16F2DAC2C1E5F2500EB452E /* ExcerciseCellView.swift in Sources */,
 				E11FD0A92C105EE000DC9E98 /* SettingsCellView.swift in Sources */,
 				E1C701D72C15F44200E7F195 /* LoginVIewModel.swift in Sources */,
 				E16F2D982C1CF4CC00EB452E /* ExcercisesViewModel.swift in Sources */,
