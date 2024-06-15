@@ -37,10 +37,10 @@
 //                                        .font(.system(size: 10))
 //                                        .foregroundStyle(.appBlack)
 //                                })
-//                                
+//
 //                            }
-//                            
-//                            
+//
+//
 //                        }
 //                    }
 //                }
@@ -72,32 +72,34 @@ struct TrainerTimeslotsView: View {
             VStack {
                 ForEach(calendarDevided, id: \.self) { calendarDay in
                     Text("\(CalendarViewModel.shared.convertDateToStringddMMyyyy(date: calendarDay.first!.time_start))")
-                    ScrollView(.horizontal, showsIndicators: false) {
-
-                        HStack {
-                            Spacer(minLength: 10)
-                            ForEach(calendarDay, id: \.self) { slot in
-                                Button(action: {
-                                    Task {
-                                        await CalendarViewModel.shared.submitWorkout(userID: UserDefaults.standard.integer(forKey: "userID"), workoutID: slot.id, name: "123")
-                                    }
-                                }, label: {
-                                    Text("\(CalendarViewModel.shared.convertDateToStringHHmm(date: slot.time_start)) - \(CalendarViewModel.shared.convertDateToStringHHmm(date: slot.time_finish))")
-                                        .padding(10)
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 20)
-                                                .stroke(.appDarkGray, lineWidth: 1)
-                                        )
-                                        .padding(3)
-                                        .font(.system(size: 10))
-                                        .foregroundStyle(.appBlack)
-                                })
-                                
-                            }
-                            
+                    LazyVGrid(columns: [
+                        GridItem(.flexible()),
+                        GridItem(.flexible()),
+                        GridItem(.flexible()),
+                        GridItem(.flexible())
+                    ], alignment: .leading, spacing: 5) {
+                        
+                        ForEach(calendarDay, id: \.self) { slot in
+                            Button(action: {
+                                Task {
+                                    await CalendarViewModel.shared.submitWorkout(userID: UserDefaults.standard.integer(forKey: "userID"), workoutID: slot.id, name: "123")
+                                }
+                            }, label: {
+                                Text("\(CalendarViewModel.shared.convertDateToStringHHmm(date: slot.time_start)) - \(CalendarViewModel.shared.convertDateToStringHHmm(date: slot.time_finish))")
+                                    .padding(8)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 20)
+                                            .stroke(.appDarkGray, lineWidth: 1)
+                                    )
+                                    .padding(1)
+                                    .font(.system(size: 10))
+                                    .foregroundStyle(.appBlack)
+                            })
                             
                         }
                     }
+                    .frame(width: UIScreen.main.bounds.size.width - 30)
+                    
                 }
             }
         }
