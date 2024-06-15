@@ -1,15 +1,14 @@
 //
-//  MyProfileView.swift
+//  TrainerProfileEditableView.swift
 //  DDXMonkeyCode
 //
-//  Created by Dmitry Erofeev on 13.06.2024.
+//  Created by Dmitry Erofeev on 15.06.2024.
 //
 
 import SwiftUI
 import PhotosUI
-import UIKit
 
-struct MyProfileView: View {
+struct TrainerProfileEditableView: View {
     @StateObject var myProfileViewModel = MyProfileViewModel.shared
     @State var singlUser: SinglUser? = SinglUser(profile: nil, user: User(id: -1, image: nil, type: "", username: "username"))
     @State var name: String = ""
@@ -17,10 +16,8 @@ struct MyProfileView: View {
     @State var age: String = ""
     @State var weight: String = ""
     @State var height: String = ""
-    @State var goal: String = ""
     @State var sports: String = ""
     @State var tags: String = ""
-    @State var about: String = ""
     
     @State private var imageItem: PhotosPickerItem?
     @State private var selectedImage: Data?
@@ -66,57 +63,28 @@ struct MyProfileView: View {
                         .font(.system(size: 18, weight: .bold))
                     Spacer()
                 }
-                if let type = singlUser?.user.type {
-                    if type == "user"  {
-                        HStack {
-                            Text("Цель:")
-                                .font(.system(size: 10, weight: .medium))
-                                .foregroundStyle(.appDarkGray)
-                            Spacer()
-                        }
-                        HStack {
-                            TextField("заполнить", text: $goal)
-                                .font(.system(size: 18, weight: .bold))
-                            Spacer()
-                        }
-                    }
-                    if type == "trainer" {
-                        HStack {
-                            Text("Виды спорта:")
-                                .font(.system(size: 10, weight: .medium))
-                                .foregroundStyle(.appDarkGray)
-                            Spacer()
-                        }
-                        HStack {
-                            TextField("заполнить", text: $sports)
-                                .font(.system(size: 18, weight: .bold))
-                            Spacer()
-                        }
-                        HStack {
-                            Text("Хобби:")
-                                .font(.system(size: 10, weight: .medium))
-                                .foregroundStyle(.appDarkGray)
-                            Spacer()
-                        }
-                        HStack {
-                            TextField("заполнить", text: $tags)
-                                .font(.system(size: 18, weight: .bold))
-                            Spacer()
-                        }
-                        HStack {
-                            Text("О себе:")
-                                .font(.system(size: 10, weight: .medium))
-                                .foregroundStyle(.appDarkGray)
-                            Spacer()
-                        }
-                        HStack {
-                            TextField("заполнить", text: $about)
-                                .font(.system(size: 18, weight: .bold))
-                            Spacer()
-                        }
-                    }
+                HStack {
+                    Text("Виды спорта:")
+                        .font(.system(size: 10, weight: .medium))
+                        .foregroundStyle(.appDarkGray)
+                    Spacer()
                 }
-
+                HStack {
+                    TextField("заполнить", text: $sports)
+                        .font(.system(size: 18, weight: .bold))
+                    Spacer()
+                }
+                HStack {
+                    Text("Увлечения:")
+                        .font(.system(size: 10, weight: .medium))
+                        .foregroundStyle(.appDarkGray)
+                    Spacer()
+                }
+                HStack {
+                    TextField("заполнить", text: $tags)
+                        .font(.system(size: 18, weight: .bold))
+                    Spacer()
+                }
                 HStack {
                     Text("Пол:")
                         .font(.system(size: 10, weight: .medium))
@@ -170,15 +138,8 @@ struct MyProfileView: View {
                     Spacer()
                     Button(action: {
                         if let type = singlUser?.user.type {
-                            if type == "user" {
-                                Task {
-                                    await myProfileViewModel.updateMyProfile(type: type, name: name, gender: gender, age: age, weight: weight, height: height, goal: goal, image: selectedImage)
-                                }
-                            }
-                            if type == "trainer" {
-                                Task {
-                                    await myProfileViewModel.updateMyProfile(type: type, name: name, gender: gender, age: age, weight: weight, height: height, image: selectedImage, sports: sports, tags: tags, about: about)
-                                }
+                            Task {
+                                await myProfileViewModel.updateMyProfile(type: type, name: name, gender: gender, age: age, weight: weight, height: height, image: selectedImage, sports: sports, tags: tags)
                             }
                         }
                     }, label: {
@@ -219,23 +180,18 @@ struct MyProfileView: View {
                 if let height = singlUser?.profile?.height {
                     self.height = String(height)
                 }
-                if let goal = singlUser?.profile?.goal {
-                    self.goal = goal
-                }
-                if let sports = singlUser?.profile?.sports?.joined(separator: ", ") {
+                if let sports = singlUser?.profile?.sports?.joined(separator: " ") {
                     self.sports = sports
                 }
-                if let tags = singlUser?.profile?.tags?.joined(separator: ", ") {
+                if let tags = singlUser?.profile?.tags?.joined(separator: " ") {
                     self.tags = tags
                 }
-                if let about = singlUser?.profile?.about {
-                    self.about = about
-                }
+                
             }
         }
     }
 }
 
 #Preview {
-    MyProfileView()
+    TrainerProfileEditableView()
 }

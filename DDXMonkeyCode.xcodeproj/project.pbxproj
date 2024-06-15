@@ -25,12 +25,13 @@
 		E11FD0A92C105EE000DC9E98 /* SettingsCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11FD0A82C105EE000DC9E98 /* SettingsCellView.swift */; };
 		E11FD0AC2C1061D500DC9E98 /* LoginButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11FD0AB2C1061D500DC9E98 /* LoginButtonView.swift */; };
 		E16F2D872C1B950000EB452E /* MyProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16F2D862C1B950000EB452E /* MyProfileView.swift */; };
-		E16F2D892C1B951600EB452E /* MyProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16F2D882C1B951600EB452E /* MyProfileViewModel.swift */; };
 		E16F2D8F2C1CAB2400EB452E /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16F2D8E2C1CAB2400EB452E /* Model.swift */; };
 		E16F2D942C1CBCB400EB452E /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16F2D932C1CBCB400EB452E /* ReviewView.swift */; };
 		E16F2D962C1CD73900EB452E /* SendReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16F2D952C1CD73900EB452E /* SendReviewView.swift */; };
 		E16F2D982C1CF4CC00EB452E /* ExcercisesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16F2D972C1CF4CC00EB452E /* ExcercisesViewModel.swift */; };
 		E16F2D9B2C1CF8D800EB452E /* ExcercisesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16F2D9A2C1CF8D800EB452E /* ExcercisesView.swift */; };
+		E16F2D9D2C1DBFC400EB452E /* TrainerProfileEditableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16F2D9C2C1DBFC400EB452E /* TrainerProfileEditableView.swift */; };
+		E16F2DA32C1DC5D000EB452E /* MyProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16F2DA22C1DC5D000EB452E /* MyProfileViewModel.swift */; };
 		E1C701D52C15F11200E7F195 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C701D42C15F11200E7F195 /* NetworkManager.swift */; };
 		E1C701D72C15F44200E7F195 /* LoginVIewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C701D62C15F44200E7F195 /* LoginVIewModel.swift */; };
 		E1C701DD2C1A5FDA00E7F195 /* SelectTrainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C701DC2C1A5FDA00E7F195 /* SelectTrainerView.swift */; };
@@ -60,12 +61,13 @@
 		E11FD0A82C105EE000DC9E98 /* SettingsCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCellView.swift; sourceTree = "<group>"; };
 		E11FD0AB2C1061D500DC9E98 /* LoginButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButtonView.swift; sourceTree = "<group>"; };
 		E16F2D862C1B950000EB452E /* MyProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileView.swift; sourceTree = "<group>"; };
-		E16F2D882C1B951600EB452E /* MyProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewModel.swift; sourceTree = "<group>"; };
 		E16F2D8E2C1CAB2400EB452E /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		E16F2D932C1CBCB400EB452E /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
 		E16F2D952C1CD73900EB452E /* SendReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendReviewView.swift; sourceTree = "<group>"; };
 		E16F2D972C1CF4CC00EB452E /* ExcercisesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcercisesViewModel.swift; sourceTree = "<group>"; };
 		E16F2D9A2C1CF8D800EB452E /* ExcercisesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcercisesView.swift; sourceTree = "<group>"; };
+		E16F2D9C2C1DBFC400EB452E /* TrainerProfileEditableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainerProfileEditableView.swift; sourceTree = "<group>"; };
+		E16F2DA22C1DC5D000EB452E /* MyProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyProfileViewModel.swift; sourceTree = "<group>"; };
 		E1C701D42C15F11200E7F195 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		E1C701D62C15F44200E7F195 /* LoginVIewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVIewModel.swift; sourceTree = "<group>"; };
 		E1C701DA2C161A1A00E7F195 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -176,7 +178,7 @@
 				E1C701D62C15F44200E7F195 /* LoginVIewModel.swift */,
 				E1C701DE2C1A5FF800E7F195 /* SelectTrainerViewModel.swift */,
 				E1C701E82C1A726600E7F195 /* TraineSlotSelectorViewModel.swift */,
-				E16F2D882C1B951600EB452E /* MyProfileViewModel.swift */,
+				E16F2DA22C1DC5D000EB452E /* MyProfileViewModel.swift */,
 				E16F2D972C1CF4CC00EB452E /* ExcercisesViewModel.swift */,
 			);
 			path = ViewModel;
@@ -320,6 +322,7 @@
 		E1C701E52C1A6AB700E7F195 /* TrainerProfileView */ = {
 			isa = PBXGroup;
 			children = (
+				E16F2D9C2C1DBFC400EB452E /* TrainerProfileEditableView.swift */,
 				E1C701E62C1A6B0700E7F195 /* TrainerProfileView.swift */,
 				E16F2D902C1CBC6C00EB452E /* SubView */,
 			);
@@ -396,6 +399,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E16F2D9D2C1DBFC400EB452E /* TrainerProfileEditableView.swift in Sources */,
 				E1C701E42C1A619E00E7F195 /* TrainerCellView.swift in Sources */,
 				E1C701DF2C1A5FF800E7F195 /* SelectTrainerViewModel.swift in Sources */,
 				E11FD0992C0FB71400DC9E98 /* SelectChatView.swift in Sources */,
@@ -415,6 +419,7 @@
 				E11FD09D2C1048E100DC9E98 /* MyWorkoutsView.swift in Sources */,
 				E11FD0912C0FA81200DC9E98 /* HomeView.swift in Sources */,
 				E111169E2C12192A00B37056 /* TabViewViewModel.swift in Sources */,
+				E16F2DA32C1DC5D000EB452E /* MyProfileViewModel.swift in Sources */,
 				E16F2D9B2C1CF8D800EB452E /* ExcercisesView.swift in Sources */,
 				E16F2D942C1CBCB400EB452E /* ReviewView.swift in Sources */,
 				E16F2D962C1CD73900EB452E /* SendReviewView.swift in Sources */,
@@ -423,7 +428,6 @@
 				E111169C2C1213E700B37056 /* QRCodeView.swift in Sources */,
 				E11FD07A2C0FA4BE00DC9E98 /* DDXMonkeyCodeApp.swift in Sources */,
 				E1C701DD2C1A5FDA00E7F195 /* SelectTrainerView.swift in Sources */,
-				E16F2D892C1B951600EB452E /* MyProfileViewModel.swift in Sources */,
 				E11FD0A62C10500100DC9E98 /* SelectChatCellView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
