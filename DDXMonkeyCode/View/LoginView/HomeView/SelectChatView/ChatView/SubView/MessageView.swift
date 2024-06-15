@@ -96,6 +96,9 @@ struct MessageView: View {
                 }
             }
             HStack {
+                if message.sender == sender {
+                    Spacer()
+                }
                 if let excercises = message.excercises {
                     NavigationLink {
                         ExcercisesView(excercises: excercises)
@@ -107,7 +110,9 @@ struct MessageView: View {
                             .cornerRadius(16)
                     }
                 }
-                Spacer()
+                if message.sender != sender {
+                    Spacer()
+                }
             }
 
             if (message.sender == sender) {
