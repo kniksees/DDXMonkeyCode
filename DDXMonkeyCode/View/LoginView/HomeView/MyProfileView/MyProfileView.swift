@@ -168,6 +168,20 @@ struct MyProfileView: View {
                 Spacer()
                 HStack {
                     Spacer()
+                    if let type = singlUser?.user.type {
+                        if type == "trainer" {
+                            NavigationLink {
+                                AddTimeSlotView()
+                            } label: {
+                                Text("Добавить таймслот")
+                                    .padding(15)
+                                    .background(.appBlack)
+                                    .foregroundColor(.appWhite)
+                                    .cornerRadius(20)
+                            }
+
+                        }
+                    }
                     Button(action: {
                         if let type = singlUser?.user.type {
                             if type == "user" {

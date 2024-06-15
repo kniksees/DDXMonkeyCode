@@ -33,17 +33,19 @@ class CalendarViewModel {
         
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+//        var timeStart = timeStart.timeIntervalSince1970
+//        var a = Date.now.timeIntervalSince1970
         var jsonString = ""
         if let userID {
             jsonString = """
-                            {"trainer_id": \(trainerID)),
+                            {"trainer_user_id": \(trainerID),
                             "user_id": \(userID),
                             "time_start": \(timeStart.timeIntervalSince1970),
                             "time_finish": \(timeFinish.timeIntervalSince1970)}
                     """
         } else {
             jsonString = """
-                            {"trainer_id": \(trainerID)),
+                            {"trainer_user_id": \(trainerID),
                             "time_start": \(timeStart.timeIntervalSince1970),
                             "time_finish": \(timeFinish.timeIntervalSince1970)}
                     """
@@ -60,19 +62,70 @@ class CalendarViewModel {
 
     }
     
-    func submitWorkout(userID: Int, workoutID: Int) async {
+    func submitWorkout(userID: Int, workoutID: Int, name: String = "") async {
         let url = URL(string: "http://158.160.13.5:8080/submit-workout")!
         var request = URLRequest(url: url)
         
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        var jsonString = """
-                        {"trainer_id": \(workoutID)),
-                        "user_id": \(userID)}
+        let jsonString = """
+                        {"workout_id": \(workoutID),
+                        "user_id": \(userID),
+                        "name": "\(name)"}
                 """
         let data = jsonString.data(using: .utf8)
         request.httpBody = data
         let response = try! await URLSession.shared.data(for: request)
         print("respnse \(response)")
+    }
+    
+    func convertDateToStringHHmm(date: Int) -> String {
+        let date = Date(timeIntervalSince1970: TimeInterval(date))
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        let timeString = dateFormatter.string(from: date)
+        return timeString
+    }
+    
+    func convertDateToStringddMMyyyy(date: Int) -> String {
+        let date = Date(timeIntervalSince1970: TimeInterval(date))
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy"
+        let timeString = dateFormatter.string(from: date)
+        return timeString
+    }
+    
+    func getCalendarDevided(calendar: [CalendarElement]) -> [[CalendarElement]] {
+        if !calendar.isEmpty {
+            print(calendar)
+            //var temp: [[CalendarElement]] = [[calendar[0]]]
+            var temp: [[CalendarElement]] = []
+            var j = 0
+            while j < calendar.count {
+                if calendar[j].user_id == nil {
+                    temp = [[calendar[j]]]
+                    break
+                }
+                j += 1
+            }
+
+            if j > calendar.count - 1{
+                return temp
+            }
+            for i in j + 1..<calendar.count {
+                if calendar[i].user_id == nil {
+                    let daysSinceEpoch = Calendar.current.dateComponents([.day], from: Date(timeIntervalSince1970: 0), to: Date(timeIntervalSince1970: TimeInterval(calendar[i].time_start))).day ?? 0
+                    let prevDaysSinceEpoch = Calendar.current.dateComponents([.day], from: Date(timeIntervalSince1970: 0), to: Date(timeIntervalSince1970: TimeInterval(calendar[i - 1].time_start))).day ?? 0
+                    if daysSinceEpoch == prevDaysSinceEpoch {
+                        temp[temp.count - 1].append(calendar[i])
+                    } else {
+                        temp.append([calendar[i]])
+                    }
+                }
+            }
+            print(temp)
+            return temp
+        }
+        return []
     }
 }

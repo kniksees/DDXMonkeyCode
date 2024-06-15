@@ -122,17 +122,30 @@ struct TrainerProfileView: View {
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
                 }
                 Spacer()
-                Button(action: {
-                    Task {
-                        await selectTrainerViewModel.addChat(trainerID: id)
+                HStack {
+                    Spacer()
+                    NavigationLink {
+                        TrainerTimeslotsView(id: trainer.user.id)
+                    } label: {
+                        Image(systemName: "calendar")
+                            .padding(10)
+                            .background(.appBlack)
+                            .foregroundColor(.appWhite)
+                            .cornerRadius(12)
                     }
-                }, label: {
-                    Text("Написать тренеру")
-                        .padding(10)
-                        .background(.appBlack)
-                        .foregroundColor(.appWhite)
-                        .cornerRadius(12)
-                })
+
+                    Button(action: {
+                        Task {
+                            await selectTrainerViewModel.addChat(trainerID: id)
+                        }
+                    }, label: {
+                        Text("Написать тренеру")
+                            .padding(10)
+                            .background(.appBlack)
+                            .foregroundColor(.appWhite)
+                            .cornerRadius(12)
+                    })
+                }
             }
             .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
         }
