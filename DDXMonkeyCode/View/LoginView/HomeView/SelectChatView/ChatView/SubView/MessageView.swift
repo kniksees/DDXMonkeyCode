@@ -40,13 +40,13 @@ struct MessageView: View {
                             if message.sender == sender {
                                 HStack {
                                     Spacer()
-                                    Text(text)
+                                    Text(text.filter({$0 != "*"}))
                                 }
                                 .frame(maxWidth: 250)
                             } else {
                                 HStack {
                                     
-                                    Text(text)
+                                    Text(text.filter({$0 != "*"}))
                                     Spacer()
                                 }
                                 .frame(maxWidth: 250)
@@ -54,7 +54,7 @@ struct MessageView: View {
                         }
                         
                     } else {
-                        Text(message.text ?? "")
+                        Text(message.text?.filter({$0 != "*"}) ?? "")
                     }
 //                    HStack {
 //                        if let excercises = message.excercises {
