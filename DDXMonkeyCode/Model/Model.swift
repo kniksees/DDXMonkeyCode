@@ -103,6 +103,7 @@ struct TrainerElement: Codable, Hashable {
     }
     let profile: Profile?
     let user: User
+    let is_recomended: Bool
 }
 
 struct Review: Codable, Hashable {

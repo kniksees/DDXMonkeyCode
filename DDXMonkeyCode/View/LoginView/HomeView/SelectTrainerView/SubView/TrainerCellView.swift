@@ -58,8 +58,17 @@ struct TrainerCellView: View {
             TrainerProfileView(id: id)
         } label: {
             ZStack {
-                RoundedRectangle(cornerRadius: 16)
-                    .foregroundColor(.appWhite)
+                if trainer.is_recomended {
+                    LinearGradient(
+                        gradient: Gradient(colors: [.blue, .purple, .white, .white, .white]),
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                    .cornerRadius(16)
+                } else {
+                    RoundedRectangle(cornerRadius: 16)
+                        .foregroundColor(.appWhite)
+                }
                 VStack {
                     var imageData = (selectTrainerViewModel.images[trainer.user.image ?? ""] ?? Data()) ?? Data()
                     Image(uiImage: UIImage(data: imageData) ?? UIImage())
