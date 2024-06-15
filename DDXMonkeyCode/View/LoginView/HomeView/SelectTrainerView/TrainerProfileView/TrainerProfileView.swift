@@ -27,13 +27,13 @@ struct TrainerProfileView: View {
                     .cornerRadius(16)
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 7, trailing: 0))
                 HStack {
-                    Text(trainer.profile.name ?? "")
+                    Text(trainer.profile?.name ?? "")
                         .font(.system(size: 24, weight: .regular))
                         .foregroundStyle(Color(.black))
                     Spacer()
                 }
                 HStack {
-                    Text("Опыт \(trainer.profile.experience ?? 0), возраст \(trainer.profile.age)")
+                    Text("Опыт \(trainer.profile?.experience ?? 0), возраст \(trainer.profile?.age ?? 0)")
                         .font(.system(size: 14, weight: .regular))
                         .foregroundStyle(Color(.gray))
                     Spacer()
@@ -47,7 +47,7 @@ struct TrainerProfileView: View {
                     Spacer()
                 }
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 3, trailing: 0))
-                if let sports = trainer.profile.sports {
+                if let sports = trainer.profile?.sports {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 3) {
                             ForEach(sports, id: \.self) { sport in
@@ -70,7 +70,7 @@ struct TrainerProfileView: View {
                     Spacer()
                 }
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 3, trailing: 0))
-                if let tags = trainer.profile.tags {
+                if let tags = trainer.profile?.tags {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 3) {
                             ForEach(tags, id: \.self) { tag in
@@ -93,7 +93,7 @@ struct TrainerProfileView: View {
                     Spacer()
                 }
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 3, trailing: 0))
-                if let about = trainer.profile.about {
+                if let about = trainer.profile?.about {
                     HStack {
                         Text(about)
                             .font(.system(size: 14, weight: .regular))

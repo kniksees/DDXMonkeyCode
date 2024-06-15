@@ -101,7 +101,7 @@ struct TrainerElement: Codable, Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(user.id)
     }
-    let profile: Profile
+    let profile: Profile?
     let user: User
 }
 

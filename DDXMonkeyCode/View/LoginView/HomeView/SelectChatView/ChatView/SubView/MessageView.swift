@@ -56,17 +56,20 @@ struct MessageView: View {
                     } else {
                         Text(message.text ?? "")
                     }
-                    if let excercises = message.excercises {
-                        NavigationLink {
-                            ExcercisesView(excercises: excercises)
-                        } label: {
-                            Text("К упражнениям")
-                                .padding(10)
-                                .background(.appBlack)
-                                .foregroundColor(.appWhite)
-                                .cornerRadius(12)
-                        }
-                    }
+//                    HStack {
+//                        if let excercises = message.excercises {
+//                            NavigationLink {
+//                                ExcercisesView(excercises: excercises)
+//                            } label: {
+//                                Text("К упражнениям")
+//                                    .padding(10)
+//                                    .background(.appBlack)
+//                                    .foregroundColor(.appWhite)
+//                                    .cornerRadius(12)
+//                            }
+//                        }
+//                        Spacer()
+//                    }
                 }
                 .padding(10)
                 .background(message.sender == sender ? Color.blue : Color.gray.opacity(0.2))
@@ -92,7 +95,20 @@ struct MessageView: View {
                     Spacer()
                 }
             }
-
+            HStack {
+                if let excercises = message.excercises {
+                    NavigationLink {
+                        ExcercisesView(excercises: excercises)
+                    } label: {
+                        Text("К упражнениям")
+                            .padding(10)
+                            .background(.appBlack)
+                            .foregroundColor(.appWhite)
+                            .cornerRadius(16)
+                    }
+                }
+                Spacer()
+            }
 
             if (message.sender == sender) {
                 HStack {

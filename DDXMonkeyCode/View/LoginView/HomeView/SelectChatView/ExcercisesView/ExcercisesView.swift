@@ -23,15 +23,15 @@ struct ExcercisesView: View {
                         Text(excercise.muscles.joined(separator: " "))
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
+                                Spacer(minLength: 10)
                                 ForEach(excercise.images, id: \.self) { image in
                                     if let image = UIImage(data: images[image] ?? Data()) {
                                         Image(uiImage: image)
                                             .resizable()
-                                            .scaledToFit()
-                                            .frame(maxWidth: 250)
-                                            .cornerRadius(12)
-
-                                        
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 250, height: 250)
+                                            .clipped()
+                                            .cornerRadius(30)
                                     }
                                 }
                             }
