@@ -34,7 +34,7 @@ class SelectTrainerViewModel: NetworkManager, ObservableObject {
     var images = ["image": UIImage(named: "SpongeBob")!.pngData()]
     
     func getTrainers() async {
-        let url = URL(string: "http://158.160.13.5:8080/trainers")!
+        let url = URL(string: "http://158.160.13.5:8080/users/\(UserDefaults.standard.integer(forKey: "userID"))/trainers")!
         let response = try? await URLSession.shared.data(for: URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData))
         if let data = response?.0 {
             print( String(data: data, encoding: .utf8))
