@@ -251,7 +251,7 @@ struct UserProfileView: View {
 
                 }
             }
-            .navigationTitle("Клиент")
+            .navigationTitle(customer?.profile?.name ?? "")
             .frame(width: UIScreen.main.bounds.size.width - 30)
             .onAppear() {
                 Task {
