@@ -78,24 +78,9 @@ struct TrainerTimeslotsView: View {
                         GridItem(.flexible()),
                         GridItem(.flexible())
                     ], alignment: .leading, spacing: 5) {
-                        
+                      
                         ForEach(calendarDay, id: \.self) { slot in
-                            Button(action: {
-                                Task {
-                                    await CalendarViewModel.shared.submitWorkout(userID: UserDefaults.standard.integer(forKey: "userID"), workoutID: slot.id)
-                                }
-                            }, label: {
-                                Text("\(CalendarViewModel.shared.convertDateToStringHHmm(date: slot.time_start)) - \(CalendarViewModel.shared.convertDateToStringHHmm(date: slot.time_finish))")
-                                    .padding(8)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 20)
-                                            .stroke(.appDarkGray, lineWidth: 1)
-                                    )
-                                    .padding(1)
-                                    .font(.system(size: 10))
-                                    .foregroundStyle(.appBlack)
-                            })
-                            
+                            TimeslotBubbleView(calendarElement: slot)
                         }
                     }
                     .frame(width: UIScreen.main.bounds.size.width - 20)
