@@ -22,8 +22,8 @@ struct AddTimeSlotView: View {
             VStack {
                 Spacer(minLength: 10)
                 VStack {
-                    TextField("name", text: $name)
-                    TextField("descripton", text: $descripton)
+                    TextField("Название тренировки", text: $name)
+                    TextField("Описание тренировки", text: $descripton)
                 }.padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
                 Text("Начало тренировки")
                     .font(.system(size: 24, weight: .regular))

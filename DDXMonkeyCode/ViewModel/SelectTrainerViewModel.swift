@@ -12,13 +12,6 @@ import OSLog
 class SelectTrainerViewModel: NetworkManager, ObservableObject {
     private override init() {}
     static var shared = SelectTrainerViewModel()
-//    @Published var trainerList = [1: Trainer(id: 1, age: 32, gender: "Дядя", name: "Кирюха", experience: 1, sport: "Дотер", image: "image"),
-//                       2: Trainer(id: 2, age: 32, gender: "Дядя", name: "Кирюха", experience: 2, sport: "Дотер", image: "image"),
-//                       3: Trainer(id: 3, age: 32, gender: "Дядя", name: "Кирюха", experience: 3, sport: "Дотер", image: "image"),
-//                       4: Trainer(id: 4, age: 32, gender: "Дядя", name: "Кирюха", experience: 4, sport: "Дотер", image: "image"),
-//                       5: Trainer(id: 5, age: 32, gender: "Дядя", name: "Кирюха", experience: 5, sport: "Дотер", image: "image"),
-//                       8: Trainer(id: 8, age: 32, gender: "Дядя", name: "Кирюха", experience: 8, sport: "Дотер", image: "image"),
-//                       9: Trainer(id: 9, age: 32, gender: "Дядя", name: "Кирюха", experience: 9, sport: "Дотер", image: "image")]
     @Published var trainerList: [Int: TrainerElement] = [:]
     @Published var reviewList: [Int: [Review]] = [:]
 //    var getTrainerList: [Trainer] {

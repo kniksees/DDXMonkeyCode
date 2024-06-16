@@ -52,6 +52,7 @@ class MyProfileViewModel: NetworkManager, ObservableObject {
                             "goal": "\(goal)"}
                     """
         }
+  
         let data = jsonString.data(using: .utf8)
         request.httpBody = data
         
