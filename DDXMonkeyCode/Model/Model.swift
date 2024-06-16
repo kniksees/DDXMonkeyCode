@@ -152,5 +152,5 @@ struct CalendarElement: Codable, Hashable {
     let time_start: Int
     let trainer_user_id: Int
     let user_id: Int?
-    let zoom_link: Int?
+    let zoom_link: String?
 }

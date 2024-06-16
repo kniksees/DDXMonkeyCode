@@ -100,6 +100,8 @@ struct MessageView: View {
                 }
             }
 
+            
+
             if (message.sender == sender) {
                 HStack {
                     Spacer()

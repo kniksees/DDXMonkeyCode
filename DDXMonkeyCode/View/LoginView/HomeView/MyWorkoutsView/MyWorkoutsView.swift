@@ -40,6 +40,25 @@ struct MyWorkoutsView: View {
                                                 .foregroundStyle(.appDarkDakGray)
                                                 .padding(EdgeInsets(top: 15, leading: 0, bottom: 0, trailing: 0))
                                             Spacer()
+                                            if let zoomLink = slot.zoom_link, let zoomURL = URL(string:zoomLink)  {
+                                                Button {
+                                                    UIApplication.shared.open(zoomURL)
+                                                } label: {
+                                                    Text("Видео встреча")
+                                                        .padding(7)
+                                                        .background(.appBlack)
+                                                        .foregroundColor(.appWhite)
+                                                        .cornerRadius(13)
+                                                }
+                                                .padding(EdgeInsets(top: 15, leading: 0, bottom: 0, trailing: 0))
+                                            } else {
+                                                Text("Оффлайн")
+                                                    .padding(7)
+                                                    .background(.appDarkDakGray)
+                                                    .foregroundColor(.appWhite)
+                                                    .cornerRadius(13)
+                                                    .padding(EdgeInsets(top: 15, leading: 0, bottom: 0, trailing: 0))
+                                            }
                                         }
                                         HStack {
                                             Text(slot.name ?? "Название")
@@ -108,6 +127,7 @@ struct MyWorkoutsView: View {
                 }
             }
         }
+        
         .onAppear() {
             Task {
                 await CalendarViewModel.shared.getCalendar(id: id)

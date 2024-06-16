@@ -132,7 +132,8 @@ class CalendarViewModel: NetworkManager, ObservableObject {
     func convertDateToStringddMMyyyy(date: Int) -> String {
         let date = Date(timeIntervalSince1970: TimeInterval(date))
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yyyy"
+        dateFormatter.locale = Locale(identifier: "ru_RU")
+        dateFormatter.dateFormat = "dd MMMM yyyy"
         let timeString = dateFormatter.string(from: date)
         return timeString
     }
