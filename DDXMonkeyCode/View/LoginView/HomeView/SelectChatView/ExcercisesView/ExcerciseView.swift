@@ -58,8 +58,8 @@ struct ExcerciseView: View {
                                     }
                                 }
                             }
-                            ForEach(excercise.images, id: \.self) { imageUrl in
-                                if let imageURL = excercise.images.first, let imageData = excercisesViewModel.images[imageURL], let image = UIImage(data: imageData) {
+                            ForEach(excercise.images, id: \.self) { imageURL in
+                                if let imageData = excercisesViewModel.images[imageURL], let image = UIImage(data: imageData) {
                                     Image(uiImage: image)
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)

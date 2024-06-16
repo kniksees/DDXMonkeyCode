@@ -11,6 +11,7 @@ class MyProfileViewModel: NetworkManager, ObservableObject {
     private override init() {}
     static var shared = MyProfileViewModel()
     @Published var images: Dictionary<String, Data> = [:]
+    @Published var users: [Int: SinglUser] = [:]
     
     func updateUserProfile(id: Int, name: String, gender: String, age: String, weight: String, height: String, goal: String, image: Data?) async {
         var imageUploadID: Int? = nil

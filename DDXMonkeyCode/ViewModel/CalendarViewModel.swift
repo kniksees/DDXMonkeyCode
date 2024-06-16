@@ -39,6 +39,24 @@ class CalendarViewModel: NetworkManager, ObservableObject {
                             }
                         }
                     }
+                    if let trainerID = i.user_id {
+                        Task {
+                            if profiles[trainerID] == nil {
+                                let profile = await getProfile(id: trainerID)
+                                await MainActor.run {
+                                    profiles[trainerID] = profile
+                                }
+                                if let imageURL =  profile?.user.image {
+                                    if images[imageURL] == nil {
+                                        let imageData = await getImageDataByURL(url: imageURL)
+                                        await MainActor.run {
+                                            images[imageURL] = imageData
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
                 await MainActor.run {
                     calendars[id] = calendarElements

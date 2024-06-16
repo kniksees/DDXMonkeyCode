@@ -48,17 +48,15 @@ struct ChatView: View {
                     .font(.system(size: 16, weight: .medium))
             }
             ToolbarItemGroup(placement: .topBarTrailing) {
-                
-                Button(action: {
-                   
-                }) {
-                    HStack {
-
-                        Image(uiImage: UIImage(data: viewModel.images[viewModel.chats[id]!.user.id] ?? Data()) ?? UIImage())
-                            .resizable()
-                            .frame(width: 36, height: 36)
-                            .cornerRadius(18)
+                NavigationLink {
+                    if let userID = viewModel.chats[id]?.user.id {
+                        TrainerProfileView(id: userID)
                     }
+                } label: {
+                    Image(uiImage: UIImage(data: viewModel.images[viewModel.chats[id]!.user.id] ?? Data()) ?? UIImage())
+                        .resizable()
+                        .frame(width: 36, height: 36)
+                        .cornerRadius(18)
                 }
             }
         }
