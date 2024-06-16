@@ -98,7 +98,7 @@ struct TrainerTimeslotsView: View {
                             
                         }
                     }
-                    .frame(width: UIScreen.main.bounds.size.width - 30)
+                    .frame(width: UIScreen.main.bounds.size.width - 20)
                 }
             }
         }

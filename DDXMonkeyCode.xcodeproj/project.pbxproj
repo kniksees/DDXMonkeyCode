@@ -35,6 +35,7 @@
 		E16F2DA72C1DEA6700EB452E /* AddTimeSlotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16F2DA62C1DEA6700EB452E /* AddTimeSlotView.swift */; };
 		E16F2DA92C1DF1B100EB452E /* TrainerTimeslotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16F2DA82C1DF1B100EB452E /* TrainerTimeslotsView.swift */; };
 		E16F2DAC2C1E5F2500EB452E /* ExcerciseCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16F2DAB2C1E5F2500EB452E /* ExcerciseCellView.swift */; };
+		E16F2DAE2C1E6A1500EB452E /* ExcerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16F2DAD2C1E6A1500EB452E /* ExcerciseView.swift */; };
 		E1C701D52C15F11200E7F195 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C701D42C15F11200E7F195 /* NetworkManager.swift */; };
 		E1C701D72C15F44200E7F195 /* LoginVIewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C701D62C15F44200E7F195 /* LoginVIewModel.swift */; };
 		E1C701DD2C1A5FDA00E7F195 /* SelectTrainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C701DC2C1A5FDA00E7F195 /* SelectTrainerView.swift */; };
@@ -73,6 +74,7 @@
 		E16F2DA62C1DEA6700EB452E /* AddTimeSlotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTimeSlotView.swift; sourceTree = "<group>"; };
 		E16F2DA82C1DF1B100EB452E /* TrainerTimeslotsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainerTimeslotsView.swift; sourceTree = "<group>"; };
 		E16F2DAB2C1E5F2500EB452E /* ExcerciseCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcerciseCellView.swift; sourceTree = "<group>"; };
+		E16F2DAD2C1E6A1500EB452E /* ExcerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcerciseView.swift; sourceTree = "<group>"; };
 		E1C701D42C15F11200E7F195 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		E1C701D62C15F44200E7F195 /* LoginVIewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVIewModel.swift; sourceTree = "<group>"; };
 		E1C701DA2C161A1A00E7F195 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -303,6 +305,7 @@
 			children = (
 				E16F2D9A2C1CF8D800EB452E /* ExcercisesView.swift */,
 				E16F2DAA2C1E5EF500EB452E /* SubView */,
+				E16F2DAD2C1E6A1500EB452E /* ExcerciseView.swift */,
 			);
 			path = ExcercisesView;
 			sourceTree = "<group>";
@@ -439,6 +442,7 @@
 				E16F2D962C1CD73900EB452E /* SendReviewView.swift in Sources */,
 				E11FD08B2C0FA5C000DC9E98 /* LoginView.swift in Sources */,
 				E16F2DA52C1DE2A300EB452E /* CalendarViewModel.swift in Sources */,
+				E16F2DAE2C1E6A1500EB452E /* ExcerciseView.swift in Sources */,
 				E11FD0AC2C1061D500DC9E98 /* LoginButtonView.swift in Sources */,
 				E111169C2C1213E700B37056 /* QRCodeView.swift in Sources */,
 				E11FD07A2C0FA4BE00DC9E98 /* DDXMonkeyCodeApp.swift in Sources */,

@@ -12,30 +12,15 @@ struct ExcercisesView: View {
     @State var images: [String: Data] = [:]
     var excercises: [Int]
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            VStack {
-                ForEach(excercises, id: \.self) { excerciseID in
-                    if let excercise = excercisesViewModel.excercises[excerciseID] {
-                        Text(excercise.name)
-                        Text(excercise.difficulty)
-                        Text(excercise.type)
-                        Text(excercise.equipment.joined(separator: " "))
-                        Text(excercise.muscles.joined(separator: " "))
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack {
-                                Spacer(minLength: 10)
-                                ForEach(excercise.images, id: \.self) { image in
-                                    if let image = UIImage(data: images[image] ?? Data()) {
-                                        Image(uiImage: image)
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fill)
-                                            .frame(width: 250, height: 250)
-                                            .clipped()
-                                            .cornerRadius(30)
-                                    }
-                                }
-                            }
-                        }
+        ZStack {
+            Color(.appLigntGray)
+                .ignoresSafeArea()
+            ScrollView(showsIndicators: false) {
+
+                VStack {
+                    Spacer(minLength: 10)
+                    ForEach(excercises, id: \.self) { excerciseID in
+                        ExcerciseCellView(id: excerciseID)
                     }
                 }
             }
@@ -51,6 +36,7 @@ struct ExcercisesView: View {
                 }
             }
         }
+        .navigationTitle("Упражнения")
     }
 }
 

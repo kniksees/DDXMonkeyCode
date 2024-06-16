@@ -26,18 +26,21 @@ struct TrainerProfileView: View {
                     .frame(width: UIScreen.main.bounds.size.width - 30, height: UIScreen.main.bounds.size.width - 30)
                     .cornerRadius(16)
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 7, trailing: 0))
+                    .frame(width: UIScreen.main.bounds.size.width - 30)
                 HStack {
                     Text(trainer.profile?.name ?? "")
                         .font(.system(size: 24, weight: .regular))
                         .foregroundStyle(Color(.black))
                     Spacer()
                 }
+                .frame(width: UIScreen.main.bounds.size.width - 30)
                 HStack {
                     Text("Опыт \(trainer.profile?.experience ?? 0), возраст \(trainer.profile?.age ?? 0)")
                         .font(.system(size: 14, weight: .regular))
                         .foregroundStyle(Color(.gray))
                     Spacer()
                 }
+                .frame(width: UIScreen.main.bounds.size.width - 30)
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
                 HStack {
@@ -46,10 +49,12 @@ struct TrainerProfileView: View {
                         .foregroundStyle(Color(.appBlack))
                     Spacer()
                 }
+                .frame(width: UIScreen.main.bounds.size.width - 30)
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 3, trailing: 0))
                 if let sports = trainer.profile?.sports {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 3) {
+                            Spacer(minLength: 10)
                             ForEach(sports, id: \.self) { sport in
                                 Text(sport)
                                     .padding(10)
@@ -69,10 +74,12 @@ struct TrainerProfileView: View {
                         .foregroundStyle(Color(.appBlack))
                     Spacer()
                 }
+                .frame(width: UIScreen.main.bounds.size.width - 30)
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 3, trailing: 0))
                 if let tags = trainer.profile?.tags {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 3) {
+                            Spacer(minLength: 10)
                             ForEach(tags, id: \.self) { tag in
                                 Text(tag)
                                     .padding(10)
@@ -92,6 +99,7 @@ struct TrainerProfileView: View {
                         .foregroundStyle(Color(.appBlack))
                     Spacer()
                 }
+                .frame(width: UIScreen.main.bounds.size.width - 30)
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 3, trailing: 0))
                 if let about = trainer.profile?.about {
                     HStack {
@@ -100,6 +108,8 @@ struct TrainerProfileView: View {
                         Spacer()
                     }
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                    .frame(width: UIScreen.main.bounds.size.width - 30)
+                    .frame(width: UIScreen.main.bounds.size.width - 30)
                 }
                 HStack {
                     Text("Отзывы")
@@ -107,10 +117,13 @@ struct TrainerProfileView: View {
                         .foregroundStyle(Color(.appBlack))
                     Spacer()
                 }
+                .frame(width: UIScreen.main.bounds.size.width - 30)
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 3, trailing: 0))
                 if let reviews = selectTrainerViewModel.reviewList[trainer.user.id] {
                     ScrollView(.horizontal, showsIndicators: false) {
+                        
                         HStack(spacing: 3) {
+                            Spacer(minLength: 10)
                             ForEach(reviews, id: \.self) { review in
                                 if let text = review.text  {
                                     ReviewView(text: text, mark: review.mark)
@@ -149,8 +162,8 @@ struct TrainerProfileView: View {
             }
             .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
         }
-        .frame(width: UIScreen.main.bounds.size.width - 30)
-        
+        //.frame(width: UIScreen.main.bounds.size.width - 30)
+        .navigationTitle("Тренер")
     }
 }
 

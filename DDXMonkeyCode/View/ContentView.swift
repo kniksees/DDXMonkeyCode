@@ -32,9 +32,7 @@ struct ContentView: View {
                     //.navigationTitle("Вход")
             }
         }
-        
-
-        
+        .tint(.appBlack)        
     }
 
     private var settingsButton: some View {

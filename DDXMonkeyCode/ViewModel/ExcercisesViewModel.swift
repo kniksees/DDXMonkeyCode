@@ -10,8 +10,8 @@ import OSLog
 class ExcercisesViewModel: NetworkManager, ObservableObject {
     private override init() {}
     static var shared = ExcercisesViewModel()
-    var excercises: [Int: Excercise] = [:]
-    var images: [String: Data] = [:]
+    @Published var excercises: [Int: Excercise] = [:]
+    @Published var images: [String: Data] = [:]
     
     func getExcercises() async {
         let url = URL(string: "http://158.160.13.5:8080/excercises")!
@@ -19,7 +19,9 @@ class ExcercisesViewModel: NetworkManager, ObservableObject {
         if let data = response?.0 {
             if let welcome = try? JSONDecoder().decode([Excercise].self, from: data) {
                 for excercise in welcome {
-                    excercises[excercise.id] = excercise
+                    await MainActor.run {
+                        excercises[excercise.id] = excercise
+                    }
                     Logger().log(level: .info, "ExcercisesViewModel: getExcercises: Sucsessful to get excercise")
                 }
             } else {

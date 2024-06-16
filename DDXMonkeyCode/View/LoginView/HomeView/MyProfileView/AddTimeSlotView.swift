@@ -54,6 +54,7 @@ struct AddTimeSlotView: View {
                 Spacer(minLength: 20)
             }
         }
+        .navigationTitle("Добавить таймслот")
     }
 }
 
