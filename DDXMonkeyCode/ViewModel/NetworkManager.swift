@@ -45,9 +45,9 @@ class NetworkManager {
             Logger().log(level: .info, "Failed to get image data")
             return nil
         }
-        
-        return response.0
         Logger().log(level: .info, "NetworkManager: getImageDataByURL: sucsessful to downloal image")
+        return response.0
+        
     }
 }
 

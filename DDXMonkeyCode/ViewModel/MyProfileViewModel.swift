@@ -56,7 +56,6 @@ class MyProfileViewModel: NetworkManager, ObservableObject {
         request.httpBody = data
         
         let response = try! await URLSession.shared.data(for: request)
-        print("respnse \(response)")
     }
     
     func getSelfProfile() async -> SinglUser? {
@@ -153,15 +152,9 @@ class MyProfileViewModel: NetworkManager, ObservableObject {
                             "tags": \(tags)}
                     """
         }
-        print(jsonString)
         let data = jsonString.data(using: .utf8)
         request.httpBody = data
-        
         let response = try! await URLSession.shared.data(for: request)
-        print("respnse \(response)")
     }
-    
-    
-
 }
 

@@ -28,12 +28,8 @@ class LoginViewModel {
         
         
         let response = try! await URLSession.shared.data(for: request)
-        print(String(decoding: response.0, as: UTF8.self))
         if let userID = try? JSONDecoder().decode(LoginUserResponse.self, from: response.0).id {
-            print("userID \(userID)")
             UserDefaults.standard.setValue(userID, forKey: "userID")
-            //selfID = userID
-            //UserDefaults.standard.integer(forKey: "userID") = userID
             return userID
         } else {
             return -1

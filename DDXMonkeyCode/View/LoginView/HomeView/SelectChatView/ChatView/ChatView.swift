@@ -36,7 +36,6 @@ struct ChatView: View {
                 }
                 .defaultScrollAnchor(.bottom)
                 MessageInputView(chatID: id)
-                    //.padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                     .ignoresSafeArea()
             }
         }
@@ -50,7 +49,7 @@ struct ChatView: View {
             ToolbarItemGroup(placement: .topBarTrailing) {
                 NavigationLink {
                     if let userID = viewModel.chats[id]?.user.id {
-                        TrainerProfileView(id: userID)
+                        UserProfileView(id: userID)
                     }
                 } label: {
                     Image(uiImage: UIImage(data: viewModel.images[viewModel.chats[id]!.user.id] ?? Data()) ?? UIImage())
@@ -86,12 +85,8 @@ struct MessageInputView: View {
                 .onChange(of: imageItem) {
                     Task {
                         if let loaded = try? await imageItem?.loadTransferable(type: Data.self) {
-                            print(loaded)
-                            
                             selectedImage = loaded
-                        } else {
-                            print("Failed")
-                        }
+                        } 
                     }
                 }
                 if selectedImage != nil {
@@ -105,20 +100,13 @@ struct MessageInputView: View {
                             .foregroundColor(.red)
                     })
                 }
-                
-                
                 TextField("Сообщение", text: $messageText)
                     .padding(10)
                     .background(Color.gray.opacity(0.2))
                     .cornerRadius(20)
-                    
-                
-                
                 Button(action: {
                     if !messageText.isEmpty || selectedImage != nil {
                         Task {
-                            //MessagesViewModel.shared.chats[chatID]?.messages.append(Message(id: 0, image: "", sender: 2, text: messageText, time: Int(Date.now.timeIntervalSince1970)))
-                            //var a = avatarImage as Data
                             await MessagesViewModel.shared.sendMessage(messageText, chatID: chatID, image: selectedImage)
                             messageText = ""
                             selectedImage = nil
@@ -134,35 +122,3 @@ struct MessageInputView: View {
         .frame(height: 60)
     }
 }
-
-
-
-//import SwiftUI
-//import PhotosUI
-//
-//struct ChatView: View {
-//    @State private var avatarItem: PhotosPickerItem?
-//    @State private var avatarImage: Image?
-//
-//    let id: Int
-//
-//    var body: some View {
-//        VStack {
-//            PhotosPicker("Select avatar", selection: $avatarItem, matching: .images)
-//
-//            avatarImage?
-//                .resizable()
-//                .scaledToFit()
-//                .frame(width: 300, height: 300)
-//        }
-//        .onChange(of: avatarItem) {
-//            Task {
-//                if let loaded = try? await avatarItem?.loadTransferable(type: Image.self) {
-//                    avatarImage = loaded
-//                } else {
-//                    print("Failed")
-//                }
-//            }
-//        }
-//    }
-//}

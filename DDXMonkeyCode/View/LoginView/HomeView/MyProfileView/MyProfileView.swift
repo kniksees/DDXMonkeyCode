@@ -30,32 +30,31 @@ struct MyProfileView: View {
             VStack(spacing: 2) {
                 
                 PhotosPicker(selection: $imageItem, matching: .images) {
-                    let image = singlUser?.user.image ?? ""
-                    Image(uiImage: UIImage(data: (selectedImage ?? myProfileViewModel.images[image]) ?? Data()) ?? UIImage(systemName: "person")!)
-                        .resizable()
-                        .frame(width: UIScreen.main.bounds.size.width - 30, height: UIScreen.main.bounds.size.width - 30)
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
-                        .scaledToFit()
-                    
+                    if let imagleURL = singlUser?.user.image,
+                       let imageData = (selectedImage ?? myProfileViewModel.images[imagleURL]),
+                       let image = UIImage(data: imageData)   {
+                        Image(uiImage: image)
+                            .resizable()
+                            .frame(width: UIScreen.main.bounds.size.width - 30, height: UIScreen.main.bounds.size.width - 30)
+                            .clipShape(RoundedRectangle(cornerRadius: 16))
+                            .scaledToFit()
+                    } else {
+                        Image(systemName: "person")
+                            .resizable()
+                            .frame(width: UIScreen.main.bounds.size.width - 30, height: UIScreen.main.bounds.size.width - 30)
+                            .clipShape(RoundedRectangle(cornerRadius: 16))
+                            .scaledToFit()
+                    }
                 }
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
                 
                 .onChange(of: imageItem) {
                     Task {
                         if let loaded = try? await imageItem?.loadTransferable(type: Data.self) {
-                            print(loaded)
-                            
                             selectedImage = loaded
-                        } else {
-                            print("Failed")
                         }
                     }
                 }
-                //            let image = singlUser?.user.image ?? ""
-                //            Image(uiImage: UIImage(data: myProfileViewModel.images[image] ?? Data()) ?? UIImage(named: "SpongeBob")!)
-                //                .resizable()
-                //                .frame(width: UIScreen.main.bounds.size.width - 30, height: UIScreen.main.bounds.size.width - 30)
-                //                .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
                 HStack {
                     Text("Имя:")
                         .font(.system(size: 10, weight: .medium))
@@ -256,6 +255,9 @@ struct MyProfileView: View {
                 }
                 if let about = singlUser?.profile?.about {
                     self.about = about
+                }
+                if let experience = singlUser?.profile?.experience {
+                    self.experience = String(experience)
                 }
             }
         }

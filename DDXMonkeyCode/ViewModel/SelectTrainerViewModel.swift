@@ -37,7 +37,6 @@ class SelectTrainerViewModel: NetworkManager, ObservableObject {
         let url = URL(string: "http://158.160.13.5:8080/users/\(UserDefaults.standard.integer(forKey: "userID"))/trainers")!
         let response = try? await URLSession.shared.data(for: URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData))
         if let data = response?.0 {
-            print( String(data: data, encoding: .utf8))
             if let trainerListWelcome = try? JSONDecoder().decode([TrainerElement].self, from: data) {
                 for i in trainerListWelcome {
                     
@@ -70,7 +69,6 @@ class SelectTrainerViewModel: NetworkManager, ObservableObject {
     
     func addChat(trainerID: Int) async {
         Task {
-            print([trainerID, UserDefaults.standard.integer(forKey: "userID")])
             let url = URL(string: "http://158.160.13.5:8080/new-chat")!
             var request = URLRequest(url: url)
             
@@ -80,12 +78,10 @@ class SelectTrainerViewModel: NetworkManager, ObservableObject {
             let jsonString = """
                         {"users": \([trainerID, UserDefaults.standard.integer(forKey: "userID")])}
                 """
-            print(jsonString)
             let data = jsonString.data(using: .utf8)
             request.httpBody = data
             
             let response = try! await URLSession.shared.data(for: request)
-            print("respnse \(response)")
         }
     }
     
@@ -96,7 +92,6 @@ class SelectTrainerViewModel: NetworkManager, ObservableObject {
             if let reviewElement = try? JSONDecoder().decode([Review].self, from: data) {
                 await MainActor.run {
                     reviewList[id] = reviewElement
-                    print(id)
                     Logger().log(level: .info, "SelectTrainerViewModel: sucsessful to downlowd reviews. Count: \(reviewElement.count)")
                 }
             } else {
@@ -127,8 +122,6 @@ class SelectTrainerViewModel: NetworkManager, ObservableObject {
             request.httpBody = data
             
             let response = try! await URLSession.shared.data(for: request)
-            print("respnse \(response)")
-        
     }
 }
 

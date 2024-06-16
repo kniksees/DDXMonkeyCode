@@ -55,7 +55,7 @@ struct TrainerCellView: View {
     }
     var body: some View {
         NavigationLink {
-            TrainerProfileView(id: id)
+            UserProfileView(id: id)
         } label: {
             ZStack {
                 if trainer.is_recomended {

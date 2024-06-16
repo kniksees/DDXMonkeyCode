@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct LoginView: View {
-//    @AppStorage("isLoggedIn") private var isLoggedIn = false
     @State private var login = ""
     @State private var password = ""
     
@@ -48,19 +47,11 @@ struct LoginView: View {
                     LoginViewModel.shared.password = password
                     Task {
                         let userID = await LoginViewModel.shared.login(username: login, password: password)
-                        print(userID)
-                        //LoginViewModel.shared.selfID = userID
-                        //UserDefaults.standard.set(userID, forKey: "userID")
                     }
-
-//                    UserDefaults.standard.set(Int(login), forKey: "username")
                 }
             }
-            
         }
-
     }
-    
 }
 
 #Preview {

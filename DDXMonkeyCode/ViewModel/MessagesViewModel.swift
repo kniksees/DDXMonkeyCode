@@ -38,10 +38,6 @@ class MessagesViewModel: NetworkManager, ObservableObject {
                 }
             }
         }
-//        get {
-//            [Chat](chats.values)
-//            }
-        
     }
     
 
@@ -85,7 +81,6 @@ class MessagesViewModel: NetworkManager, ObservableObject {
             request.httpBody = data
             
             let response = try! await URLSession.shared.data(for: request)
-            print("respnse \(response)")
         }
     }
     

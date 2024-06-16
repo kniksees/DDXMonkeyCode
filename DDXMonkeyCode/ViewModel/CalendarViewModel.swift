@@ -99,7 +99,6 @@ class CalendarViewModel: NetworkManager, ObservableObject {
         let data = jsonString.data(using: .utf8)
         request.httpBody = data
         let response = try! await URLSession.shared.data(for: request)
-        print("respnse \(response)")
     }
     
     func newWorkouts(trainerID: Int, userID: Int, timeStart: Date, timeFinish: Date, timeTraine: Data, timeBreak: Data) {
@@ -120,7 +119,6 @@ class CalendarViewModel: NetworkManager, ObservableObject {
         let data = jsonString.data(using: .utf8)
         request.httpBody = data
         let response = try! await URLSession.shared.data(for: request)
-        print("respnse \(response)")
     }
     
     func convertDateToStringHHmm(date: Int) -> String {
@@ -142,8 +140,6 @@ class CalendarViewModel: NetworkManager, ObservableObject {
     func getCalendarDevided(calendar: [CalendarElement]) -> [[CalendarElement]] {
         let calendar = calendar.filter({$0.time_start > Int(Date.now.timeIntervalSince1970)}).sorted(by: {$0.time_start < $1.time_start})
         if !calendar.isEmpty {
-            print(calendar)
-            //var temp: [[CalendarElement]] = [[calendar[0]]]
             var temp: [[CalendarElement]] = []
             var j = 0
             while j < calendar.count {
@@ -168,7 +164,6 @@ class CalendarViewModel: NetworkManager, ObservableObject {
                     }
                 }
             }
-            print(temp)
             return temp
         }
         return []
@@ -177,8 +172,6 @@ class CalendarViewModel: NetworkManager, ObservableObject {
     func getCalendarDevidedForUser(calendar: [CalendarElement]) -> [[CalendarElement]] {
         let calendar = calendar.filter({$0.time_start > Int(Date.now.timeIntervalSince1970)}).sorted(by: {$0.time_start < $1.time_start})
         if !calendar.isEmpty {
-            print(calendar)
-            //var temp: [[CalendarElement]] = [[calendar[0]]]
             var temp: [[CalendarElement]] = []
             var j = 0
             while j < calendar.count {
@@ -203,7 +196,6 @@ class CalendarViewModel: NetworkManager, ObservableObject {
                     }
                 }
             }
-            print(temp)
             return temp
         }
         return []

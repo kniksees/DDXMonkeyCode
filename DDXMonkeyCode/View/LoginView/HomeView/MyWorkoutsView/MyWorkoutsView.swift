@@ -63,7 +63,7 @@ struct MyWorkoutsView: View {
                                                     .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
                                                 if let imageURL = calendarViewModel.profiles[slot.trainer_user_id]?.user.image, let imageData = calendarViewModel.images[imageURL], let image = UIImage(data: imageData) {
                                                     NavigationLink {
-                                                        TrainerProfileView(id: slot.trainer_user_id)
+                                                        UserProfileView(id: slot.trainer_user_id)
                                                     } label: {
                                                         Image(uiImage: image)
                                                             .resizable()
@@ -80,7 +80,7 @@ struct MyWorkoutsView: View {
                                                         .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
                                                     if let imageURL = calendarViewModel.profiles[userID]?.user.image, let imageData = calendarViewModel.images[imageURL], let image = UIImage(data: imageData) {
                                                         NavigationLink {
-                                                            TrainerProfileView(id: userID)
+                                                            UserProfileView(id: userID)
                                                         } label: {
                                                             Image(uiImage: image)
                                                                 .resizable()
@@ -112,9 +112,7 @@ struct MyWorkoutsView: View {
             Task {
                 await CalendarViewModel.shared.getCalendar(id: id)
                 if let calendarElement = CalendarViewModel.shared.calendars[id] {
-                    //print("\(calendarElement.count) ---------")
                     calendarDevided =  CalendarViewModel.shared.getCalendarDevidedForUser(calendar: calendarElement)
-                    //print(calendarElement)
                 }
             }
         }

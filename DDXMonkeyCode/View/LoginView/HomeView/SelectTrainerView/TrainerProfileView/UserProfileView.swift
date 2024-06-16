@@ -1,5 +1,5 @@
 //
-//  TrainerProfileView.swift
+//  UserProfileView.swift
 //  DDXMonkeyCode
 //
 //  Created by Dmitry Erofeev on 13.06.2024.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TrainerProfileView: View {
+struct UserProfileView: View {
     let id: Int
     let selectTrainerViewModel = SelectTrainerViewModel.shared
     var trainer: TrainerElement? {

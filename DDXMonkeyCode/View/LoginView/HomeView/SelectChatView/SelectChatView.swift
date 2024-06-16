@@ -20,13 +20,8 @@ struct SelectChatView: View {
                 .ignoresSafeArea()
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 0, content: {
-                    
-               
                 ForEach(viewModel.usersSorted, id: \.self) { chat in
                     Divider()
-                        .onAppear() {
-                            print(chat.user.username)
-                        }
                     SelectChatCellView(textName: chat.profile?.name ?? chat.user.username,
                                        textPreview: chat.messages.last?.text ?? "",
                                        targer: AnyView(ChatView(id: chat.chat)),
@@ -40,38 +35,13 @@ struct SelectChatView: View {
             
         }
         .navigationTitle("Чаты")
-        
         .onAppear {
-            //print(viewModel.chats)
             if isFirstAppear {
                 viewModel.startTimer()
                 isFirstAppear = false
             }
         }
     }
-    
-//    var body: some View {
-//        NavigationView(content: {
-//            ScrollView {
-//                
-//                ForEach(viewModel.usersSorted, id: \.self) { chat in
-//                    Divider()
-//                    SelectChatCellView(textName: chat.user.username,
-//                                       textPreview: chat.messages.last?.text ?? "",
-//                                       targer: AnyView(ChatView(id: chat.chat).navigationTitle(chat.user.username)),
-//                                       image: Image(uiImage: UIImage(data: viewModel.images[chat.user.id] ?? Data()) ?? UIImage()))
-//                }
-//                Divider()
-//                
-//            }
-//            .navigationTitle("Чаты")
-//        })
-//
-//        
-//        .onAppear {
-//            viewModel.startTimer()
-//        }
-//    }
 }
 
 

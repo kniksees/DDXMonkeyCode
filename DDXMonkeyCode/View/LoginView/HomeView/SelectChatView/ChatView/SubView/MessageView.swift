@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct MessageView: View {
-    //@State var message: Message
     var message: Message
     var sender = UserDefaults.standard.integer(forKey: "userID")
     @StateObject var messagesViewModel = MessagesViewModel.shared
@@ -56,20 +55,6 @@ struct MessageView: View {
                     } else {
                         Text(message.text?.filter({$0 != "*"}) ?? "")
                     }
-//                    HStack {
-//                        if let excercises = message.excercises {
-//                            NavigationLink {
-//                                ExcercisesView(excercises: excercises)
-//                            } label: {
-//                                Text("К упражнениям")
-//                                    .padding(10)
-//                                    .background(.appBlack)
-//                                    .foregroundColor(.appWhite)
-//                                    .cornerRadius(12)
-//                            }
-//                        }
-//                        Spacer()
-//                    }
                 }
                 .padding(10)
                 .background(message.sender == sender ? Color.blue : Color.gray.opacity(0.2))
@@ -133,42 +118,3 @@ struct MessageView: View {
         }
     }
 }
-
-
-//            if let image = message.imageData {
-//                VStack {
-//                    if message.text != nil {
-//                        HStack {
-//                            if message.sender == sender {
-//                                Spacer()
-//                            }
-//                            Text(message.text!)
-//                                .padding(10)
-//                                .background(message.sender == sender ? Color.blue : Color.gray.opacity(0.2))
-//                                .foregroundColor(message.sender == sender ? .white : .black)
-//                                .cornerRadius(12)
-//                            if message.sender != sender {
-//                                Spacer()
-//                            }
-//                        }
-//                    }
-//                    Image(uiImage: UIImage(data: image) ?? UIImage())
-//                        .resizable()
-//                        .aspectRatio(contentMode: .fit)
-//
-//                        .cornerRadius(12)
-//                }
-//                .frame(maxWidth: 250)
-//            } else {
-//                if message.text != nil {
-//                    Text(message.text!)
-//                        .padding(10)
-//                        .background(message.sender == sender ? Color.blue : Color.gray.opacity(0.2))
-//                        .foregroundColor(message.sender == sender ? .white : .black)
-//                        .cornerRadius(12)
-//                }
-//            }
-//
-//            if !(message.sender == sender) {
-//                Spacer()
-//            }

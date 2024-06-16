@@ -41,7 +41,7 @@
 		E1C701DD2C1A5FDA00E7F195 /* SelectTrainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C701DC2C1A5FDA00E7F195 /* SelectTrainerView.swift */; };
 		E1C701DF2C1A5FF800E7F195 /* SelectTrainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C701DE2C1A5FF800E7F195 /* SelectTrainerViewModel.swift */; };
 		E1C701E42C1A619E00E7F195 /* TrainerCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C701E32C1A619E00E7F195 /* TrainerCellView.swift */; };
-		E1C701E72C1A6B0700E7F195 /* TrainerProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C701E62C1A6B0700E7F195 /* TrainerProfileView.swift */; };
+		E1C701E72C1A6B0700E7F195 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C701E62C1A6B0700E7F195 /* UserProfileView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,7 +81,7 @@
 		E1C701DC2C1A5FDA00E7F195 /* SelectTrainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTrainerView.swift; sourceTree = "<group>"; };
 		E1C701DE2C1A5FF800E7F195 /* SelectTrainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTrainerViewModel.swift; sourceTree = "<group>"; };
 		E1C701E32C1A619E00E7F195 /* TrainerCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainerCellView.swift; sourceTree = "<group>"; };
-		E1C701E62C1A6B0700E7F195 /* TrainerProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainerProfileView.swift; sourceTree = "<group>"; };
+		E1C701E62C1A6B0700E7F195 /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -339,7 +339,7 @@
 		E1C701E52C1A6AB700E7F195 /* TrainerProfileView */ = {
 			isa = PBXGroup;
 			children = (
-				E1C701E62C1A6B0700E7F195 /* TrainerProfileView.swift */,
+				E1C701E62C1A6B0700E7F195 /* UserProfileView.swift */,
 				E16F2D902C1CBC6C00EB452E /* SubView */,
 				E16F2DA82C1DF1B100EB452E /* TrainerTimeslotsView.swift */,
 			);
@@ -430,7 +430,7 @@
 				E16F2D982C1CF4CC00EB452E /* ExcercisesViewModel.swift in Sources */,
 				E16F2DA72C1DEA6700EB452E /* AddTimeSlotView.swift in Sources */,
 				E16F2D8F2C1CAB2400EB452E /* Model.swift in Sources */,
-				E1C701E72C1A6B0700E7F195 /* TrainerProfileView.swift in Sources */,
+				E1C701E72C1A6B0700E7F195 /* UserProfileView.swift in Sources */,
 				E11116952C11E27B00B37056 /* ChatView.swift in Sources */,
 				E11116972C11E29900B37056 /* MessageView.swift in Sources */,
 				E11FD09D2C1048E100DC9E98 /* MyWorkoutsView.swift in Sources */,
