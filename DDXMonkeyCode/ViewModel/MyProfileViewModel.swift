@@ -13,7 +13,7 @@ class MyProfileViewModel: NetworkManager, ObservableObject {
     @Published var images: Dictionary<String, Data> = [:]
     @Published var users: [Int: SinglUser] = [:]
     
-    func updateUserProfile(id: Int, name: String, gender: String, age: String, weight: String, height: String, goal: String, image: Data?) async {
+    func updateUserProfile(id: Int, name: String, gender: String, age: String, weight: String, height: String, goal: String, image: Data?, expectations: String) async {
         var imageUploadID: Int? = nil
         if image != nil {
             let imageJsonData = await uploadImage(image: image!)
@@ -40,6 +40,7 @@ class MyProfileViewModel: NetworkManager, ObservableObject {
                             "weight": \(weight),
                             "height": \(height),
                             "goal": "\(goal)",
+                            "expectations": "\(expectations)",
                             "image_id": \(imageUploadID!)}
                     """
         } else {
@@ -49,6 +50,7 @@ class MyProfileViewModel: NetworkManager, ObservableObject {
                             "age": \(age),
                             "weight": \(weight),
                             "height": \(height),
+                            "expectations": "\(expectations)",
                             "goal": "\(goal)"}
                     """
         }
@@ -97,12 +99,12 @@ class MyProfileViewModel: NetworkManager, ObservableObject {
         }
     }
     
-    func updateMyProfile(type: String, name: String, gender: String, age: String, weight: String, height: String, goal: String = "", image: Data?, sports: String = "", tags: String = "", about: String = "", experience: String = "") async {
+    func updateMyProfile(type: String, name: String, gender: String, age: String, weight: String, height: String, goal: String = "", image: Data?, sports: String = "", tags: String = "", about: String = "", experience: String = "", expectations: String = "") async {
         let id = UserDefaults.standard.integer(forKey: "userID")
         if type == "trainer" {
             await updateTrainerProfile(id: id, name: name, gender: gender, age: age, weight: weight, height: height, sports: sports, tags: tags, image: image, about: about, experience: experience)
         } else {
-            await updateUserProfile(id: id, name: name, gender: gender, age: age, weight: weight, height: height, goal: goal, image: image)
+            await updateUserProfile(id: id, name: name, gender: gender, age: age, weight: weight, height: height, goal: goal, image: image, expectations: expectations)
         }
     }
     

@@ -22,6 +22,7 @@ struct MyProfileView: View {
     @State var tags: String = ""
     @State var about: String = ""
     @State var experience: String = ""
+    @State var expectations: String = ""
     
     @State private var imageItem: PhotosPickerItem?
     @State private var selectedImage: Data?
@@ -67,6 +68,17 @@ struct MyProfileView: View {
                         }
                         HStack {
                             TextField("заполнить", text: $goal)
+                                .font(.system(size: 18, weight: .bold))
+                            Spacer()
+                        }
+                        HStack {
+                            Text("Предпочтения по тренеру:")
+                                .font(.system(size: 10, weight: .medium))
+                                .foregroundStyle(.appDarkGray)
+                            Spacer()
+                        }
+                        HStack {
+                            TextField("заполнить", text: $expectations)
                                 .font(.system(size: 18, weight: .bold))
                             Spacer()
                         }
@@ -188,7 +200,7 @@ struct MyProfileView: View {
                         if let type = singlUser?.user.type {
                             if type == "user" {
                                 Task {
-                                    await myProfileViewModel.updateMyProfile(type: type, name: name, gender: gender, age: age, weight: weight, height: height, goal: goal, image: selectedImage)
+                                    await myProfileViewModel.updateMyProfile(type: type, name: name, gender: gender, age: age, weight: weight, height: height, goal: goal, image: selectedImage, expectations: expectations)
                                 }
                             }
                             if type == "trainer" {
@@ -249,6 +261,9 @@ struct MyProfileView: View {
                 }
                 if let experience = singlUser?.profile?.experience {
                     self.experience = String(experience)
+                }
+                if let expectations = singlUser?.profile?.expectations {
+                    self.expectations = String(expectations)
                 }
             }
         }

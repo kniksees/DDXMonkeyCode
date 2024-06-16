@@ -24,6 +24,7 @@ struct Profile: Codable {
     let user_id: Int
     let weight: Int?
     let goal: String?
+    let expectations: String?
 }
 
 typealias Welcome = [Chat]
