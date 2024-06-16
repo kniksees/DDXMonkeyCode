@@ -30,21 +30,12 @@ struct MyProfileView: View {
             VStack(spacing: 2) {
                 
                 PhotosPicker(selection: $imageItem, matching: .images) {
-                    if let imagleURL = singlUser?.user.image,
-                       let imageData = (selectedImage ?? myProfileViewModel.images[imagleURL]),
-                       let image = UIImage(data: imageData)   {
-                        Image(uiImage: image)
-                            .resizable()
-                            .frame(width: UIScreen.main.bounds.size.width - 30, height: UIScreen.main.bounds.size.width - 30)
-                            .clipShape(RoundedRectangle(cornerRadius: 16))
-                            .scaledToFit()
-                    } else {
-                        Image(systemName: "person")
-                            .resizable()
-                            .frame(width: UIScreen.main.bounds.size.width - 30, height: UIScreen.main.bounds.size.width - 30)
-                            .clipShape(RoundedRectangle(cornerRadius: 16))
-                            .scaledToFit()
-                    }
+                    let image = singlUser?.user.image ?? ""
+                    Image(uiImage: UIImage(data: (selectedImage ?? myProfileViewModel.images[image]) ?? Data()) ?? UIImage(systemName: "person")!)
+                        .resizable()
+                        .frame(width: UIScreen.main.bounds.size.width - 30, height: UIScreen.main.bounds.size.width - 30)
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                        .scaledToFit()
                 }
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
                 

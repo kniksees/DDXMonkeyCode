@@ -17,7 +17,7 @@ struct SendReviewView: View {
                 .foregroundStyle(.appLigntGray)
             VStack() {
                 HStack {
-                    TextField("Ваша оцентка", text: $mark)
+                    TextField("Ваша оценка", text: $mark)
                     Spacer()
                 }
                 HStack {
