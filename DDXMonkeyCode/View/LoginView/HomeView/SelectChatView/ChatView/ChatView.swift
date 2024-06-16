@@ -80,7 +80,7 @@ struct MessageInputView: View {
                     Image(systemName: "photo.circle")
                         .font(.title)
                         .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
-                        .foregroundColor(selectedImage == nil || selectedImage!.isEmpty ? .blue : .green)
+                        .foregroundColor(selectedImage == nil || selectedImage!.isEmpty ? .appBlack : .green)
                 }
                 
                 .onChange(of: imageItem) {
@@ -99,8 +99,8 @@ struct MessageInputView: View {
                         selectedImage = nil
                         imageItem = nil
                     }, label: {
-                        Image(systemName: "trash")
-                            .font(.title2)
+                        Image(systemName: "trash.circle")
+                            .font(.title)
                         
                             .foregroundColor(.red)
                     })
